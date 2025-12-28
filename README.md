@@ -3,7 +3,7 @@
 UNIT Protocol is a BEP-20 utility token on BNB Smart Chain, designed for clean tokenomics, transparent governance signaling, and concrete product integrations.
 
 ## Official Links
-- Website: https://cpilug91.github.io/unit-site/
+- Website: https://unitprotocolofficial.github.io/unit-site/
 - Whitepaper (PDF): ./UNIT_Protocol_Whitepaper_Final.pdf
 - Pitch Deck (PDF): ./UNIT_PitchDeck.pdf
 
