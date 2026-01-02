@@ -1,1253 +1,1225 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>UNIT Protocol – Utility-First Digital Asset</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #050814;
-      --bg-alt: #070c1f;
-      --card: #0b1226;
-      --accent: #fbb021;
-      --accent-soft: rgba(251, 176, 33, 0.2);
-      --accent-2: #58f2c8;
-      --text: #f5f7ff;
-      --muted: #9aa4c6;
-      --danger: #ff4d6a;
-      --border: rgba(154, 164, 198, 0.22);
-      --radius-lg: 18px;
-      --radius-full: 999px;
-      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.45);
-      --shadow-chip: 0 12px 30px rgba(0,0,0,0.5);
-    }
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left, #17213b 0, #050814 45%, #020312 100%);
-      color: var(--text);
-      line-height: 1.5;
-      padding: 16px;
-    }
-    .page-shell {
-      max-width: 1120px;
-      margin: 0 auto 64px;
-    }
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px 18px;
-      border-radius: var(--radius-lg);
-      background: linear-gradient(135deg, rgba(10,16,36,0.97), rgba(5,7,18,0.97));
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-soft);
-      position: sticky;
-      top: 8px;
-      z-index: 20;
-      backdrop-filter: blur(14px);
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .logo-pill {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      background: radial-gradient(circle at 30% 20%, #fff7cf 0, #fdd867 25%, #fbb021 55%, #b47000 100%);
-      box-shadow:
-        0 0 0 1px rgba(0,0,0,0.4),
-        0 18px 32px rgba(0,0,0,0.65),
-        inset 0 1px 0 rgba(255,255,255,0.8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .logo-pill span {
-      font-weight: 800;
-      font-size: 22px;
-      color: #1c1303;
-      text-shadow: 0 1px 0 rgba(255,255,255,0.7);
-    }
-    .brand-text small {
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .brand-text strong {
-      font-size: 16px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      display: block;
-      margin-top: 2px;
-    }
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-    .chip {
-      padding: 6px 10px;
-      border-radius: var(--radius-full);
-      border: 1px solid rgba(88,242,200,0.3);
-      background: radial-gradient(circle at top left, rgba(88,242,200,0.16), rgba(4,10,28,0.9));
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--accent-2);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .chip-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #30e59e;
-      box-shadow: 0 0 10px rgba(88,242,200,0.9);
-    }
-    .primary-btn, .ghost-btn {
-      border-radius: var(--radius-full);
-      padding: 9px 18px;
-      font-size: 13px;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, opacity 0.12s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-    }
-    .primary-btn {
-      background: linear-gradient(135deg, #fbb021, #ff7f32);
-      color: #1b1206;
-      box-shadow: var(--shadow-chip);
-    }
-    .primary-btn:hover { transform: translateY(-1px); box-shadow: 0 14px 36px rgba(0,0,0,0.6); }
-    .ghost-btn {
-      background: rgba(9,14,34,0.8);
-      color: var(--text);
-      border: 1px solid rgba(154,164,198,0.35);
-    }
-    .ghost-btn:hover { background: rgba(16,25,60,0.95); }
-    .lang-toggle {
-      display: inline-flex;
-      padding: 3px;
-      border-radius: var(--radius-full);
-      background: rgba(10,16,36,0.9);
-      border: 1px solid rgba(154,164,198,0.45);
-    }
-    .lang-btn {
-      border-radius: var(--radius-full);
-      padding: 6px 11px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      border: none;
-      cursor: pointer;
-      background: transparent;
-      color: var(--muted);
-      min-width: 40px;
-    }
-    .lang-btn.active {
-      background: linear-gradient(135deg, rgba(251,176,33,0.2), rgba(251,176,33,0.05));
-      color: var(--text);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.55);
-    }
+<!DOCTYPE html>  <html lang="en">    <head>    
+  <meta charset="UTF-8" />    
+  <meta name="viewport" content="width=device-width, initial-scale=1" />    
+  <title>UNIT Protocol – Utility-First Digital Asset</title>    
+  <style>    
+    * { box-sizing: border-box; margin: 0; padding: 0; }    
+    :root {    
+      --bg: #050814;    
+      --bg-alt: #070c1f;    
+      --card: #0b1226;    
+      --accent: #fbb021;    
+      --accent-soft: rgba(251, 176, 33, 0.2);    
+      --accent-2: #58f2c8;    
+      --text: #f5f7ff;    
+      --muted: #9aa4c6;    
+      --danger: #ff4d6a;    
+      --border: rgba(154, 164, 198, 0.22);    
+      --radius-lg: 18px;    
+      --radius-full: 999px;    
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.45);    
+      --shadow-chip: 0 12px 30px rgba(0,0,0,0.5);    
+    }    
+    body {    
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",    
+        "Segoe UI", sans-serif;    
+      background: radial-gradient(circle at top left, #17213b 0, #050814 45%, #020312 100%);    
+      color: var(--text);    
+      line-height: 1.5;    
+      padding: 16px;    
+    }    
+    .page-shell {    
+      max-width: 1120px;    
+      margin: 0 auto 64px;    
+    }    
+    header {    
+      display: flex;    
+      align-items: center;    
+      justify-content: space-between;    
+      gap: 16px;    
+      padding: 14px 18px;    
+      border-radius: var(--radius-lg);    
+      background: linear-gradient(135deg, rgba(10,16,36,0.97), rgba(5,7,18,0.97));    
+      border: 1px solid var(--border);    
+      box-shadow: var(--shadow-soft);    
+      position: sticky;    
+      top: 8px;    
+      z-index: 20;    
+      backdrop-filter: blur(14px);    
+    }    
+    .brand {    
+      display: flex;    
+      align-items: center;    
+      gap: 12px;    
+    }    
+    .logo-pill {    
+      width: 42px;    
+      height: 42px;    
+      border-radius: 14px;    
+      background: radial-gradient(circle at 30% 20%, #fff7cf 0, #fdd867 25%, #fbb021 55%, #b47000 100%);    
+      box-shadow:    
+        0 0 0 1px rgba(0,0,0,0.4),    
+        0 18px 32px rgba(0,0,0,0.65),    
+        inset 0 1px 0 rgba(255,255,255,0.8);    
+      display: flex;    
+      align-items: center;    
+      justify-content: center;    
+    }    
+    .logo-pill span {    
+      font-weight: 800;    
+      font-size: 22px;    
+      color: #1c1303;    
+      text-shadow: 0 1px 0 rgba(255,255,255,0.7);    
+    }    
+    .brand-text small {    
+      font-size: 11px;    
+      letter-spacing: 0.18em;    
+      text-transform: uppercase;    
+      color: var(--muted);    
+    }    
+    .brand-text strong {    
+      font-size: 16px;    
+      letter-spacing: 0.16em;    
+      text-transform: uppercase;    
+      display: block;    
+      margin-top: 2px;    
+    }    
+    nav {    
+      display: flex;    
+      align-items: center;    
+      gap: 12px;    
+      flex-wrap: wrap;    
+      justify-content: flex-end;    
+    }    
+    .chip {    
+      padding: 6px 10px;    
+      border-radius: var(--radius-full);    
+      border: 1px solid rgba(88,242,200,0.3);    
+      background: radial-gradient(circle at top left, rgba(88,242,200,0.16), rgba(4,10,28,0.9));    
+      font-size: 11px;    
+      text-transform: uppercase;    
+      letter-spacing: 0.16em;    
+      color: var(--accent-2);    
+      display: inline-flex;    
+      align-items: center;    
+      gap: 6px;    
+    }    
+    .chip-dot {    
+      width: 7px;    
+      height: 7px;    
+      border-radius: 999px;    
+      background: #30e59e;    
+      box-shadow: 0 0 10px rgba(88,242,200,0.9);    
+    }    
+    .primary-btn, .ghost-btn {    
+      border-radius: var(--radius-full);    
+      padding: 9px 18px;    
+      font-size: 13px;    
+      font-weight: 600;    
+      border: none;    
+      cursor: pointer;    
+      white-space: nowrap;    
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, opacity 0.12s ease;    
+      display: inline-flex;    
+      align-items: center;    
+      gap: 8px;    
+      text-decoration: none;    
+    }    
+    .primary-btn {    
+      background: linear-gradient(135deg, #fbb021, #ff7f32);    
+      color: #1b1206;    
+      box-shadow: var(--shadow-chip);    
+    }    
+    .primary-btn:hover { transform: translateY(-1px); box-shadow: 0 14px 36px rgba(0,0,0,0.6); }    
+    .ghost-btn {    
+      background: rgba(9,14,34,0.8);    
+      color: var(--text);    
+      border: 1px solid rgba(154,164,198,0.35);    
+    }    
+    .ghost-btn:hover { background: rgba(16,25,60,0.95); }    
+    .lang-toggle {    
+      display: inline-flex;    
+      padding: 3px;    
+      border-radius: var(--radius-full);    
+      background: rgba(10,16,36,0.9);    
+      border: 1px solid rgba(154,164,198,0.45);    
+    }    
+    .lang-btn {    
+      border-radius: var(--radius-full);    
+      padding: 6px 11px;    
+      font-size: 11px;    
+      font-weight: 600;    
+      letter-spacing: 0.12em;    
+      text-transform: uppercase;    
+      border: none;    
+      cursor: pointer;    
+      background: transparent;    
+      color: var(--muted);    
+      min-width: 40px;    
+    }    
+    .lang-btn.active {    
+      background: linear-gradient(135deg, rgba(251,176,33,0.2), rgba(251,176,33,0.05));    
+      color: var(--text);    
+      box-shadow: 0 10px 24px rgba(0,0,0,0.55);    
+    }  main {    
+  margin-top: 28px;    
+  display: grid;    
+  grid-template-columns: minmax(0, 2fr);    
+  gap: 24px;    
+}    
+.hero {    
+  padding: 26px 22px 24px;    
+  border-radius: 22px;    
+  background: radial-gradient(circle at top left, rgba(251,176,33,0.12) 0, rgba(5,8,22,0.95) 40%, #050814 100%);    
+  border: 1px solid var(--border);    
+  box-shadow: var(--shadow-soft);    
+}    
+.hero-kicker {    
+  font-size: 11px;    
+  letter-spacing: 0.18em;    
+  text-transform: uppercase;    
+  color: var(--muted);    
+  margin-bottom: 10px;    
+}    
+.hero-title {    
+  font-size: 30px;    
+  line-height: 1.15;    
+  margin-bottom: 14px;    
+}    
+.hero-title span.highlight {    
+  color: var(--accent);    
+}    
+.hero-sub {    
+  font-size: 14px;    
+  color: var(--muted);    
+  max-width: 540px;    
+  margin-bottom: 22px;    
+}    
+.hero-tags {    
+  display: flex;    
+  flex-wrap: wrap;    
+  gap: 10px;    
+  margin-bottom: 18px;    
+}    
+.hero-tag {    
+  font-size: 11px;    
+  padding: 5px 10px;    
+  border-radius: var(--radius-full);    
+  border: 1px solid rgba(154,164,198,0.6);    
+  color: var(--muted);    
+  background: rgba(5,9,25,0.9);    
+}    
+.hero-actions {    
+  display: flex;    
+  flex-wrap: wrap;    
+  gap: 10px;    
+  margin-bottom: 18px;    
+}    
+.hero-footnote {    
+  font-size: 11px;    
+  color: var(--muted);    
+  max-width: 580px;    
+}    .side-panel {
+display: grid;
+gap: 14px;
+}
+.panel-card {
+border-radius: 18px;
+background: linear-gradient(145deg, rgba(7,12,32,0.96), rgba(6,10,28,0.96));
+border: 1px solid var(--border);
+padding: 14px 16px;
+}
+.panel-label {
+font-size: 11px;
+letter-spacing: 0.16em;
+text-transform: uppercase;
+color: var(--muted);
+margin-bottom: 6px;
+}
+.panel-main {
+font-size: 14px;
+}
+.badge {
+display: inline-flex;
+align-items: center;
+gap: 6px;
+border-radius: var(--radius-full);
+padding: 5px 10px;
+border: 1px solid rgba(251,176,33,0.35);
+background: radial-gradient(circle at top left, rgba(251,176,33,0.18), rgba(7,9,24,0.9));
+font-size: 11px;
+color: var(--accent);
+}
+.badge-dot {
+width: 7px;
+height: 7px;
+border-radius: 999px;
+background: var(--accent);
+box-shadow: 0 0 10px rgba(251,176,33,0.7);
+}
 
-    main {
-      margin-top: 28px;
-      display: grid;
-      grid-template-columns: minmax(0, 2fr);
-      gap: 24px;
-    }
-    .hero {
-      padding: 26px 22px 24px;
-      border-radius: 22px;
-      background: radial-gradient(circle at top left, rgba(251,176,33,0.12) 0, rgba(5,8,22,0.95) 40%, #050814 100%);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-soft);
-    }
-    .hero-kicker {
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 10px;
-    }
-    .hero-title {
-      font-size: 30px;
-      line-height: 1.15;
-      margin-bottom: 14px;
-    }
-    .hero-title span.highlight {
-      color: var(--accent);
-    }
-    .hero-sub {
-      font-size: 14px;
-      color: var(--muted);
-      max-width: 540px;
-      margin-bottom: 22px;
-    }
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-    .hero-tag {
-      font-size: 11px;
-      padding: 5px 10px;
-      border-radius: var(--radius-full);
-      border: 1px solid rgba(154,164,198,0.6);
-      color: var(--muted);
-      background: rgba(5,9,25,0.9);
-    }
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-    .hero-footnote {
-      font-size: 11px;
-      color: var(--muted);
-      max-width: 580px;
-    }
+section {
+margin-top: 32px;
+padding: 22px 20px;
+border-radius: 20px;
+background: linear-gradient(145deg, rgba(7,12,32,0.96), rgba(4,8,22,0.98));
+border: 1px solid var(--border);
+box-shadow: var(--shadow-soft);
+}
+section h2 {
+font-size: 18px;
+margin-bottom: 6px;
+}
+section p.lead {
+font-size: 13px;
+color: var(--muted);
+margin-bottom: 16px;
+max-width: 640px;
+}
 
-    .side-panel {
-      display: grid;
-      gap: 14px;
-    }
-    .panel-card {
-      border-radius: 18px;
-      background: linear-gradient(145deg, rgba(7,12,32,0.96), rgba(6,10,28,0.96));
-      border: 1px solid var(--border);
-      padding: 14px 16px;
-    }
-    .panel-label {
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-    .panel-main {
-      font-size: 14px;
-    }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border-radius: var(--radius-full);
-      padding: 5px 10px;
-      border: 1px solid rgba(251,176,33,0.35);
-      background: radial-gradient(circle at top left, rgba(251,176,33,0.18), rgba(7,9,24,0.9));
-      font-size: 11px;
-      color: var(--accent);
-    }
-    .badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 10px rgba(251,176,33,0.7);
-    }
+.grid-2 {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+gap: 14px;
+}
+.feature {
+background: radial-gradient(circle at top left, rgba(88,242,200,0.1), rgba(7,10,30,0.95));
+border-radius: 16px;
+border: 1px solid rgba(88,242,200,0.35);
+padding: 14px 14px 13px;
+}
+.feature h3 {
+font-size: 14px;
+margin-bottom: 4px;
+}
+.feature p {
+font-size: 12px;
+color: var(--muted);
+}
 
-    section {
-      margin-top: 32px;
-      padding: 22px 20px;
-      border-radius: 20px;
-      background: linear-gradient(145deg, rgba(7,12,32,0.96), rgba(4,8,22,0.98));
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-soft);
-    }
-    section h2 {
-      font-size: 18px;
-      margin-bottom: 6px;
-    }
-    section p.lead {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 16px;
-      max-width: 640px;
-    }
+.pill-row {
+display: flex;
+flex-wrap: wrap;
+gap: 8px;
+margin-top: 8px;
+}
+.pill {
+font-size: 11px;
+padding: 5px 10px;
+border-radius: var(--radius-full);
+background: rgba(5,10,30,0.95);
+border: 1px solid rgba(154,164,198,0.45);
+color: var(--muted);
+}
 
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 14px;
-    }
-    .feature {
-      background: radial-gradient(circle at top left, rgba(88,242,200,0.1), rgba(7,10,30,0.95));
-      border-radius: 16px;
-      border: 1px solid rgba(88,242,200,0.35);
-      padding: 14px 14px 13px;
-    }
-    .feature h3 {
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-    .feature p {
-      font-size: 12px;
-      color: var(--muted);
-    }
+.tokenomics-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+gap: 14px;
+margin-top: 12px;
+}
+.token-card {
+background: radial-gradient(circle at top left, rgba(251,176,33,0.13), rgba(7,10,28,0.96));
+border-radius: 16px;
+border: 1px solid rgba(251,176,33,0.45);
+padding: 12px 14px;
+font-size: 13px;
+}
+.token-card strong {
+display: block;
+font-size: 13px;
+margin-bottom: 2px;
+}
+.token-card span {
+font-size: 20px;
+font-weight: 700;
+}
+.token-card small {
+display: block;
+font-size: 11px;
+color: var(--muted);
+margin-top: 2px;
+}
 
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-    }
-    .pill {
-      font-size: 11px;
-      padding: 5px 10px;
-      border-radius: var(--radius-full);
-      background: rgba(5,10,30,0.95);
-      border: 1px solid rgba(154,164,198,0.45);
-      color: var(--muted);
-    }
+.roadmap {
+display: grid;
+gap: 14px;
+margin-top: 10px;
+}
+.phase {
+border-radius: 16px;
+border: 1px solid rgba(154,164,198,0.45);
+padding: 12px 14px;
+background: rgba(7,10,28,0.96);
+}
+.phase h3 {
+font-size: 14px;
+margin-bottom: 4px;
+}
+.phase small {
+font-size: 11px;
+color: var(--muted);
+display: block;
+margin-bottom: 6px;
+}
+.phase ul {
+padding-left: 18px;
+font-size: 12px;
+color: var(--muted);
+}
 
-    .tokenomics-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
-      gap: 14px;
-      margin-top: 12px;
-    }
-    .token-card {
-      background: radial-gradient(circle at top left, rgba(251,176,33,0.13), rgba(7,10,28,0.96));
-      border-radius: 16px;
-      border: 1px solid rgba(251,176,33,0.45);
-      padding: 12px 14px;
-      font-size: 13px;
-    }
-    .token-card strong {
-      display: block;
-      font-size: 13px;
-      margin-bottom: 2px;
-    }
-    .token-card span {
-      font-size: 20px;
-      font-weight: 700;
-    }
-    .token-card small {
-      display: block;
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
+.steps {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(210px,1fr));
+gap: 14px;
+margin-top: 10px;
+}
+.step {
+border-radius: 16px;
+border: 1px solid rgba(88,242,200,0.4);
+background: radial-gradient(circle at top left, rgba(88,242,200,0.16), rgba(6,10,26,0.96));
+padding: 12px 14px;
+font-size: 13px;
+}
+.step-number {
+width: 24px;
+height: 24px;
+border-radius: 999px;
+border: 1px solid rgba(88,242,200,0.6);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 12px;
+color: var(--accent-2);
+margin-bottom: 4px;
+}
+.step h3 {
+font-size: 13px;
+margin-bottom: 4px;
+}
+.step p {
+font-size: 12px;
+color: var(--muted);
+}
 
-    .roadmap {
-      display: grid;
-      gap: 14px;
-      margin-top: 10px;
-    }
-    .phase {
-      border-radius: 16px;
-      border: 1px solid rgba(154,164,198,0.45);
-      padding: 12px 14px;
-      background: rgba(7,10,28,0.96);
-    }
-    .phase h3 {
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-    .phase small {
-      font-size: 11px;
-      color: var(--muted);
-      display: block;
-      margin-bottom: 6px;
-    }
-    .phase ul {
-      padding-left: 18px;
-      font-size: 12px;
-      color: var(--muted);
-    }
+.legal {
+margin-top: 14px;
+font-size: 11px;
+color: var(--muted);
+border-radius: 14px;
+border: 1px solid rgba(255,77,106,0.6);
+background: radial-gradient(circle at top left, rgba(255,77,106,0.18), rgba(7,8,20,0.96));
+padding: 10px 11px;
+}
 
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px,1fr));
-      gap: 14px;
-      margin-top: 10px;
-    }
-    .step {
-      border-radius: 16px;
-      border: 1px solid rgba(88,242,200,0.4);
-      background: radial-gradient(circle at top left, rgba(88,242,200,0.16), rgba(6,10,26,0.96));
-      padding: 12px 14px;
-      font-size: 13px;
-    }
-    .step-number {
-      width: 24px;
-      height: 24px;
-      border-radius: 999px;
-      border: 1px solid rgba(88,242,200,0.6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: var(--accent-2);
-      margin-bottom: 4px;
-    }
-    .step h3 {
-      font-size: 13px;
-      margin-bottom: 4px;
-    }
-    .step p {
-      font-size: 12px;
-      color: var(--muted);
-    }
+.faq {
+display: grid;
+gap: 10px;
+margin-top: 12px;
+}
+.faq-item {
+border-radius: 14px;
+border: 1px solid rgba(154,164,198,0.45);
+padding: 10px 12px;
+background: rgba(7,9,24,0.96);
+font-size: 12px;
+}
+.faq-item strong {
+display: block;
+margin-bottom: 4px;
+}
 
-    .legal {
-      margin-top: 14px;
-      font-size: 11px;
-      color: var(--muted);
-      border-radius: 14px;
-      border: 1px solid rgba(255,77,106,0.6);
-      background: radial-gradient(circle at top left, rgba(255,77,106,0.18), rgba(7,8,20,0.96));
-      padding: 10px 11px;
-    }
+footer {
+margin-top: 26px;
+padding: 16px 4px 8px;
+font-size: 11px;
+color: var(--muted);
+border-top: 1px solid rgba(46,56,96,0.8);
+}
+footer .footer-row {
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 12px;
+flex-wrap: wrap;
+}
+footer nav {
+font-size: 11px;
+gap: 12px;
+}
+footer a {
+color: var(--muted);
+text-decoration: none;
+}
+footer a:hover {
+color: var(--accent-2);
+}
 
-    .faq {
-      display: grid;
-      gap: 10px;
-      margin-top: 12px;
-    }
-    .faq-item {
-      border-radius: 14px;
-      border: 1px solid rgba(154,164,198,0.45);
-      padding: 10px 12px;
-      background: rgba(7,9,24,0.96);
-      font-size: 12px;
-    }
-    .faq-item strong {
-      display: block;
-      margin-bottom: 4px;
-    }
+.lang-section { display: none; }
+.lang-section.active { display: block; }
 
-    footer {
-      margin-top: 26px;
-      padding: 16px 4px 8px;
-      font-size: 11px;
-      color: var(--muted);
-      border-top: 1px solid rgba(46,56,96,0.8);
-    }
-    footer .footer-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    footer nav {
-      font-size: 11px;
-      gap: 12px;
-    }
-    footer a {
-      color: var(--muted);
-      text-decoration: none;
-    }
-    footer a:hover {
-      color: var(--accent-2);
-    }
+@media (max-width: 768px) {
+header {
+flex-direction: column;
+align-items: flex-start;
+}
+nav {
+width: 100%;
+justify-content: space-between;
+}
+main {
+grid-template-columns: 1fr;
+}
+}
 
-    .lang-section { display: none; }
-    .lang-section.active { display: block; }
+  </style>    
+</head>    
+<body>    
+  <div class="page-shell">    
+    <header>    
+      <div class="brand">    
+        <div class="logo-pill">    
+          <span>U</span>    
+        </div>    
+        <div class="brand-text">    
+          <small>UNIT PROTOCOL</small>    
+          <strong>BEP-20 · BNB SMART CHAIN</strong>    
+        </div>    
+      </div>    
+      <nav>    
+        <div class="chip">    
+          <span class="chip-dot"></span>    
+          <span id="live-chip">LIVE ON BNB SMART CHAIN</span>    
+        </div>    
+        <a href="#buy" class="primary-btn" id="get-unit-btn">    
+          <span id="get-unit-label">Get UNIT</span>    
+        </a>    
+        <div class="lang-toggle">    
+          <button class="lang-btn active" data-lang-btn="en">EN</button>    
+          <button class="lang-btn" data-lang-btn="ro">RO</button>    
+        </div>    
+      </nav>    
+    </header>  <!-- ENGLISH -->    
+<div class="lang-section active" data-lang="en">    
+  <main>    
+    <div class="hero">    
+      <div class="hero-kicker">BUILT FOR REAL UTILITY</div>    
+      <h1 class="hero-title">    
+        A <span class="highlight">utility-first</span> digital asset for builders and long-term thinkers.    
+      </h1>    
+      <p class="hero-sub">    
+        UNIT Protocol is a BEP-20 token on BNB Smart Chain, designed for clean tokenomics,    
+        transparent governance and concrete product integrations. No false promises, no guaranteed    
+        yields, only verifiable on-chain rules.    
+      </p>    
+      <div class="hero-tags">    
+        <div class="hero-tag">Transparent</div>    
+        <div class="hero-tag">Non-custodial</div>    
+        <div class="hero-tag">Community-driven</div>    
+      </div>    
+      <div class="hero-actions">    
+        <a href="#buy" class="primary-btn">How to buy UNIT</a>    
+        <a href="#tokenomics" class="ghost-btn">View tokenomics</a>    
+      </div>    
+      <p class="hero-footnote">    
+        UNIT is an experimental digital asset. It is not a security, stock, deposit or investment contract.    
+        Always do your own research and never invest money you cannot afford to lose.    
+      </p>    
+    </div>    <div class="side-panel">    
+  <div class="panel-card">    
+    <div class="panel-label">Network</div>    
+    <div class="panel-main">BNB Smart Chain (BEP-20)</div>    
+  </div>    
+  <div class="panel-card">    
+    <div class="panel-label">Total supply</div>    
+    <div class="panel-main">1,000,000,000 UNIT</div>    
+  </div>    
+  <div class="panel-card">    
+    <div class="panel-label">Contract</div>    
+    <div class="panel-main">    
+      <code>0x4f5710c96C446b133C59Af006A366d07414B52a9</code>    
+    </div>    
+  </div>    
 
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      nav {
-        width: 100%;
-        justify-content: space-between;
-      }
-      main {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="page-shell">
-    <header>
-      <div class="brand">
-        <div class="logo-pill">
-          <span>U</span>
-        </div>
-        <div class="brand-text">
-          <small>UNIT PROTOCOL</small>
-          <strong>BEP-20 · BNB SMART CHAIN</strong>
-        </div>
-      </div>
-      <nav>
-        <div class="chip">
-          <span class="chip-dot"></span>
-          <span id="live-chip">LIVE ON BNB SMART CHAIN</span>
-        </div>
-        <a href="#buy" class="primary-btn" id="get-unit-btn">
-          <span id="get-unit-label">Get UNIT</span>
-        </a>
-        <div class="lang-toggle">
-          <button class="lang-btn active" data-lang-btn="en">EN</button>
-          <button class="lang-btn" data-lang-btn="ro">RO</button>
-        </div>
-      </nav>
-    </header>
+  <!-- UPDATED (minimal): status text aligned with contract + avoids "ownership renounced" claim -->
+  <div class="panel-card">    
+    <div class="panel-label">Status</div>    
+    <div class="panel-main">    
+      <span class="badge">    
+        <span class="badge-dot"></span>    
+        Ownership active · Fees configurable · Fixed supply*    
+      </span>    
+      <p style="font-size: 11px; color: var(--muted); margin-top: 6px;">    
+        *Fixed supply refers to the total supply minted at deployment. The deployed contract includes configurable
+        fee parameters and an anti-whale max transaction limit.    
+      </p>    
+    </div>    
+  </div>    
 
-    <!-- ENGLISH -->
-    <div class="lang-section active" data-lang="en">
-      <main>
-        <div class="hero">
-          <div class="hero-kicker">BUILT FOR REAL UTILITY</div>
-          <h1 class="hero-title">
-            A <span class="highlight">utility-first</span> digital asset for builders and long-term thinkers.
-          </h1>
-          <p class="hero-sub">
-            UNIT Protocol is a BEP-20 token on BNB Smart Chain, designed for clean tokenomics,
-            transparent governance and concrete product integrations. No false promises, no guaranteed
-            yields, only verifiable on-chain rules.
-          </p>
-          <div class="hero-tags">
-            <div class="hero-tag">Transparent</div>
-            <div class="hero-tag">Non-custodial</div>
-            <div class="hero-tag">Community-driven</div>
-          </div>
-          <div class="hero-actions">
-            <a href="#buy" class="primary-btn">How to buy UNIT</a>
-            <a href="#tokenomics" class="ghost-btn">View tokenomics</a>
-          </div>
-          <p class="hero-footnote">
-            UNIT is an experimental digital asset. It is not a security, stock, deposit or investment contract.
-            Always do your own research and never invest money you cannot afford to lose.
-          </p>
-        </div>
+</div>
 
-        <div class="side-panel">
-          <div class="panel-card">
-            <div class="panel-label">Network</div>
-            <div class="panel-main">BNB Smart Chain (BEP-20)</div>
-          </div>
-          <div class="panel-card">
-            <div class="panel-label">Total supply</div>
-            <div class="panel-main">1,000,000,000 UNIT</div>
-          </div>
-          <div class="panel-card">
-            <div class="panel-label">Contract</div>
-            <div class="panel-main">
-              <code>0x4f5710c96C446b133C59Af006A366d07414B52a9</code>
-            </div>
-          </div>
-          <div class="panel-card">
-            <div class="panel-label">Status</div>
-            <div class="panel-main">
-              <span class="badge">
-                <span class="badge-dot"></span>
-                Ownership active (not renounced) · Fixed supply*
-              </span>
-              <p style="font-size: 11px; color: var(--muted); margin-top: 6px;">
-                *Based on the configuration of the deployed smart contract.
-              </p>
-            </div>
-          </div>
-        </div>
-      </main>
+  </main>      <section id="why">    
+    <h2>Why UNIT Protocol</h2>    
+    <p class="lead">    
+      Most tokens fail because they are built around promises that cannot be verified. UNIT Protocol keeps    
+      things intentionally simple: a clean BEP-20 contract, transparent allocation, and a roadmap focused on    
+      real, auditable utility — not speculative narratives.    
+    </p>    
+    <div class="grid-2">    
+      <div class="feature">    
+        <h3>01 · Transparent</h3>    
+        <p>    
+          Contract code is published on BscScan, total supply is fixed at deployment, and all token movements    
+          happen directly on-chain. Anyone can independently verify balances, transfers and allocation.    
+        </p>    
+      </div>    
+      <div class="feature">    
+        <h3>02 · Utility-first</h3>    
+        <p>    
+          UNIT is designed to plug into real tools — loyalty systems, gated content, governance, payment rails    
+          and reward programs — with a focus on legal, compliant and transparent usage.    
+        </p>    
+      </div>    
+      <div class="feature">    
+        <h3>03 · Risk-aware</h3>    
+        <p>    
+          UNIT never promises price appreciation, dividends or revenue-sharing. It is a digital tool and access    
+          token. The open market is free to price it as it wishes; participants choose their own risk level.    
+        </p>    
+      </div>    
+      <div class="feature">    
+        <h3>Aligned with long-term builders</h3>    
+        <p>    
+          Designed for contributors who value on-chain truth over hype, with mechanics that encourage    
+          experimentation, education and responsible growth.    
+        </p>    
+      </div>    
+    </div>    
+  </section>      <section id="utility">    
+    <h2>Utility</h2>    
+    <p class="lead">    
+      UNIT is designed to be used inside products and communities. The list below outlines target utilities.    
+      Concrete implementations will always respect applicable law and platform rules in each jurisdiction.    
+    </p>    <div class="grid-2">    
+  <div class="feature">    
+    <h3>Access</h3>    
+    <p>    
+      Hold UNIT to unlock premium educational content, research, dashboards or community channels with    
+      token-gated access. Access tiers can be based on balance snapshots and enforced on-chain where    
+      possible.    
+    </p>    
+  </div>    
+  <div class="feature">    
+    <h3>Governance signals</h3>    
+    <p>    
+      UNIT holders can participate in non-binding governance polls — signaling preferences about    
+      integrations, product directions or treasury policies. Voting is a coordination tool, not a legal    
+      equity structure.    
+    </p>    
+  </div>    
+  <div class="feature">    
+    <h3>Rewards & loyalty</h3>    
+    <p>    
+      Apps can use UNIT as a reward layer for activity: completing courses, providing feedback,    
+      stress-testing smart contracts on testnets or joining community events — always with clear, public    
+      rules.    
+    </p>    
+  </div>    
+  <div class="feature">    
+    <h3>Builders & integrations</h3>    
+    <p>    
+      A shared asset that can be integrated by creators, educators and toolmakers who want a simple,    
+      verifiable way to reward and align their communities.    
+    </p>    
+  </div>    
+</div>
 
-      <section id="why">
-        <h2>Why UNIT Protocol</h2>
-        <p class="lead">
-          Most tokens fail because they are built around promises that cannot be verified. UNIT Protocol keeps
-          things intentionally simple: a clean BEP-20 contract, transparent allocation, and a roadmap focused on
-          real, auditable utility — not speculative narratives.
-        </p>
-        <div class="grid-2">
-          <div class="feature">
-            <h3>01 · Transparent</h3>
-            <p>
-              Contract code is published on BscScan, total supply is fixed at deployment, and all token movements
-              happen directly on-chain. Anyone can independently verify balances, transfers and allocation.
-            </p>
-          </div>
-          <div class="feature">
-            <h3>02 · Utility-first</h3>
-            <p>
-              UNIT is designed to plug into real tools — loyalty systems, gated content, governance, payment rails
-              and reward programs — with a focus on legal, compliant and transparent usage.
-            </p>
-          </div>
-          <div class="feature">
-            <h3>03 · Risk-aware</h3>
-            <p>
-              UNIT never promises price appreciation, dividends or revenue-sharing. It is a digital tool and access
-              token. The open market is free to price it as it wishes; participants choose their own risk level.
-            </p>
-          </div>
-          <div class="feature">
-            <h3>Aligned with long-term builders</h3>
-            <p>
-              Designed for contributors who value on-chain truth over hype, with mechanics that encourage
-              experimentation, education and responsible growth.
-            </p>
-          </div>
-        </div>
-      </section>
+  </section>      <section id="tokenomics">    
+    <h2>Tokenomics</h2>    
 
-      <section id="utility">
-        <h2>Utility</h2>
-        <p class="lead">
-          UNIT is designed to be used inside products and communities. The list below outlines target utilities.
-          Concrete implementations will always respect applicable law and platform rules in each jurisdiction.
-        </p>
+    <!-- UPDATED (minimal): remove "no opaque taxes" claim; keep factual + legal -->
+    <p class="lead">    
+      UNIT Protocol is structured around a simple, fixed 1,000,000,000 UNIT supply minted at deployment.    
+      The deployed contract includes configurable on-chain fee parameters and an anti-whale max transaction limit.
+      Any use of these parameters is publicly verifiable on-chain.    
+    </p>    
 
-        <div class="grid-2">
-          <div class="feature">
-            <h3>Access</h3>
-            <p>
-              Hold UNIT to unlock premium educational content, research, dashboards or community channels with
-              token-gated access. Access tiers can be based on balance snapshots and enforced on-chain where
-              possible.
-            </p>
-          </div>
-          <div class="feature">
-            <h3>Governance signals</h3>
-            <p>
-              UNIT holders can participate in non-binding governance polls — signaling preferences about
-              integrations, product directions or treasury policies. Voting is a coordination tool, not a legal
-              equity structure.
-            </p>
-          </div>
-          <div class="feature">
-            <h3>Rewards & loyalty</h3>
-            <p>
-              Apps can use UNIT as a reward layer for activity: completing courses, providing feedback,
-              stress-testing smart contracts on testnets or joining community events — always with clear, public
-              rules.
-            </p>
-          </div>
-          <div class="feature">
-            <h3>Builders & integrations</h3>
-            <p>
-              A shared asset that can be integrated by creators, educators and toolmakers who want a simple,
-              verifiable way to reward and align their communities.
-            </p>
-          </div>
-        </div>
-      </section>
+    <div class="tokenomics-grid">    
+  <div class="token-card">    
+    <strong>Ecosystem & utility pool</strong>    
+    <span>40%</span>    
+    <small>Liquidity and market bootstrap.</small>    
+  </div>    
+  <div class="token-card">    
+    <strong>Builders & contributors</strong>    
+    <span>25%</span>    
+    <small>Vesting-based allocation for long-term contributors.</small>    
+  </div>    
+  <div class="token-card">    
+    <strong>Strategic reserves</strong>    
+    <span>20%</span>    
+    <small>Future integrations, collaborations and experiments.</small>    
+  </div>    
+  <div class="token-card">    
+    <strong>Public airdrops & incentives</strong>    
+    <span>10%</span>    
+    <small>Community programs, education and testnets.</small>    
+  </div>    
+  <div class="token-card">    
+    <strong>Other</strong>    
+    <span>5%</span>    
+    <small>Operational buffers and unforeseen needs.</small>    
+  </div>    
+</div>    
 
-      <section id="tokenomics">
-        <h2>Tokenomics</h2>
-        <p class="lead">
-          UNIT Protocol is structured around a simple, fixed 1,000,000,000 UNIT supply. No rebasing, reflections,
-          auto-LP or opaque taxes. Any future changes (such as burns or locked reserves) must happen on-chain and be
-          publicly verifiable.
-        </p>
+<p style="font-size: 11px; color: var(--muted); margin-top: 10px;">    
+  Visual illustration only. Actual distribution and any locks or vesting programs are always visible on-chain.    
+</p>
 
-        <div class="tokenomics-grid">
-          <div class="token-card">
-            <strong>Ecosystem & utility pool</strong>
-            <span>40%</span>
-            <small>Liquidity and market bootstrap.</small>
-          </div>
-          <div class="token-card">
-            <strong>Builders & contributors</strong>
-            <span>25%</span>
-            <small>Vesting-based allocation for long-term contributors.</small>
-          </div>
-          <div class="token-card">
-            <strong>Strategic reserves</strong>
-            <span>20%</span>
-            <small>Future integrations, collaborations and experiments.</small>
-          </div>
-          <div class="token-card">
-            <strong>Public airdrops & incentives</strong>
-            <span>10%</span>
-            <small>Community programs, education and testnets.</small>
-          </div>
-          <div class="token-card">
-            <strong>Other</strong>
-            <span>5%</span>
-            <small>Operational buffers and unforeseen needs.</small>
-          </div>
-        </div>
+  </section>      <section id="roadmap">    
+    <h2>Roadmap</h2>    
+    <p class="lead">    
+      All milestones are targets, not guarantees. Execution depends on community interest, security reviews and    
+      regulatory clarity in each region.    
+    </p>    <div class="roadmap">    
+  <div class="phase">    
+    <h3>Phase I · Foundation</h3>    
+    <small>Launch and transparency</small>    
+    <ul>    
+      <li>Deploy UNIT smart contract on BNB Smart Chain.</li>    
+      <li>Verify contract on BscScan and publish tokenomics.</li>    
+      <li>Seed liquidity on a reputable BSC DEX (e.g. PancakeSwap).</li>    
+      <li>Launch core website, documentation and public risk disclaimer.</li>    
+    </ul>    
+  </div>    
 
-        <p style="font-size: 11px; color: var(--muted); margin-top: 10px;">
-          Visual illustration only. Actual distribution and any locks or vesting programs are always visible on-chain.
-        </p>
-      </section>
+  <div class="phase">    
+    <h3>Phase II · Utility</h3>    
+    <small>Products and integrations</small>    
+    <ul>    
+      <li>Use UNIT for gated content and subscription access.</li>    
+      <li>Non-custodial governance dashboard for community signaling.</li>    
+      <li>Partnerships with tools or creators integrating UNIT as a reward layer.</li>    
+      <li>Optional third-party audits of smart contracts where appropriate.</li>    
+    </ul>    
+  </div>    
 
-      <section id="roadmap">
-        <h2>Roadmap</h2>
-        <p class="lead">
-          All milestones are targets, not guarantees. Execution depends on community interest, security reviews and
-          regulatory clarity in each region.
-        </p>
+  <div class="phase">    
+    <h3>Phase III · Scale</h3>    
+    <small>Sustainable growth</small>    
+    <ul>    
+      <li>Expanded ecosystem integrations and multi-platform utility.</li>    
+      <li>Research on compliant fiat on- and off-ramps.</li>    
+      <li>Explore L2 / sidechain deployments if clearly beneficial.</li>    
+      <li>Ongoing focus on risk management, education and clear communication.</li>    
+    </ul>    
+  </div>    
+</div>
 
-        <div class="roadmap">
-          <div class="phase">
-            <h3>Phase I · Foundation</h3>
-            <small>Launch and transparency</small>
-            <ul>
-              <li>Deploy UNIT smart contract on BNB Smart Chain.</li>
-              <li>Verify contract on BscScan and publish tokenomics.</li>
-              <li>Seed liquidity on a reputable BSC DEX (e.g. PancakeSwap).</li>
-              <li>Launch core website, documentation and public risk disclaimer.</li>
-            </ul>
-          </div>
+  </section>      <section id="buy">    
+    <h2>How to buy UNIT</h2>    
+    <p class="lead">    
+      The steps below describe a generic, non-custodial way to access UNIT. Always verify that you are using the    
+      correct contract address and that you understand how self-custody works before sending funds.    
+    </p>    <div class="steps">    
+  <div class="step">    
+    <div class="step-number">1</div>    
+    <h3>Set up a BSC wallet</h3>    
+    <p>    
+      Install a trusted non-custodial wallet (e.g. MetaMask) and add the BNB Smart Chain network. Securely    
+      back up your Seed / Secret Recovery Phrase offline. Never share it with anyone.    
+    </p>    
+  </div>    
+  <div class="step">    
+    <div class="step-number">2</div>    
+    <h3>Fund with BNB</h3>    
+    <p>    
+      Purchase a small amount of BNB from a reputable exchange and withdraw it to your BSC wallet address.    
+      You will use BNB for network fees and, if using a DEX, to swap into UNIT.    
+    </p>    
+  </div>    
+  <div class="step">    
+    <div class="step-number">3</div>    
+    <h3>Swap into UNIT</h3>    
+    <p>    
+      Use a DEX that supports BNB Smart Chain. Import the UNIT token contract    
+      <code>0x4f5710c96C446b133C59Af006A366d07414B52a9</code>, double-check every character, then swap your    
+      chosen amount of BNB or a supported token into UNIT.    
+    </p>    
+  </div>    
+</div>    
 
-          <div class="phase">
-            <h3>Phase II · Utility</h3>
-            <small>Products and integrations</small>
-            <ul>
-              <li>Use UNIT for gated content and subscription access.</li>
-              <li>Non-custodial governance dashboard for community signaling.</li>
-              <li>Partnerships with tools or creators integrating UNIT as a reward layer.</li>
-              <li>Optional third-party audits of smart contracts where appropriate.</li>
-            </ul>
-          </div>
+<div class="legal">    
+  <strong>Legal & risk notice.</strong>    
+  UNIT Protocol (UNIT) is a digital utility token. It does not represent equity, debt, revenue share or any    
+  other regulated financial instrument. Nothing on this website constitutes financial, legal or tax advice,    
+  or a solicitation to buy or sell any asset. Digital assets are highly volatile and can lose all value.    
+  Regulatory treatment of tokens varies by jurisdiction and may change over time. It is your responsibility    
+  to understand and comply with the laws that apply to you and to consult licensed professionals where needed.    
+</div>
 
-          <div class="phase">
-            <h3>Phase III · Scale</h3>
-            <small>Sustainable growth</small>
-            <ul>
-              <li>Expanded ecosystem integrations and multi-platform utility.</li>
-              <li>Research on compliant fiat on- and off-ramps.</li>
-              <li>Explore L2 / sidechain deployments if clearly beneficial.</li>
-              <li>Ongoing focus on risk management, education and clear communication.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+  </section>      <section id="faq">    
+    <h2>FAQ</h2>    
+    <p class="lead">    
+      A short overview of how UNIT is positioned. For detailed, jurisdiction-specific information, always rely on    
+      local professionals and regulators.    
+    </p>    
+    <div class="faq">    
+      <div class="faq-item">    
+        <strong>Is UNIT an investment?</strong>    
+        <span>    
+          No. UNIT is a digital utility and access token. While it may trade on secondary markets, there are no    
+          promises of profit, dividends or capital protection. Price is entirely determined by open markets.    
+        </span>    
+      </div>    
 
-      <section id="buy">
-        <h2>How to buy UNIT</h2>
-        <p class="lead">
-          The steps below describe a generic, non-custodial way to access UNIT. Always verify that you are using the
-          correct contract address and that you understand how self-custody works before sending funds.
-        </p>
+      <!-- UPDATED (minimal): remove "once ownership is renounced" promise -->
+      <div class="faq-item">    
+        <strong>Who controls UNIT?</strong>    
+        <span>    
+          UNIT is implemented as a smart contract on BNB Smart Chain. The deployed contract currently has an owner
+          address that can update certain on-chain parameters within the limits coded into the contract (e.g., fee
+          settings and max transaction amount). Any such updates, if made, are publicly visible on-chain.    
+        </span>    
+      </div>    
 
-        <div class="steps">
-          <div class="step">
-            <div class="step-number">1</div>
-            <h3>Set up a BSC wallet</h3>
-            <p>
-              Install a trusted non-custodial wallet (e.g. MetaMask) and add the BNB Smart Chain network. Securely
-              back up your Seed / Secret Recovery Phrase offline. Never share it with anyone.
-            </p>
-          </div>
-          <div class="step">
-            <div class="step-number">2</div>
-            <h3>Fund with BNB</h3>
-            <p>
-              Purchase a small amount of BNB from a reputable exchange and withdraw it to your BSC wallet address.
-              You will use BNB for network fees and, if using a DEX, to swap into UNIT.
-            </p>
-          </div>
-          <div class="step">
-            <div class="step-number">3</div>
-            <h3>Swap into UNIT</h3>
-            <p>
-              Use a DEX that supports BNB Smart Chain. Import the UNIT token contract
-              <code>0x4f5710c96C446b133C59Af006A366d07414B52a9</code>, double-check every character, then swap your
-              chosen amount of BNB or a supported token into UNIT.
-            </p>
-          </div>
-        </div>
+      <div class="faq-item">    
+        <strong>Can the rules change in the future?</strong>    
+        <span>    
+          Smart-contract rules are enforced by the blockchain. Some parameters may be configurable if explicitly
+          coded (such as fee settings and max transaction amount). Off-chain policies — such as how apps integrate
+          UNIT — can evolve to stay aligned with security best practices and regulatory guidance.    
+        </span>    
+      </div>    
 
-        <div class="legal">
-          <strong>Legal & risk notice.</strong>
-          UNIT Protocol (UNIT) is a digital utility token. It does not represent equity, debt, revenue share or any
-          other regulated financial instrument. Nothing on this website constitutes financial, legal or tax advice,
-          or a solicitation to buy or sell any asset. Digital assets are highly volatile and can lose all value.
-          Regulatory treatment of tokens varies by jurisdiction and may change over time. It is your responsibility
-          to understand and comply with the laws that apply to you and to consult licensed professionals where needed.
-        </div>
-      </section>
+      <div class="faq-item">    
+        <strong>Do I need KYC to hold UNIT?</strong>    
+        <span>    
+          Holding UNIT in a self-custodial wallet typically does not require KYC. However, exchanges, fiat    
+          on-/off-ramps and certain jurisdictions may enforce KYC/AML requirements. Always follow the rules of    
+          the platforms and countries you use.    
+        </span>    
+      </div>    
+    </div>    
+  </section>      <footer>    
+    <div class="footer-row">    
+      <div>© 2025 UNIT Protocol. All rights reserved.</div>    
+      <nav>    
+        <a href="#utility">Utility</a>    
+        <a href="#tokenomics">Tokenomics</a>    
+        <a href="#buy">How to buy</a>    
+      </nav>    
+    </div>    
+  </footer>    
+</div>    <!-- ROMÂNĂ -->    <div class="lang-section" data-lang="ro">    
+  <main>    
+    <div class="hero">    
+      <div class="hero-kicker">CONSTRUIT PENTRU UTILITATE REALĂ</div>    
+      <h1 class="hero-title">    
+        Un activ digital <span class="highlight">axat pe utilitate</span> pentru constructori și gânditori pe termen lung.    
+      </h1>    
+      <p class="hero-sub">    
+        UNIT Protocol este un token BEP-20 pe BNB Smart Chain, conceput pentru o tokenomică curată,    
+        guvernanță transparentă și integrări de produs concrete. Fără promisiuni false, fără randamente    
+        garantate, doar reguli verificabile on-chain.    
+      </p>    
+      <div class="hero-tags">    
+        <div class="hero-tag">Transparent</div>    
+        <div class="hero-tag">Fără custodie</div>    
+        <div class="hero-tag">Orientat către comunitate</div>    
+      </div>    
+      <div class="hero-actions">    
+        <a href="#buy-ro" class="primary-btn">Cum să cumperi UNIT</a>    
+        <a href="#tokenomics-ro" class="ghost-btn">Vezi tokenomics</a>    
+      </div>    
+      <p class="hero-footnote">    
+        UNIT este un activ digital experimental. Nu este o valoare mobiliară, acțiune, depozit sau contract de    
+        investiții. Faceți întotdeauna propriile cercetări și nu investiți niciodată bani pe care nu vă puteți    
+        permite să îi pierdeți.    
+      </p>    
+    </div>    <div class="side-panel">    
+  <div class="panel-card">    
+    <div class="panel-label">Rețea</div>    
+    <div class="panel-main">BNB Smart Chain (BEP-20)</div>    
+  </div>    
+  <div class="panel-card">    
+    <div class="panel-label">Oferta totală</div>    
+    <div class="panel-main">1.000.000.000 UNIT</div>    
+  </div>    
+  <div class="panel-card">    
+    <div class="panel-label">Contract</div>    
+    <div class="panel-main">    
+      <code>0x4f5710c96C446b133C59Af006A366d07414B52a9</code>    
+    </div>    
+  </div>    
 
-      <section id="faq">
-        <h2>FAQ</h2>
-        <p class="lead">
-          A short overview of how UNIT is positioned. For detailed, jurisdiction-specific information, always rely on
-          local professionals and regulators.
-        </p>
-        <div class="faq">
-          <div class="faq-item">
-            <strong>Is UNIT an investment?</strong>
-            <span>
-              No. UNIT is a digital utility and access token. While it may trade on secondary markets, there are no
-              promises of profit, dividends or capital protection. Price is entirely determined by open markets.
-            </span>
-          </div>
-          <div class="faq-item">
-            <strong>Who controls UNIT?</strong>
-            <span>
-              UNIT is implemented as a smart contract on BNB Smart Chain. At present, ownership is active (not renounced).
-              Community coordination happens transparently on-chain and via public channels.
-            </span>
-          </div>
-          <div class="faq-item">
-            <strong>Can the rules change in the future?</strong>
-            <span>
-              Smart-contract rules are enforced by the blockchain and cannot be changed unless explicitly coded.
-              Off-chain policies — such as how apps integrate UNIT — can evolve to stay aligned with security best
-              practices and regulatory guidance.
-            </span>
-          </div>
-          <div class="faq-item">
-            <strong>Do I need KYC to hold UNIT?</strong>
-            <span>
-              Holding UNIT in a self-custodial wallet typically does not require KYC. However, exchanges, fiat
-              on-/off-ramps and certain jurisdictions may enforce KYC/AML requirements. Always follow the rules of
-              the platforms and countries you use.
-            </span>
-          </div>
-        </div>
-      </section>
+  <!-- UPDATED (minimal): remove "renunțare la proprietate" claim -->
+  <div class="panel-card">    
+    <div class="panel-label">Stare</div>    
+    <div class="panel-main">    
+      <span class="badge">    
+        <span class="badge-dot"></span>    
+        Proprietate activă · Taxe configurabile · Ofertă fixă*    
+      </span>    
+      <p style="font-size: 11px; color: var(--muted); margin-top: 6px;">    
+        *Oferta este bătută integral la implementare. Contractul implementat include parametri configurabili
+        (taxe, trezorerie) și o limită anti-whale (maxim pe tranzacție), verificabile on-chain.    
+      </p>    
+    </div>    
+  </div>    
 
-      <footer>
-        <div class="footer-row">
-          <div>© 2025 UNIT Protocol. All rights reserved.</div>
-          <nav>
-            <a href="#utility">Utility</a>
-            <a href="#tokenomics">Tokenomics</a>
-            <a href="#buy">How to buy</a>
-          </nav>
-        </div>
-      </footer>
-    </div>
+</div>
 
-    <!-- ROMÂNĂ -->
-    <div class="lang-section" data-lang="ro">
-      <main>
-        <div class="hero">
-          <div class="hero-kicker">CONSTRUIT PENTRU UTILITATE REALĂ</div>
-          <h1 class="hero-title">
-            Un activ digital <span class="highlight">axat pe utilitate</span> pentru constructori și gânditori pe termen lung.
-          </h1>
-          <p class="hero-sub">
-            UNIT Protocol este un token BEP-20 pe BNB Smart Chain, conceput pentru o tokenomică curată,
-            guvernanță transparentă și integrări de produs concrete. Fără promisiuni false, fără randamente
-            garantate, doar reguli verificabile on-chain.
-          </p>
-          <div class="hero-tags">
-            <div class="hero-tag">Transparent</div>
-            <div class="hero-tag">Fără custodie</div>
-            <div class="hero-tag">Orientat către comunitate</div>
-          </div>
-          <div class="hero-actions">
-            <a href="#buy-ro" class="primary-btn">Cum să cumperi UNIT</a>
-            <a href="#tokenomics-ro" class="ghost-btn">Vezi tokenomics</a>
-          </div>
-          <p class="hero-footnote">
-            UNIT este un activ digital experimental. Nu este o valoare mobiliară, acțiune, depozit sau contract de
-            investiții. Faceți întotdeauna propriile cercetări și nu investiți niciodată bani pe care nu vă puteți
-            permite să îi pierdeți.
-          </p>
-        </div>
+  </main>      <section id="why-ro">    
+    <h2>De ce UNIT Protocol</h2>    
+    <p class="lead">    
+      Majoritatea token-urilor eșuează deoarece sunt construite în jurul unor promisiuni care nu pot fi    
+      verificate. UNIT Protocol păstrează lucrurile intenționat simple: un contract BEP-20 curat, o alocare    
+      transparentă și o foaie de parcurs axată pe utilitate reală și auditabilă — nu pe narațiuni speculative.    
+    </p>    
+    <div class="grid-2">    
+      <div class="feature">    
+        <h3>01 · Transparent</h3>    
+        <p>    
+          Codul contractului este publicat pe BscScan, oferta totală este fixată la implementare, iar toate    
+          mișcările de token-uri au loc direct on-chain. Oricine poate verifica independent solduri, transferuri    
+          și alocarea.    
+        </p>    
+      </div>    
+      <div class="feature">    
+        <h3>02 · Utilitate pe primul loc</h3>    
+        <p>    
+          UNIT este conceput pentru a se conecta la instrumente reale — sisteme de fidelizare, conținut    
+          restricționat, guvernanță, rute de plată și programe de recompense — cu accent pe utilizare legală,    
+          conformă și transparentă.    
+        </p>    
+      </div>    
+      <div class="feature">    
+        <h3>03 · Conștient de riscuri</h3>    
+        <p>    
+          UNIT nu promite creștere de preț, dividende sau împărțirea profiturilor. Este un instrument digital și    
+          un token de acces. Piața liberă îi stabilește prețul; participanții își aleg singuri nivelul de risc.    
+        </p>    
+      </div>    
+      <div class="feature">    
+        <h3>Aliniat cu constructorii pe termen lung</h3>    
+        <p>    
+          Conceput pentru contribuitori care preferă adevărul on-chain în locul hype-ului, cu mecanisme ce    
+          încurajează experimentarea, educația și creșterea responsabilă.    
+        </p>    
+      </div>    
+    </div>    
+  </section>      <section id="utility-ro">    
+    <h2>Utilitate</h2>    
+    <p class="lead">    
+      UNIT este conceput pentru a fi folosit în produse și comunități. Lista de mai jos descrie utilitățile    
+      țintă. Implementările concrete vor respecta întotdeauna legislația aplicabilă și regulile platformelor din    
+      fiecare jurisdicție.    
+    </p>    <div class="grid-2">    
+  <div class="feature">    
+    <h3>Acces</h3>    
+    <p>    
+      Deține UNIT pentru a debloca conținut educațional premium, cercetări, tablouri de bord sau canale    
+      comunitare cu acces restricționat prin tokenuri. Nivelurile de acces pot fi bazate pe instantanee de    
+      sold și aplicate on-chain acolo unde este posibil.    
+    </p>    
+  </div>    
+  <div class="feature">    
+    <h3>Semnale de guvernanță</h3>    
+    <p>    
+      Deținătorii de UNIT pot participa la sondaje de guvernanță neobligatorii — semnalând preferințe privind    
+      integrările, direcțiile de produs sau politicile de trezorerie. Votul este un instrument de    
+      coordonare, nu o structură legală de acționariat.    
+    </p>    
+  </div>    
+  <div class="feature">    
+    <h3>Recompense & loialitate</h3>    
+    <p>    
+      Aplicațiile pot folosi UNIT ca strat de recompensă pentru activitate: finalizarea cursurilor, oferirea    
+      de feedback, testarea la stres a contractelor inteligente pe testnet-uri sau participarea la evenimente    
+      comunitare — întotdeauna cu reguli clare și publice.    
+    </p>    
+  </div>    
+  <div class="feature">    
+    <h3>Constructori & integrări</h3>    
+    <p>    
+      Un activ comun ce poate fi integrat de creatori, educatori și dezvoltatori de instrumente care doresc    
+      o modalitate simplă și verificabilă de a recompensa și alinia comunitățile lor.    
+    </p>    
+  </div>    
+</div>
 
-        <div class="side-panel">
-          <div class="panel-card">
-            <div class="panel-label">Rețea</div>
-            <div class="panel-main">BNB Smart Chain (BEP-20)</div>
-          </div>
-          <div class="panel-card">
-            <div class="panel-label">Oferta totală</div>
-            <div class="panel-main">1.000.000.000 UNIT</div>
-          </div>
-          <div class="panel-card">
-            <div class="panel-label">Contract</div>
-            <div class="panel-main">
-              <code>0x4f5710c96C446b133C59Af006A366d07414B52a9</code>
-            </div>
-          </div>
-          <div class="panel-card">
-            <div class="panel-label">Stare</div>
-            <div class="panel-main">
-              <span class="badge">
-                <span class="badge-dot"></span>
-                Proprietate activă (nerenunțată) · Ofertă fixă*
-              </span>
-              <p style="font-size: 11px; color: var(--muted); margin-top: 6px;">
-                *Conform configurației contractului inteligent implementat.
-              </p>
-            </div>
-          </div>
-        </div>
-      </main>
+  </section>      <section id="tokenomics-ro">    
+    <h2>Tokenomics</h2>    
 
-      <section id="why-ro">
-        <h2>De ce UNIT Protocol</h2>
-        <p class="lead">
-          Majoritatea token-urilor eșuează deoarece sunt construite în jurul unor promisiuni care nu pot fi
-          verificate. UNIT Protocol păstrează lucrurile intenționat simple: un contract BEP-20 curat, o alocare
-          transparentă și o foaie de parcurs axată pe utilitate reală și auditabilă — nu pe narațiuni speculative.
-        </p>
-        <div class="grid-2">
-          <div class="feature">
-            <h3>01 · Transparent</h3>
-            <p>
-              Codul contractului este publicat pe BscScan, oferta totală este fixată la implementare, iar toate
-              mișcările de token-uri au loc direct on-chain. Oricine poate verifica independent solduri, transferuri
-              și alocarea.
-            </p>
-          </div>
-          <div class="feature">
-            <h3>02 · Utilitate pe primul loc</h3>
-            <p>
-              UNIT este conceput pentru a se conecta la instrumente reale — sisteme de fidelizare, conținut
-              restricționat, guvernanță, rute de plată și programe de recompense — cu accent pe utilizare legală,
-              conformă și transparentă.
-            </p>
-          </div>
-          <div class="feature">
-            <h3>03 · Conștient de riscuri</h3>
-            <p>
-              UNIT nu promite creștere de preț, dividende sau împărțirea profiturilor. Este un instrument digital și
-              un token de acces. Piața liberă îi stabilește prețul; participanții își aleg singuri nivelul de risc.
-            </p>
-          </div>
-          <div class="feature">
-            <h3>Aliniat cu constructorii pe termen lung</h3>
-            <p>
-              Conceput pentru contribuitori care preferă adevărul on-chain în locul hype-ului, cu mecanisme ce
-              încurajează experimentarea, educația și creșterea responsabilă.
-            </p>
-          </div>
-        </div>
-      </section>
+    <!-- UPDATED (minimal): remove "fără taxe opace" claim; keep factual -->
+    <p class="lead">    
+      UNIT Protocol este structurat în jurul unei rezerve fixe de 1.000.000.000 UNIT bătută la implementare.    
+      Contractul implementat include parametri configurabili on-chain (taxe și trezorerie) și o limită anti-whale
+      (maxim pe tranzacție). Orice utilizare/modificare a acestor parametri este vizibilă public on-chain.    
+    </p>    
 
-      <section id="utility-ro">
-        <h2>Utilitate</h2>
-        <p class="lead">
-          UNIT este conceput pentru a fi folosit în produse și comunități. Lista de mai jos descrie utilitățile
-          țintă. Implementările concrete vor respecta întotdeauna legislația aplicabilă și regulile platformelor din
-          fiecare jurisdicție.
-        </p>
+    <div class="tokenomics-grid">    
+  <div class="token-card">    
+    <strong>Ecosistem & pool de utilitate</strong>    
+    <span>40%</span>    
+    <small>Lichiditate și bootstrap de piață.</small>    
+  </div>    
+  <div class="token-card">    
+    <strong>Constructori & contribuitori</strong>    
+    <span>25%</span>    
+    <small>Alocare cu vesting pentru contribuitori pe termen lung.</small>    
+  </div>    
+  <div class="token-card">    
+    <strong>Rezerve strategice</strong>    
+    <span>20%</span>    
+    <small>Integrări, colaborări și experimente viitoare.</small>    
+  </div>    
+  <div class="token-card">    
+    <strong>Airdrop-uri & stimulente publice</strong>    
+    <span>10%</span>    
+    <small>Programe de comunitate, educație și testnet-uri.</small>    
+  </div>    
+  <div class="token-card">    
+    <strong>Divers</strong>    
+    <span>5%</span>    
+    <small>Rezerve operaționale și nevoi neprevăzute.</small>    
+  </div>    
+</div>    
 
-        <div class="grid-2">
-          <div class="feature">
-            <h3>Acces</h3>
-            <p>
-              Deține UNIT pentru a debloca conținut educațional premium, cercetări, tablouri de bord sau canale
-              comunitare cu acces restricționat prin tokenuri. Nivelurile de acces pot fi bazate pe instantanee de
-              sold și aplicate on-chain acolo unde este posibil.
-            </p>
-          </div>
-          <div class="feature">
-            <h3>Semnale de guvernanță</h3>
-            <p>
-              Deținătorii de UNIT pot participa la sondaje de guvernanță neobligatorii — semnalând preferințe privind
-              integrările, direcțiile de produs sau politicile de trezorerie. Votul este un instrument de
-              coordonare, nu o structură legală de acționariat.
-            </p>
-          </div>
-          <div class="feature">
-            <h3>Recompense & loialitate</h3>
-            <p>
-              Aplicațiile pot folosi UNIT ca strat de recompensă pentru activitate: finalizarea cursurilor, oferirea
-              de feedback, testarea la stres a contractelor inteligente pe testnet-uri sau participarea la evenimente
-              comunitare — întotdeauna cu reguli clare și publice.
-            </p>
-          </div>
-          <div class="feature">
-            <h3>Constructori & integrări</h3>
-            <p>
-              Un activ comun ce poate fi integrat de creatori, educatori și dezvoltatori de instrumente care doresc
-              o modalitate simplă și verificabilă de a recompensa și alinia comunitățile lor.
-            </p>
-          </div>
-        </div>
-      </section>
+<p style="font-size: 11px; color: var(--muted); margin-top: 10px;">    
+  Doar ilustrație vizuală. Distribuția reală și orice blocări sau programe de vesting sunt întotdeauna    
+  vizibile on-chain.    
+</p>
 
-      <section id="tokenomics-ro">
-        <h2>Tokenomics</h2>
-        <p class="lead">
-          UNIT Protocol este structurat în jurul unei rezerve fixe și simple de 1.000.000.000 UNIT. Fără rebazare,
-          reflecții, auto-LP sau taxe opace. Orice modificări viitoare (cum ar fi arderi sau rezerve blocate) trebuie
-          să aibă loc on-chain și să fie verificabile public.
-        </p>
+  </section>      <section id="roadmap-ro">    
+    <h2>Foaie de parcurs</h2>    
+    <p class="lead">    
+      Toate etapele sunt ținte, nu garanții. Implementarea depinde de interesul comunității, de revizuirile de    
+      securitate și de claritatea reglementărilor din fiecare regiune.    
+    </p>    <div class="roadmap">    
+  <div class="phase">    
+    <h3>Faza I · Fundație</h3>    
+    <small>Lansare și transparență</small>    
+    <ul>    
+      <li>Implementarea contractului inteligent UNIT pe BNB Smart Chain.</li>    
+      <li>Verificarea contractului pe BscScan și publicarea tokenomics.</li>    
+      <li>Lichiditate inițială pe un DEX BSC reputat (de ex. PancakeSwap).</li>    
+      <li>Site web de bază, documentație și declinare publică a riscurilor.</li>    
+    </ul>    
+  </div>    
 
-        <div class="tokenomics-grid">
-          <div class="token-card">
-            <strong>Ecosistem & pool de utilitate</strong>
-            <span>40%</span>
-            <small>Lichiditate și bootstrap de piață.</small>
-          </div>
-          <div class="token-card">
-            <strong>Constructori & contribuitori</strong>
-            <span>25%</span>
-            <small>Alocare cu vesting pentru contribuitori pe termen lung.</small>
-          </div>
-          <div class="token-card">
-            <strong>Rezerve strategice</strong>
-            <span>20%</span>
-            <small>Integrări, colaborări și experimente viitoare.</small>
-          </div>
-          <div class="token-card">
-            <strong>Airdrop-uri & stimulente publice</strong>
-            <span>10%</span>
-            <small>Programe de comunitate, educație și testnet-uri.</small>
-          </div>
-          <div class="token-card">
-            <strong>Divers</strong>
-            <span>5%</span>
-            <small>Rezerve operaționale și nevoi neprevăzute.</small>
-          </div>
-        </div>
+  <div class="phase">    
+    <h3>Faza II · Utilitate</h3>    
+    <small>Produse și integrări</small>    
+    <ul>    
+      <li>Folosirea UNIT pentru conținut restricționat și abonamente.</li>    
+      <li>Tablou de bord de guvernanță non-custodial pentru semnalarea comunității.</li>    
+      <li>Parteneriate cu instrumente sau creatori care integrează UNIT ca strat de recompensă.</li>    
+      <li>Audituri opționale ale contractelor inteligente realizate de terți, acolo unde este cazul.</li>    
+    </ul>    
+  </div>    
 
-        <p style="font-size: 11px; color: var(--muted); margin-top: 10px;">
-          Doar ilustrație vizuală. Distribuția reală și orice blocări sau programe de vesting sunt întotdeauna
-          vizibile on-chain.
-        </p>
-      </section>
+  <div class="phase">    
+    <h3>Faza III · Scalare</h3>    
+    <small>Creștere durabilă</small>    
+    <ul>    
+      <li>Integrări extinse în ecosistem și utilitate multi-platformă.</li>    
+      <li>Cercetare privind rampele de intrare/ieșire fiat conforme cu reglementările.</li>    
+      <li>Explorarea implementărilor L2 / sidechain dacă sunt în mod clar benefice.</li>    
+      <li>Focus continuu pe gestionarea riscurilor, educație și comunicare clară.</li>    
+    </ul>    
+  </div>    
+</div>
 
-      <section id="roadmap-ro">
-        <h2>Foaie de parcurs</h2>
-        <p class="lead">
-          Toate etapele sunt ținte, nu garanții. Implementarea depinde de interesul comunității, de revizuirile de
-          securitate și de claritatea reglementărilor din fiecare regiune.
-        </p>
+  </section>      <section id="buy-ro">    
+    <h2>Cum să cumperi UNIT</h2>    
+    <p class="lead">    
+      Pașii de mai jos descriu o modalitate generică, fără custodie, de a accesa UNIT. Verificați întotdeauna că    
+      folosiți adresa de contract corectă și că înțelegeți cum funcționează autocustodia înainte de a trimite    
+      fonduri.    
+    </p>    <div class="steps">    
+  <div class="step">    
+    <div class="step-number">1</div>    
+    <h3>Configurați un portofel BSC</h3>    
+    <p>    
+      Instalați un portofel non-custodial de încredere (de ex. MetaMask) și adăugați rețeaua BNB Smart    
+      Chain. Faceți backup offline pentru fraza Seed / Secret Recovery. Nu o partajați niciodată cu nimeni.    
+    </p>    
+  </div>    
+  <div class="step">    
+    <div class="step-number">2</div>    
+    <h3>Alimentați cu BNB</h3>    
+    <p>    
+      Achiziționați o cantitate mică de BNB de la un exchange reputat și retrageți-o în portofelul dvs. BSC.    
+      Veți avea nevoie de BNB pentru taxele de rețea și, dacă folosiți un DEX, pentru a schimba în UNIT.    
+    </p>    
+  </div>    
+  <div class="step">    
+    <div class="step-number">3</div>    
+    <h3>Schimbați în UNIT</h3>    
+    <p>    
+      Folosiți un DEX care suportă BNB Smart Chain. Importați contractul token UNIT    
+      <code>0x4f5710c96C446b133C59Af006A366d07414B52a9</code>, verificați de două ori fiecare caracter,    
+      apoi schimbați cantitatea dorită de BNB sau un alt token suportat în UNIT.    
+    </p>    
+  </div>    
+</div>    
 
-        <div class="roadmap">
-          <div class="phase">
-            <h3>Faza I · Fundație</h3>
-            <small>Lansare și transparență</small>
-            <ul>
-              <li>Implementarea contractului inteligent UNIT pe BNB Smart Chain.</li>
-              <li>Verificarea contractului pe BscScan și publicarea tokenomics.</li>
-              <li>Lichiditate inițială pe un DEX BSC reputat (de ex. PancakeSwap).</li>
-              <li>Site web de bază, documentație și declinare publică a riscurilor.</li>
-            </ul>
-          </div>
+<div class="legal">    
+  <strong>Notificare legală & privind riscurile.</strong>    
+  UNIT Protocol (UNIT) este un token digital de utilitate. Nu reprezintă acțiuni, datorii, cote-parte din    
+  venituri sau orice alt instrument financiar reglementat. Nimic de pe acest site nu constituie consultanță    
+  financiară, juridică sau fiscală sau o solicitare de cumpărare sau vânzare a vreunui activ. Activele    
+  digitale sunt extrem de volatile și își pot pierde întreaga valoare. Tratamentul de reglementare al    
+  token-urilor variază în funcție de jurisdicție și se poate schimba în timp. Este responsabilitatea    
+  dumneavoastră să înțelegeți și să respectați legile care vi se aplică și să consultați profesioniști    
+  autorizați, acolo unde este necesar.    
+</div>
 
-          <div class="phase">
-            <h3>Faza II · Utilitate</h3>
-            <small>Produse și integrări</small>
-            <ul>
-              <li>Folosirea UNIT pentru conținut restricționat și abonamente.</li>
-              <li>Tablou de bord de guvernanță non-custodial pentru semnalarea comunității.</li>
-              <li>Parteneriate cu instrumente sau creatori care integrează UNIT ca strat de recompensă.</li>
-              <li>Audituri opționale ale contractelor inteligente realizate de terți, acolo unde este cazul.</li>
-            </ul>
-          </div>
+  </section>      <section id="faq-ro">    
+    <h2>Întrebări frecvente</h2>    
+    <p class="lead">    
+      O prezentare scurtă a modului în care este poziționat UNIT. Pentru informații detaliate, specifice    
+      jurisdicției, apelați întotdeauna la profesioniști și autorități locale.    
+    </p>    
+    <div class="faq">    
+      <div class="faq-item">    
+        <strong>Este UNIT o investiție?</strong>    
+        <span>    
+          Nu. UNIT este un token digital de utilitate și acces. Deși poate fi tranzacționat pe piețe secundare,    
+          nu există promisiuni de profit, dividende sau protecție a capitalului. Prețul este determinat în    
+          întregime de piețele deschise.    
+        </span>    
+      </div>    
 
-          <div class="phase">
-            <h3>Faza III · Scalare</h3>
-            <small>Creștere durabilă</small>
-            <ul>
-              <li>Integrări extinse în ecosistem și utilitate multi-platformă.</li>
-              <li>Cercetare privind rampele de intrare/ieșire fiat conforme cu reglementările.</li>
-              <li>Explorarea implementărilor L2 / sidechain dacă sunt în mod clar benefice.</li>
-              <li>Focus continuu pe gestionarea riscurilor, educație și comunicare clară.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+      <!-- UPDATED (minimal): remove "odată ce proprietatea este renunțată" promise -->
+      <div class="faq-item">    
+        <strong>Cine controlează UNIT?</strong>    
+        <span>    
+          UNIT este implementat ca un contract inteligent pe BNB Smart Chain. Contractul implementat are în
+          prezent un owner care poate modifica anumiți parametri on-chain în limitele codate (de ex.: setări de
+          taxe și maxim pe tranzacție). Orice astfel de modificări, dacă sunt făcute, sunt vizibile public on-chain.    
+        </span>    
+      </div>    
 
-      <section id="buy-ro">
-        <h2>Cum să cumperi UNIT</h2>
-        <p class="lead">
-          Pașii de mai jos descriu o modalitate generică, fără custodie, de a accesa UNIT. Verificați întotdeauna că
-          folosiți adresa de contract corectă și că înțelegeți cum funcționează autocustodia înainte de a trimite
-          fonduri.
-        </p>
+      <div class="faq-item">    
+        <strong>Se pot schimba regulile în viitor?</strong>    
+        <span>    
+          Regulile contractelor inteligente sunt aplicate de blockchain. Unii parametri pot fi configurabili dacă
+          sunt codificați explicit (precum setările de taxe și limita maximă pe tranzacție). Politicile off-chain
+          pot evolua pentru a rămâne aliniate cu cele mai bune practici de securitate și cu ghidajul de reglementare.    
+        </span>    
+      </div>    
 
-        <div class="steps">
-          <div class="step">
-            <div class="step-number">1</div>
-            <h3>Configurați un portofel BSC</h3>
-            <p>
-              Instalați un portofel non-custodial de încredere (de ex. MetaMask) și adăugați rețeaua BNB Smart
-              Chain. Faceți backup offline pentru fraza Seed / Secret Recovery. Nu o partajați niciodată cu nimeni.
-            </p>
-          </div>
-          <div class="step">
-            <div class="step-number">2</div>
-            <h3>Alimentați cu BNB</h3>
-            <p>
-              Achiziționați o cantitate mică de BNB de la un exchange reputat și retrageți-o în portofelul dvs. BSC.
-              Veți avea nevoie de BNB pentru taxele de rețea și, dacă folosiți un DEX, pentru a schimba în UNIT.
-            </p>
-          </div>
-          <div class="step">
-            <div class="step-number">3</div>
-            <h3>Schimbați în UNIT</h3>
-            <p>
-              Folosiți un DEX care suportă BNB Smart Chain. Importați contractul token UNIT
-              <code>0x4f5710c96C446b133C59Af006A366d07414B52a9</code>, verificați de două ori fiecare caracter,
-              apoi schimbați cantitatea dorită de BNB sau un alt token suportat în UNIT.
-            </p>
-          </div>
-        </div>
+      <div class="faq-item">    
+        <strong>Am nevoie de KYC pentru a deține UNIT?</strong>    
+        <span>    
+          Deținerea de UNIT într-un portofel autocustodial nu necesită, de regulă, KYC. Totuși, exchange-urile,    
+          rampele de intrare/ieșire fiat și anumite jurisdicții pot impune cerințe KYC/AML. Respectați întotdeauna    
+          regulile platformelor și țărilor pe care le folosiți.    
+        </span>    
+      </div>    
+    </div>    
+  </section>    
 
-        <div class="legal">
-          <strong>Notificare legală &amp; privind riscurile.</strong>
-          UNIT Protocol (UNIT) este un token digital de utilitate. Nu reprezintă acțiuni, datorii, cote-parte din
-          venituri sau orice alt instrument financiar reglementat. Nimic de pe acest site nu constituie consultanță
-          financiară, juridică sau fiscală sau o solicitare de cumpărare sau vânzare a vreunui activ. Activele
-          digitale sunt extrem de volatile și își pot pierde întreaga valoare. Tratamentul de reglementare al
-          token-urilor variază în funcție de jurisdicție și se poate schimba în timp. Este responsabilitatea
-          dumneavoastră să înțelegeți și să respectați legile care vi se aplică și să consultați profesioniști
-          autorizați, acolo unde este necesar.
-        </div>
-      </section>
+  <section id="contract-info">    <h2>Contract Information</h2>    
+  <ul>    
+    <li><strong>Network:</strong> BNB Smart Chain (BEP-20)</li>    
+    <li><strong>Contract Address:</strong>    
+      <a href="https://bscscan.com/address/0x4f5710c96C446b133C59Af006A366d07414B52a9" target="_blank" rel="noopener noreferrer">    
+        0x4f5710c96C446b133C59Af006A366d07414B52a9    
+      </a>    
+    </li>    
+    <li><strong>Status:</strong> Source Code Verified</li>    
 
-      <section id="faq-ro">
-        <h2>Întrebări frecvente</h2>
-        <p class="lead">
-          O prezentare scurtă a modului în care este poziționat UNIT. Pentru informații detaliate, specifice
-          jurisdicției, apelați întotdeauna la profesioniști și autorități locale.
-        </p>
-        <div class="faq">
-          <div class="faq-item">
-            <strong>Este UNIT o investiție?</strong>
-            <span>
-              Nu. UNIT este un token digital de utilitate și acces. Deși poate fi tranzacționat pe piețe secundare,
-              nu există promisiuni de profit, dividende sau protecție a capitalului. Prețul este determinat în
-              întregime de piețele deschise.
-            </span>
-          </div>
-          <div class="faq-item">
-            <strong>Cine controlează UNIT?</strong>
-            <span>
-              UNIT este implementat ca un contract inteligent pe BNB Smart Chain. În prezent, proprietatea este activă (nerenunțată).
-              Coordonarea comunității are loc transparent on-chain și prin canale publice.
-            </span>
-          </div>
-          <div class="faq-item">
-            <strong>Se pot schimba regulile în viitor?</strong>
-            <span>
-              Regulile contractelor inteligente sunt aplicate de blockchain și nu pot fi modificate decât dacă sunt
-              codificate explicit în acest sens. Politicile off-chain, cum ar fi modul în care aplicațiile integrează
-              UNIT, pot evolua pentru a rămâne aliniate cu cele mai bune practici de securitate și cu ghidajul
-              de reglementare.
-            </span>
-          </div>
-          <div class="faq-item">
-            <strong>Am nevoie de KYC pentru a deține UNIT?</strong>
-            <span>
-              Deținerea de UNIT într-un portofel autocustodial nu necesită, de regulă, KYC. Totuși, exchange-urile,
-              rampele de intrare/ieșire fiat și anumite jurisdicții pot impune cerințe KYC/AML. Respectați întotdeauna
-              regulile platformelor și țărilor pe care le folosiți.
-            </span>
-          </div>
-        </div>
-      </section>
+    <!-- UPDATED (minimal): remove "to be renounced" statement -->
+    <li><strong>Ownership:</strong> Active (configurable parameters on-chain)</li>    
 
-      <section id="contract-info">
-        <h2>Contract Information</h2>
-        <ul>
-          <li><strong>Network:</strong> BNB Smart Chain (BEP-20)</li>
-          <li><strong>Contract Address:</strong>
-            <a href="https://bscscan.com/address/0x4f5710c96C446b133C59Af006A366d07414B52a9" target="_blank" rel="noopener">
-              0x4f5710c96C446b133C59Af006A366d07414B52a9
-            </a>
-          </li>
-          <li><strong>Status:</strong> Source Code Verified</li>
-          <li><strong>Ownership:</strong> Active (not renounced)</li>
-          <li><strong>Total Supply:</strong> 1,000,000,000 UNIT</li>
-        </ul>
-      </section>
+    <li><strong>Total Supply:</strong> 1,000,000,000 UNIT</li>    
 
-      <footer>
-        <div class="footer-row">
-          <div>© 2025 UNIT Protocol. Toate drepturile rezervate.</div>
-          <nav>
-            <a href="#utility-ro">Utilitate</a>
-            <a href="#tokenomics-ro">Tokenomics</a>
-            <a href="#buy-ro">Cum să cumperi</a>
-          </nav>
-        </div>
-      </footer>
-    </div>
-  </div>
+    <!-- ADDED (minimal): factual disclosures aligned with contract -->
+    <li><strong>Fees:</strong> Configurable on-chain (burn + treasury) within coded limits</li>    
+    <li><strong>Anti-whale:</strong> Max transaction amount may apply (if set too low, swaps/transfers can fail)</li>    
+  </ul>    
+</section>  <footer>    
+    <div class="footer-row">    
+      <div>© 2025 UNIT Protocol. Toate drepturile rezervate.</div>    
+      <nav>    
+        <a href="#utility-ro">Utilitate</a>    
+        <a href="#tokenomics-ro">Tokenomics</a>    
+        <a href="#buy-ro">Cum să cumperi</a>    
+      </nav>    
+    </div>    
+  </footer>    
+</div>    </div>    <script>    
+    (function() {    
+      const sections = document.querySelectorAll('.lang-section');    
+      const langButtons = document.querySelectorAll('[data-lang-btn]');    
+      const chip = document.getElementById('live-chip');    
+      const getBtn = document.getElementById('get-unit-btn');    
+      const getLabel = document.getElementById('get-unit-label');    function applyLang(lang) {    
+    sections.forEach(s => {    
+      s.classList.toggle('active', s.getAttribute('data-lang') === lang);    
+    });    
+    langButtons.forEach(b => {    
+      b.classList.toggle('active', b.getAttribute('data-lang-btn') === lang);    
+    });    
 
-  <script>
-    (function() {
-      const sections = document.querySelectorAll('.lang-section');
-      const langButtons = document.querySelectorAll('[data-lang-btn]');
-      const chip = document.getElementById('live-chip');
-      const getBtn = document.getElementById('get-unit-btn');
-      const getLabel = document.getElementById('get-unit-label');
+    // mic text în header în funcție de limbă    
+    if (lang === 'ro') {    
+      chip.textContent = 'LIVE PE BNB SMART CHAIN';    
+      getLabel.textContent = 'Obține UNIT';    
+      getBtn.setAttribute('href', '#buy-ro');    
+    } else {    
+      chip.textContent = 'LIVE ON BNB SMART CHAIN';    
+      getLabel.textContent = 'Get UNIT';    
+      getBtn.setAttribute('href', '#buy');    
+    }    
 
-      function applyLang(lang) {
-        sections.forEach(s => {
-          s.classList.toggle('active', s.getAttribute('data-lang') === lang);
-        });
-        langButtons.forEach(b => {
-          b.classList.toggle('active', b.getAttribute('data-lang-btn') === lang);
-        });
+    localStorage.setItem('unit_lang', lang);    
+  }    
 
-        if (lang === 'ro') {
-          chip.textContent = 'LIVE PE BNB SMART CHAIN';
-          getLabel.textContent = 'Obține UNIT';
-          getBtn.setAttribute('href', '#buy-ro');
-        } else {
-          chip.textContent = 'LIVE ON BNB SMART CHAIN';
-          getLabel.textContent = 'Get UNIT';
-          getBtn.setAttribute('href', '#buy');
-        }
+  langButtons.forEach(btn => {    
+    btn.addEventListener('click', () => {    
+      applyLang(btn.getAttribute('data-lang-btn'));    
+    });    
+  });    
 
-        localStorage.setItem('unit_lang', lang);
-      }
+  const saved = localStorage.getItem('unit_lang');    
+  const browser = (navigator.language || navigator.userLanguage || 'en').toLowerCase();    
+  let initial = 'en';    
+  if (saved === 'en' || saved === 'ro') {    
+    initial = saved;    
+  } else if (browser.startsWith('ro')) {    
+    initial = 'ro';    
+  }    
+  applyLang(initial);    
+})();    
 
-      langButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          applyLang(btn.getAttribute('data-lang-btn'));
-        });
-      });
+</script>    <div style="margin:40px 0; text-align:center;">
+<a href="UNIT_PitchDeck.pdf" target="_blank"     
+style="display:inline-block; padding:14px 26px; background:#f5b300; color:#000;     
+text-decoration:none; font-weight:600; border-radius:10px;">
+View Pitch Deck
+</a>  <br><br>
 
-      const saved = localStorage.getItem('unit_lang');
-      const browser = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
-      let initial = 'en';
-      if (saved === 'en' || saved === 'ro') {
-        initial = saved;
-      } else if (browser.startsWith('ro')) {
-        initial = 'ro';
-      }
-      applyLang(initial);
-    })();
-  </script>
+<a href="UNIT_Protocol_Whitepaper_Final.pdf" target="_blank"     
+style="color:#aaa; text-decoration:underline;">
+Read Whitepaper
+</a>
 
-  <div style="margin:40px 0; text-align:center;">
-    <a href="UNIT_PitchDeck.pdf" target="_blank" rel="noopener"
-       style="display:inline-block; padding:14px 26px; background:#f5b300; color:#000;
-              text-decoration:none; font-weight:600; border-radius:10px;">
-      View Pitch Deck
-    </a>
-
-    <br><br>
-
-    <a href="UNIT_Protocol_Whitepaper_Final.pdf" target="_blank" rel="noopener"
-       style="color:#aaa; text-decoration:underline;">
-      Read Whitepaper
-    </a>
-  </div>
-
-  <section style="text-align:center; margin:40px 0;">
-    <h2>Official Documents</h2>
-
-    <p>
-      <a href="UNIT_Protocol_Whitepaper_Final.pdf" target="_blank" rel="noopener">
-        📄 Read Whitepaper
-      </a>
-    </p>
-
-    <p>
-      <a href="UNIT_PitchDeck.pdf" target="_blank" rel="noopener">
-        📊 View Pitch Deck
-      </a>
-    </p>
-  </section>
-</body>
-</html>
+</div>    
+  <section style="text-align:center; margin:40px 0;">    
+  <h2>Official Documents</h2>    <p>    
+    <a href="UNIT_Protocol_Whitepaper_Final.pdf" target="_blank">    
+      📄 Read Whitepaper    
+    </a>    
+  </p>    <p>    
+    <a href="UNIT_PitchDeck.pdf" target="_blank">    
+      📊 View Pitch Deck    
+    </a>    
+  </p>    
+  </section>    
+</body>    
+  </html>
