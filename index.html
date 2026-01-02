@@ -554,7 +554,7 @@
             <div class="panel-main">
               <span class="badge">
                 <span class="badge-dot"></span>
-                Ownership renounced · Fixed supply*
+                Ownership active (not renounced) · Fixed supply*
               </span>
               <p style="font-size: 11px; color: var(--muted); margin-top: 6px;">
                 *Based on the configuration of the deployed smart contract.
@@ -791,9 +791,8 @@
           <div class="faq-item">
             <strong>Who controls UNIT?</strong>
             <span>
-              UNIT is implemented as a smart contract on BNB Smart Chain. Once ownership is renounced and parameters
-              are locked as coded, no central entity can unilaterally modify supply or seize user funds. Community
-              coordination happens transparently on-chain and via public channels.
+              UNIT is implemented as a smart contract on BNB Smart Chain. At present, ownership is active (not renounced).
+              Community coordination happens transparently on-chain and via public channels.
             </span>
           </div>
           <div class="faq-item">
@@ -876,7 +875,7 @@
             <div class="panel-main">
               <span class="badge">
                 <span class="badge-dot"></span>
-                Renunțare la proprietate · Ofertă fixă*
+                Proprietate activă (nerenunțată) · Ofertă fixă*
               </span>
               <p style="font-size: 11px; color: var(--muted); margin-top: 6px;">
                 *Conform configurației contractului inteligent implementat.
@@ -1092,7 +1091,7 @@
         </div>
 
         <div class="legal">
-          <strong>Notificare legală & privind riscurile.</strong>
+          <strong>Notificare legală &amp; privind riscurile.</strong>
           UNIT Protocol (UNIT) este un token digital de utilitate. Nu reprezintă acțiuni, datorii, cote-parte din
           venituri sau orice alt instrument financiar reglementat. Nimic de pe acest site nu constituie consultanță
           financiară, juridică sau fiscală sau o solicitare de cumpărare sau vânzare a vreunui activ. Activele
@@ -1121,10 +1120,8 @@
           <div class="faq-item">
             <strong>Cine controlează UNIT?</strong>
             <span>
-              UNIT este implementat ca un contract inteligent pe BNB Smart Chain. Odată ce proprietatea este
-              renunțată și parametrii sunt blocați conform codului, nu există nicio entitate centrală care să poată
-              modifica unilateral oferta sau să confiște fondurile utilizatorilor. Coordonarea comunității are loc
-              transparent on-chain și prin canale publice.
+              UNIT este implementat ca un contract inteligent pe BNB Smart Chain. În prezent, proprietatea este activă (nerenunțată).
+              Coordonarea comunității are loc transparent on-chain și prin canale publice.
             </span>
           </div>
           <div class="faq-item">
@@ -1146,20 +1143,21 @@
           </div>
         </div>
       </section>
+
       <section id="contract-info">
-  <h2>Contract Information</h2>
-  <ul>
-    <li><strong>Network:</strong> BNB Smart Chain (BEP-20)</li>
-    <li><strong>Contract Address:</strong>
-      <a href="https://bscscan.com/address/0x4f5710c96C446b133C59Af006A366d07414B52a9" target="_blank">
-        0x4f5710c96C446b133C59Af006A366d07414B52a9
-      </a>
-    </li>
-    <li><strong>Status:</strong> Source Code Verified</li>
-    <li><strong>Ownership:</strong> Active (to be renounced post-launch)</li>
-    <li><strong>Total Supply:</strong> 1,000,000,000 UNIT</li>
-  </ul>
-</section>
+        <h2>Contract Information</h2>
+        <ul>
+          <li><strong>Network:</strong> BNB Smart Chain (BEP-20)</li>
+          <li><strong>Contract Address:</strong>
+            <a href="https://bscscan.com/address/0x4f5710c96C446b133C59Af006A366d07414B52a9" target="_blank" rel="noopener">
+              0x4f5710c96C446b133C59Af006A366d07414B52a9
+            </a>
+          </li>
+          <li><strong>Status:</strong> Source Code Verified</li>
+          <li><strong>Ownership:</strong> Active (not renounced)</li>
+          <li><strong>Total Supply:</strong> 1,000,000,000 UNIT</li>
+        </ul>
+      </section>
 
       <footer>
         <div class="footer-row">
@@ -1190,7 +1188,6 @@
           b.classList.toggle('active', b.getAttribute('data-lang-btn') === lang);
         });
 
-        // mic text în header în funcție de limbă
         if (lang === 'ro') {
           chip.textContent = 'LIVE PE BNB SMART CHAIN';
           getLabel.textContent = 'Obține UNIT';
@@ -1221,34 +1218,36 @@
       applyLang(initial);
     })();
   </script>
+
   <div style="margin:40px 0; text-align:center;">
-  <a href="UNIT_PitchDeck.pdf" target="_blank" 
-     style="display:inline-block; padding:14px 26px; background:#f5b300; color:#000; 
-            text-decoration:none; font-weight:600; border-radius:10px;">
-    View Pitch Deck
-  </a>
+    <a href="UNIT_PitchDeck.pdf" target="_blank" rel="noopener"
+       style="display:inline-block; padding:14px 26px; background:#f5b300; color:#000;
+              text-decoration:none; font-weight:600; border-radius:10px;">
+      View Pitch Deck
+    </a>
 
-  <br><br>
+    <br><br>
 
-  <a href="UNIT_Protocol_Whitepaper_Final.pdf" target="_blank" 
-     style="color:#aaa; text-decoration:underline;">
-    Read Whitepaper
-  </a>
-</div>
+    <a href="UNIT_Protocol_Whitepaper_Final.pdf" target="_blank" rel="noopener"
+       style="color:#aaa; text-decoration:underline;">
+      Read Whitepaper
+    </a>
+  </div>
+
   <section style="text-align:center; margin:40px 0;">
-  <h2>Official Documents</h2>
+    <h2>Official Documents</h2>
 
-  <p>
-    <a href="UNIT_Protocol_Whitepaper_Final.pdf" target="_blank">
-      📄 Read Whitepaper
-    </a>
-  </p>
+    <p>
+      <a href="UNIT_Protocol_Whitepaper_Final.pdf" target="_blank" rel="noopener">
+        📄 Read Whitepaper
+      </a>
+    </p>
 
-  <p>
-    <a href="UNIT_PitchDeck.pdf" target="_blank">
-      📊 View Pitch Deck
-    </a>
-  </p>
+    <p>
+      <a href="UNIT_PitchDeck.pdf" target="_blank" rel="noopener">
+        📊 View Pitch Deck
+      </a>
+    </p>
   </section>
 </body>
 </html>
