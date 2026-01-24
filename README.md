@@ -8,7 +8,8 @@ UNIT is not designed as an investment product and does not provide any guarantee
 
 ## Official Links
 - Website: https://unitprotocolofficial.github.io/unit-site/
-- Whitepaper (PDF): ./UNIT_Protocol_Whitepaper.pdf
+- Whitepaper (PDF): ./UNIT_Protocol_Whitepaper_v1.2.pdf
+- Pitch Deck (PDF): ./UNIT_Protocol_PitchDeck_v1.2.pdf
 
 ---
 
@@ -31,17 +32,17 @@ All parameters are publicly verifiable on-chain via BscScan.
 
 ---
 
-## Liquidity & Market Structure
+## Liquidity Strategy
 Initial liquidity is provided on a BNB Smart Chain decentralized exchange.
 
-Liquidity is intended to be progressively locked using third-party liquidity locking solutions (e.g. Unicrypt / UNCX), in stages aligned with the project’s development milestones and ecosystem growth.
+Liquidity is intended to be progressively increased and, where applicable, locked using third-party liquidity locking solutions (such as Unicrypt / UNCX), in stages aligned with the project’s development milestones and ecosystem growth.
 
-Liquidity management actions, where applicable, are designed to prioritize transparency and long-term protocol sustainability.
+Liquidity management actions are designed to prioritize transparency, flexibility during early development, and long-term protocol sustainability.
 
 ---
 
 ## Ownership & Control
-Ownership is currently active to allow protocol configuration, security adjustments, and future ecosystem integrations.
+Contract ownership is currently active to allow protocol configuration, security adjustments, and future ecosystem integrations.
 
 Any ownership-related changes, if performed, are executed on-chain and remain publicly verifiable.
 
@@ -51,8 +52,8 @@ Any ownership-related changes, if performed, are executed on-chain and remain pu
 UNIT is designed as a digital utility token with potential use cases including:
 - Token-gated access and platform utilities
 - Non-binding governance signaling
-- Rewards and incentive mechanisms
-- Future ecosystem integrations and partnerships
+- Rewards and incentive mechanisms (future, non-guaranteed)
+- Ecosystem integrations and partnerships
 
 ---
 
@@ -62,9 +63,9 @@ All token parameters, limits, and configuration changes are enforced on-chain an
 ---
 
 ## Risk Disclosure
-UNIT Protocol is an experimental digital asset. Nothing herein constitutes financial, legal, or investment advice.
+UNIT Protocol is an experimental digital asset.
 
-Digital assets involve risk and volatility. Users are solely responsible for conducting their own due diligence before interacting with the protocol or associated smart contracts.
+Nothing herein constitutes financial, legal, or investment advice. Digital assets involve risk and volatility. Users are solely responsible for conducting their own due diligence before interacting with the protocol or associated smart contracts.
 
 ---
 
