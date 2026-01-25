@@ -22,7 +22,7 @@
       --border:rgba(154,164,198,0.22);
       --radius-lg:18px;
       --radius-full:999px;
-      --shadow-soft:0 18px 45px rgba(0,0,0,0.45);
+      --shadow-soft:0 18px 45px rgba(0, 0, 0, 0.45);
       --shadow-chip:0 12px 30px rgba(0,0,0,0.5);
     }
 
@@ -129,14 +129,14 @@
     .hero-kicker{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
     .hero-title{font-size:30px;line-height:1.15;margin-bottom:14px;}
     .hero-title .highlight{color:var(--accent);}
-    .hero-sub{font-size:14px;color:var(--muted);max-width:640px;margin-bottom:22px;}
-    .hero-tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px;}
+    .hero-sub{font-size:14px;color:var(--muted);max-width:720px;margin-bottom:18px;}
+    .hero-tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;}
     .hero-tag{
       font-size:11px;padding:5px 10px;border-radius:var(--radius-full);
       border:1px solid rgba(154,164,198,0.6);color:var(--muted);background:rgba(5,9,25,0.9);
     }
-    .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px;}
-    .hero-footnote{font-size:11px;color:var(--muted);max-width:720px;}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;}
+    .hero-footnote{font-size:11px;color:var(--muted);max-width:760px;}
 
     .side-panel{display:grid;gap:14px;}
     .panel-card{
@@ -174,15 +174,6 @@
     section h2{font-size:18px;margin-bottom:6px;}
     section p.lead{font-size:13px;color:var(--muted);margin-bottom:16px;max-width:860px;}
 
-    .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;}
-    .feature{
-      background:radial-gradient(circle at top left,rgba(88,242,200,0.1),rgba(7,10,30,0.95));
-      border-radius:16px;border:1px solid rgba(88,242,200,0.35);
-      padding:14px 14px 13px;
-    }
-    .feature h3{font-size:14px;margin-bottom:4px;}
-    .feature p{font-size:12px;color:var(--muted);}
-
     .tokenomics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:12px;}
     .token-card{
       background:radial-gradient(circle at top left,rgba(251,176,33,0.13),rgba(7,10,28,0.96));
@@ -204,8 +195,6 @@
       display:flex;align-items:center;justify-content:center;
       font-size:12px;color:var(--accent-2);margin-bottom:4px;
     }
-    .step h3{font-size:13px;margin-bottom:4px;}
-    .step p{font-size:12px;color:var(--muted);}
 
     .legal{
       margin-top:14px;font-size:11px;color:var(--muted);
@@ -281,8 +270,9 @@
           </div>
 
           <div class="hero-actions">
-            <a href="#buy" class="primary-btn">How to buy UNIT</a>
-            <a href="#tokenomics" class="ghost-btn">View tokenomics</a>
+            <a href="#tokenomics" class="ghost-btn">Tokenomics</a>
+            <a href="#buy" class="primary-btn">How to buy</a>
+            <a href="./TRANSPARENCY.md" class="ghost-btn">Transparency</a>
           </div>
 
           <p class="hero-footnote">
@@ -332,7 +322,7 @@
           <div class="token-card"><strong>Liquidity (progressive)</strong><span>20%</span><small>Long-term liquidity provisioning framework.</small></div>
           <div class="token-card"><strong>Contributors & Builders</strong><span>30%</span><small>Long-term development and contributor allocation.</small></div>
           <div class="token-card"><strong>Strategic Reserves</strong><span>25%</span><small>Future integrations, partnerships, and ecosystem initiatives.</small></div>
-          <div class="token-card"><strong>Public Ecosystem Distribution</strong><span>15%</span><small>Community programs and incentive distributions over time.</small></div>
+          <div class="token-card"><strong>Public Ecosystem Distribution</strong><span>15%</span><small>Community programs and incentives over time.</small></div>
           <div class="token-card"><strong>Ecosystem & Partnerships</strong><span>10%</span><small>Operational ecosystem growth and collaborations.</small></div>
         </div>
 
@@ -376,6 +366,7 @@
           <nav>
             <a href="#tokenomics">Tokenomics</a>
             <a href="#buy">How to buy</a>
+            <a href="./TRANSPARENCY.md">Transparency</a>
           </nav>
         </div>
       </footer>
@@ -399,8 +390,9 @@
           </div>
 
           <div class="hero-actions">
-            <a href="#buy-ro" class="primary-btn">Cum să cumperi UNIT</a>
-            <a href="#tokenomics-ro" class="ghost-btn">Vezi tokenomics</a>
+            <a href="#tokenomics-ro" class="ghost-btn">Tokenomics</a>
+            <a href="#buy-ro" class="primary-btn">Cum să cumperi</a>
+            <a href="./TRANSPARENCY.md" class="ghost-btn">Transparență</a>
           </div>
 
           <p class="hero-footnote">
@@ -474,6 +466,7 @@
           <nav>
             <a href="#tokenomics-ro">Tokenomics</a>
             <a href="#buy-ro">Cum să cumperi</a>
+            <a href="./TRANSPARENCY.md">Transparență</a>
           </nav>
         </div>
       </footer>
@@ -516,10 +509,9 @@
 
         applyLang(initial);
       } catch (e) {
-        // Safe: EN remains visible due to CSS defaults
         console.error('Lang init failed:', e);
       }
     });
   </script>
 </body>
-            </html>
+  </html>
