@@ -1,138 +1,158 @@
 # UNIT Protocol – Transparency & On-Chain Disclosure
 
-This document is provided to clearly explain the current on-chain state of
-UNIT Protocol (UNIT), including token allocation, contributor wallets,
-and exceptional situations that can be independently verified on BNB Smart Chain.
+This document provides a clear and factual overview of the current on-chain
+state of UNIT Protocol (UNIT), including token allocation, liquidity approach,
+and exceptional situations that are fully verifiable on BNB Smart Chain.
 
 UNIT Protocol prioritizes transparency through public blockchain data.
-No off-chain promises, guarantees, or custodial controls are used.
+No off-chain guarantees, promises, or custodial controls are used.
 
 ---
 
-## Token Supply Overview
+## Token Overview
 
-- Token: UNIT Protocol (UNIT)
+- Token Name: UNIT Protocol
+- Symbol: UNIT
 - Network: BNB Smart Chain (BEP-20)
-- Maximum Supply: 1,000,000,000 UNIT
-- Minting: Disabled (entire supply minted at deployment)
 - Contract Address:
   0x4f5710c96C446b133C59Af006A366d07414B52a9
+- Maximum Supply: 1,000,000,000 UNIT
+- Minting: Disabled (entire supply minted at deployment)
 
-All balances, transfers, and allocations are visible on-chain and can be
-verified using BscScan or other BNB Smart Chain explorers.
+All balances, transfers, and allocations are publicly visible and independently
+verifiable on-chain via BscScan or other BNB Smart Chain explorers.
 
 ---
 
-## Liquidity & Market Notes
+## Liquidity & Market Structure
 
 Initial liquidity has been provided on a decentralized exchange
 on BNB Smart Chain.
 
-Liquidity is intended to be progressively locked using third-party
-liquidity locking solutions (e.g. Unicrypt / UNCX), aligned with the
-project’s development stages and available resources.
+Liquidity is managed with a long-term sustainability approach and may be:
+- Increased progressively
+- Partially or fully locked using third-party liquidity locking solutions
+  (such as Unicrypt / UNCX)
+- Adjusted in alignment with project development stages and available resources
 
-Liquidity levels and locks are not fixed guarantees and may evolve
-based on project maturity, usage, and sustainability considerations.
-
-All liquidity-related actions are publicly verifiable on-chain.
+Liquidity levels and lock durations are not fixed guarantees.
+All liquidity-related actions remain fully visible and verifiable on-chain.
 
 ---
 
-## Contributor & Reward Allocation
+## Token Allocation Framework
 
-A portion of the total supply is reserved for contributors, collaborators,
-early supporters, testing, content creation, and ecosystem participation.
+UNIT Protocol uses a transparent allocation framework designed for
+long-term development and ecosystem growth.
 
-At the time of writing:
-- Approximately 60,000,000 UNIT are allocated for contributor-related purposes.
+### 1. Contributors & Builders – 30%
+Allocated for development, contributors, collaborators, and long-term builders.
 
-Primary contributor allocation wallet:
-- Address:  
-  0x3d79aa2caa4abbb9fd90daf8a23702659ceb4f6c
+Designated wallet:
+- 0x95174c6ad855083fe36f84c539fd4c202ccd903f
 
-Purpose of this wallet includes:
-- Contributor rewards
-- Community incentives
-- Testing and experimentation
-- Support for ecosystem participation
-- Compensation for work performed for the project
+---
 
-Important clarifications:
-- All transfers from this wallet are publicly visible on-chain.
-- Once tokens are transferred, recipients fully control their own wallets.
-- UNIT Protocol does not impose off-chain restrictions on third-party wallets.
-- No price, value, or holding guarantees are made.
-- Transparency is ensured through blockchain verification, not custodial control.
+### 2. Public Ecosystem Distribution – 15%
+Used for community initiatives, rewards, giveaways, testing,
+and ecosystem participation.
 
-Anyone can independently verify the balance and transaction history of this
-wallet using BscScan.
+Designated wallet:
+- 0x3d79aa2caa4abbb9fd90daf8a23702659ceb4f6c
+
+Important notes:
+- Tokens distributed from this wallet are fully controlled by recipients
+- No holding, price, or resale restrictions are imposed
+- All transfers are publicly traceable on-chain
+
+---
+
+### 3. Ecosystem & Partnerships – 10%
+Reserved for partnerships, integrations, and ecosystem-related collaborations.
+
+Designated wallet:
+- 0x2b754ebd32102f05956a82377345ef71a97eb8b5
+
+---
+
+### 4. Strategic Reserves – 25%
+Reserved for long-term strategic purposes and future protocol needs.
+
+Current reserve wallet (hardware wallet / Tangem):
+- 0x95f98600E1e6BC6ddddF0b27787586f34ca7Dd4F
+
+Approximately 200,000,000 UNIT are currently held at this address.
+
+These tokens remain on-chain, visible, and unmoved.
+The wallet interface does not currently support manual token display for
+newly deployed tokens, but the assets are not lost.
+
+---
+
+### 5. Liquidity Allocation – 20%
+Allocated for liquidity provisioning over time, based on project growth
+and sustainability considerations.
+
+Liquidity actions are performed on-chain and remain publicly verifiable.
 
 ---
 
 ## Accidental Transfer Disclosure
 
 During early operational activity, approximately **200,000,000 UNIT**
-were accidentally transferred to a third-party hardware wallet address
-(Tangem) using an incorrect destination.
+were transferred to a hardware wallet address using an incorrect destination.
 
 Key facts:
-- The tokens remain on-chain and are fully visible.
-- The receiving wallet does not currently support manual token addition
-  for newly deployed tokens.
-- As a result, the tokens are temporarily inaccessible from the user
-  interface, but **not lost**.
-
-Current status:
-- No recovery action has been performed at this time.
-- The tokens remain untouched and verifiable on-chain.
-- Any future recovery or movement, if possible, would be publicly visible.
+- Tokens are not burned or lost
+- Tokens remain fully visible on-chain
+- No recovery or movement has occurred to date
+- Any future action would be publicly recorded on-chain
 
 This disclosure is provided to prevent misunderstandings regarding
-circulating supply or token distribution.
+circulating supply or token availability.
+
+---
+
+## Ownership & Contract Control
+
+The smart contract currently has an active owner address.
+
+The owner can:
+- Adjust configurable parameters explicitly allowed by the contract
+  (e.g. fees, max transaction limits)
+
+Limitations:
+- Total supply cannot be increased
+- All administrative actions are permanently recorded on-chain
+- No hidden or off-chain controls exist
+
+Ownership status may change in the future according to the project roadmap.
+No guarantees or commitments are made.
 
 ---
 
 ## Distribution & Transfers
 
 UNIT Protocol does not enforce artificial distribution patterns.
-Transfers from the deployer or contributor wallets may occur for:
-- Rewards
-- Testing
-- Compensation
+
+Transfers may occur for:
+- Development and testing
+- Contributor compensation
 - Community initiatives
-- Operational needs
+- Ecosystem growth
 
-Multiple transfers from a single wallet do not imply market manipulation.
-All transfers are transparent and traceable on-chain.
-
----
-
-## Ownership & Control
-
-The UNIT Protocol smart contract currently has an active owner address.
-
-The owner can:
-- Adjust configurable on-chain parameters (e.g. fee settings, max transaction)
-- Perform administrative actions explicitly allowed by the contract code
-
-Limitations:
-- Total supply cannot be increased.
-- All ownership actions are permanently recorded on-chain.
-- No hidden or off-chain controls exist.
-
-Ownership status may change in the future according to the project roadmap,
-but no commitments or guarantees are made.
+Multiple transfers from a wallet do not imply market manipulation.
+Blockchain transparency is the sole source of verification.
 
 ---
 
 ## Transparency Commitment
 
 UNIT Protocol commits to:
-- On-chain verifiability over off-chain claims
+- On-chain verification over off-chain claims
 - Clear disclosure of exceptional situations
-- No promises of profit, value appreciation, or financial returns
-- Open documentation that can be independently audited
+- No promises of profit or price appreciation
+- Public documentation aligned with blockchain data
 
 Blockchain data is the single source of truth.
 
@@ -144,7 +164,9 @@ UNIT Protocol is an experimental digital utility token.
 
 Nothing in this document constitutes financial, legal, or investment advice.
 Digital assets involve risk, volatility, and regulatory uncertainty.
-Participants are solely responsible for their own decisions and due diligence.
+
+Participants are solely responsible for their own decisions
+and due diligence.
 
 ---
 
