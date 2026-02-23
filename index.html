@@ -200,7 +200,7 @@
           <span id="liveChip">LIVE ON BNB SMART CHAIN</span>
         </div>
 
-        <!-- ✅ Direct BNB -> UNIT -->
+        <!-- IMPORTANT: direct BNB -> UNIT -->
         <a class="btn" id="buyBtn"
            href="https://pancakeswap.finance/swap?inputCurrency=BNB&outputCurrency=0x4f5710c96C446b133C59AF006A36d07414B52a9"
            target="_blank" rel="noopener noreferrer">
@@ -236,9 +236,12 @@
           <a class="btn2" href="#staking" id="stakingBtn">Staking (In Development)</a>
           <a class="btn2" href="./TRANSPARENCY.md" id="transBtn">Transparency</a>
 
-          <!-- ✅ Updated to v1.3 filenames -->
-          <a class="btn2" href="./UNIT_Protocol_Technical_and_Ecosystem_Whitepaper_v1.3.pdf" target="_blank" rel="noopener noreferrer" id="wpBtn">Whitepaper v1.3</a>
-          <a class="btn2" href="./UNIT_Protocol_PitchDeck_v1.3_Professional.pdf" target="_blank" rel="noopener noreferrer" id="pdBtn">Pitch Deck v1.3</a>
+          <!-- updated to v1.3 file names -->
+          <a class="btn2" href="./UNIT_Protocol_Technical_and_Ecosystem_Whitepaper_v1.3.pdf"
+             target="_blank" rel="noopener noreferrer" id="wpBtn">Whitepaper v1.3</a>
+
+          <a class="btn2" href="./UNIT_Protocol_PitchDeck_v1.3_Professional.pdf"
+             target="_blank" rel="noopener noreferrer" id="pdBtn">Pitch Deck v1.3</a>
         </div>
 
         <div class="note" id="heroNote">
@@ -351,7 +354,7 @@
           <b id="buy3t">Step 3</b>
           <span id="buy3b">Open PancakeSwap and verify the contract before swapping.</span>
           <div style="margin-top:10px">
-            <!-- ✅ Direct BNB -> UNIT -->
+            <!-- IMPORTANT: direct BNB -> UNIT -->
             <a class="btn" id="psBtn"
                href="https://pancakeswap.finance/swap?inputCurrency=BNB&outputCurrency=0x4f5710c96C446b133C59AF006A36d07414B52a9"
                target="_blank" rel="noopener noreferrer">
@@ -467,6 +470,7 @@
 
     function setLang(lang){
       const t = TEXT[lang] || TEXT.en;
+
       document.documentElement.lang = lang;
 
       document.getElementById("liveChip").textContent = t.liveChip;
