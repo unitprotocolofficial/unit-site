@@ -8,6 +8,7 @@ UNIT is **not designed as an investment product** and does not provide any guara
 
 ## Official Links
 - Website: https://unitprotocolofficial.github.io/unit-site/
+- Telegram Community: https://t.me/UNIT_BNB_CHAT
 - Whitepaper (PDF): [UNIT_Protocol_Technical_and_Ecosystem_Whitepaper_v1.3.pdf](./UNIT_Protocol_Technical_and_Ecosystem_Whitepaper_v1.3.pdf)
 - Pitch Deck (PDF): [UNIT_Protocol_PitchDeck_v1.3_Professional.pdf](./UNIT_Protocol_PitchDeck_v1.3_Professional.pdf)
 - Transparency: [TRANSPARENCY.md](./TRANSPARENCY.md)
