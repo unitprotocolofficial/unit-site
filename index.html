@@ -3,515 +3,547 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>UNIT Protocol – Utility-Focused Digital Token Infrastructure</title>
-  <meta name="description" content="UNIT Protocol (UNIT) is a BEP-20 utility token on BNB Smart Chain with transparent on-chain configuration and verifiable mechanics." />
+  <title>UNIT Protocol (UNIT) — BNB Chain Utility Token</title>
+  <meta name="description" content="UNIT Protocol (UNIT) is a BEP-20 utility token on BNB Smart Chain. Official links, contract address, and transparent project information." />
 
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
+    *{box-sizing:border-box;margin:0;padding:0}
     :root{
       --bg:#050814;
-      --bg-alt:#070c1f;
+      --bg2:#070c1f;
       --card:#0b1226;
       --accent:#fbb021;
-      --accent-soft:rgba(251,176,33,0.20);
-      --accent-2:#58f2c8;
+      --accent2:#58f2c8;
       --text:#f5f7ff;
       --muted:#9aa4c6;
-      --danger:#ff4d6a;
-      --border:rgba(154,164,198,0.22);
-      --radius-lg:18px;
-      --radius-full:999px;
-      --shadow-soft:0 18px 45px rgba(0, 0, 0, 0.45);
-      --shadow-chip:0 12px 30px rgba(0,0,0,0.5);
+      --border:rgba(154,164,198,.22);
+      --shadow:0 18px 45px rgba(0,0,0,.45);
+      --radius:18px;
+      --radius2:22px;
+      --pill:999px;
     }
-
     body{
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       background:radial-gradient(circle at top left,#17213b 0,#050814 45%,#020312 100%);
       color:var(--text);
-      line-height:1.5;
+      line-height:1.55;
       padding:16px;
     }
-
-    .page-shell{max-width:1120px;margin:0 auto 64px;}
-
+    a{color:inherit}
+    .wrap{max-width:1120px;margin:0 auto 64px}
     header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      padding:14px 18px;
-      border-radius:var(--radius-lg);
-      background:linear-gradient(135deg,rgba(10,16,36,0.97),rgba(5,7,18,0.97));
+      display:flex;align-items:center;justify-content:space-between;gap:14px;
+      padding:14px 16px;border-radius:var(--radius);
+      background:linear-gradient(135deg,rgba(10,16,36,.97),rgba(5,7,18,.97));
       border:1px solid var(--border);
-      box-shadow:var(--shadow-soft);
-      position:sticky;
-      top:8px;
-      z-index:20;
+      box-shadow:var(--shadow);
+      position:sticky;top:8px;z-index:10;
       backdrop-filter:blur(14px);
     }
-
-    .brand{display:flex;align-items:center;gap:12px;}
-    .logo-pill{
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
       width:42px;height:42px;border-radius:14px;
       background:radial-gradient(circle at 30% 20%,#fff7cf 0,#fdd867 25%,#fbb021 55%,#b47000 100%);
-      box-shadow:0 0 0 1px rgba(0,0,0,0.4),0 18px 32px rgba(0,0,0,0.65),inset 0 1px 0 rgba(255,255,255,0.8);
+      box-shadow:0 0 0 1px rgba(0,0,0,.4),0 18px 32px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.8);
       display:flex;align-items:center;justify-content:center;
+      font-weight:900;color:#1c1303;font-size:22px;
+      user-select:none;
     }
-    .logo-pill span{font-weight:800;font-size:22px;color:#1c1303;text-shadow:0 1px 0 rgba(255,255,255,0.7);}
-    .brand-text small{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);}
-    .brand-text strong{font-size:16px;letter-spacing:0.16em;text-transform:uppercase;display:block;margin-top:2px;}
-
-    nav{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end;}
-
+    .brand h1{font-size:14px;letter-spacing:.14em;text-transform:uppercase}
+    .brand small{display:block;color:var(--muted);font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin-top:2px}
+    .nav{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
     .chip{
-      padding:6px 10px;border-radius:var(--radius-full);
-      border:1px solid rgba(88,242,200,0.3);
-      background:radial-gradient(circle at top left,rgba(88,242,200,0.16),rgba(4,10,28,0.9));
-      font-size:11px;text-transform:uppercase;letter-spacing:0.16em;color:var(--accent-2);
-      display:inline-flex;align-items:center;gap:6px;
+      display:inline-flex;align-items:center;gap:8px;
+      padding:6px 10px;border-radius:var(--pill);
+      border:1px solid rgba(88,242,200,.3);
+      background:radial-gradient(circle at top left,rgba(88,242,200,.16),rgba(4,10,28,.9));
+      font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:var(--accent2);
+      white-space:nowrap;
     }
-    .chip-dot{width:7px;height:7px;border-radius:999px;background:#30e59e;box-shadow:0 0 10px rgba(88,242,200,0.9);}
-
-    .primary-btn,.ghost-btn{
-      border-radius:var(--radius-full);
-      padding:9px 18px;
-      font-size:13px;font-weight:600;
-      border:none;cursor:pointer;white-space:nowrap;
-      transition:transform 0.12s ease,box-shadow 0.12s ease,background 0.12s ease;
-      display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+    .dot{width:7px;height:7px;border-radius:99px;background:#30e59e;box-shadow:0 0 10px rgba(88,242,200,.9)}
+    .btn,.btn2{
+      border-radius:var(--pill);
+      padding:9px 16px;
+      font-size:13px;font-weight:700;
+      border:none;cursor:pointer;
+      transition:transform .12s ease,box-shadow .12s ease,background .12s ease;
+      display:inline-flex;align-items:center;gap:8px;
+      text-decoration:none;
+      white-space:nowrap;
     }
-    .primary-btn{
+    .btn{
       background:linear-gradient(135deg,#fbb021,#ff7f32);
-      color:#1b1206;box-shadow:var(--shadow-chip);
+      color:#1b1206;
+      box-shadow:0 12px 30px rgba(0,0,0,.55);
     }
-    .primary-btn:hover{transform:translateY(-1px);box-shadow:0 14px 36px rgba(0,0,0,0.6);}
-    .ghost-btn{
-      background:rgba(9,14,34,0.8);
+    .btn:hover{transform:translateY(-1px);box-shadow:0 16px 36px rgba(0,0,0,.65)}
+    .btn2{
+      background:rgba(9,14,34,.8);
       color:var(--text);
-      border:1px solid rgba(154,164,198,0.35);
+      border:1px solid rgba(154,164,198,.35);
     }
-    .ghost-btn:hover{background:rgba(16,25,60,0.95);}
-
-    .lang-toggle{
-      display:inline-flex;padding:3px;border-radius:var(--radius-full);
-      background:rgba(10,16,36,0.9);
-      border:1px solid rgba(154,164,198,0.45);
+    .btn2:hover{background:rgba(16,25,60,.95)}
+    .toggle{
+      display:inline-flex;padding:3px;border-radius:var(--pill);
+      background:rgba(10,16,36,.9);
+      border:1px solid rgba(154,164,198,.45);
     }
-    .lang-btn{
-      border-radius:var(--radius-full);
-      padding:6px 11px;
-      font-size:11px;font-weight:600;
-      letter-spacing:0.12em;text-transform:uppercase;
-      border:none;cursor:pointer;background:transparent;color:var(--muted);
-      min-width:40px;
+    .tbtn{
+      border:none;background:transparent;color:var(--muted);
+      padding:6px 10px;border-radius:var(--pill);
+      font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+      cursor:pointer;min-width:44px;
     }
-    .lang-btn.active{
-      background:linear-gradient(135deg,rgba(251,176,33,0.2),rgba(251,176,33,0.05));
+    .tbtn.active{
+      background:linear-gradient(135deg,rgba(251,176,33,.22),rgba(251,176,33,.06));
       color:var(--text);
-      box-shadow:0 10px 24px rgba(0,0,0,0.55);
+      box-shadow:0 10px 24px rgba(0,0,0,.55);
     }
 
     main{
-      margin-top:28px;
+      margin-top:24px;
       display:grid;
       grid-template-columns:minmax(0,2fr) minmax(0,1fr);
-      gap:24px;
+      gap:20px;
     }
-
     .hero{
-      padding:26px 22px 24px;border-radius:22px;
-      background:radial-gradient(circle at top left,rgba(251,176,33,0.12) 0,rgba(5,8,22,0.95) 40%,#050814 100%);
+      padding:24px 20px;border-radius:var(--radius2);
+      background:radial-gradient(circle at top left,rgba(251,176,33,.12) 0,rgba(5,8,22,.95) 40%,#050814 100%);
       border:1px solid var(--border);
-      box-shadow:var(--shadow-soft);
+      box-shadow:var(--shadow);
     }
-    .hero-kicker{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
-    .hero-title{font-size:30px;line-height:1.15;margin-bottom:14px;}
-    .hero-title .highlight{color:var(--accent);}
-    .hero-sub{font-size:14px;color:var(--muted);max-width:720px;margin-bottom:18px;}
-    .hero-tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;}
-    .hero-tag{
-      font-size:11px;padding:5px 10px;border-radius:var(--radius-full);
-      border:1px solid rgba(154,164,198,0.6);color:var(--muted);background:rgba(5,9,25,0.9);
+    .kicker{font-size:11px;color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px}
+    .title{font-size:30px;line-height:1.15;margin-bottom:12px}
+    .hl{color:var(--accent)}
+    .sub{font-size:14px;color:var(--muted);max-width:780px;margin-bottom:14px}
+    .tags{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 14px}
+    .tag{
+      font-size:11px;padding:5px 10px;border-radius:var(--pill);
+      border:1px solid rgba(154,164,198,.55);
+      color:var(--muted);background:rgba(5,9,25,.9);
     }
-    .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;}
-    .hero-footnote{font-size:11px;color:var(--muted);max-width:760px;}
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 8px}
+    .note{font-size:11px;color:var(--muted);margin-top:10px}
 
-    .side-panel{display:grid;gap:14px;}
-    .panel-card{
-      border-radius:18px;
-      background:linear-gradient(145deg,rgba(7,12,32,0.96),rgba(6,10,28,0.96));
+    .side{display:grid;gap:12px}
+    .card{
+      border-radius:var(--radius);
+      background:linear-gradient(145deg,rgba(7,12,32,.96),rgba(6,10,28,.96));
       border:1px solid var(--border);
-      padding:14px 16px;
+      padding:14px 14px;
     }
-    .panel-label{font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
-    .panel-main{font-size:14px;}
-
+    .label{font-size:11px;color:var(--muted);letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
+    .val{font-size:14px}
     code{
       font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
       font-size:12px;color:var(--text);
-      background:rgba(5,10,30,0.75);
-      padding:2px 6px;border-radius:10px;border:1px solid rgba(154,164,198,0.25);
+      background:rgba(5,10,30,.75);
+      padding:2px 6px;border-radius:10px;border:1px solid rgba(154,164,198,.25);
       display:inline-block;word-break:break-all;
     }
 
-    .badge{
-      display:inline-flex;align-items:center;gap:6px;border-radius:var(--radius-full);
-      padding:5px 10px;border:1px solid rgba(251,176,33,0.35);
-      background:radial-gradient(circle at top left,rgba(251,176,33,0.18),rgba(7,9,24,0.9));
-      font-size:11px;color:var(--accent);
-    }
-    .badge-dot{width:7px;height:7px;border-radius:999px;background:var(--accent);box-shadow:0 0 10px rgba(251,176,33,0.7);}
-
     section{
-      margin-top:32px;
-      padding:22px 20px;border-radius:20px;
-      background:linear-gradient(145deg,rgba(7,12,32,0.96),rgba(4,8,22,0.98));
+      margin-top:22px;
+      padding:20px 18px;border-radius:20px;
+      background:linear-gradient(145deg,rgba(7,12,32,.96),rgba(4,8,22,.98));
       border:1px solid var(--border);
-      box-shadow:var(--shadow-soft);
+      box-shadow:var(--shadow);
     }
-    section h2{font-size:18px;margin-bottom:6px;}
-    section p.lead{font-size:13px;color:var(--muted);margin-bottom:16px;max-width:860px;}
-
-    .tokenomics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:12px;}
-    .token-card{
-      background:radial-gradient(circle at top left,rgba(251,176,33,0.13),rgba(7,10,28,0.96));
-      border-radius:16px;border:1px solid rgba(251,176,33,0.45);
+    section h2{font-size:18px;margin-bottom:6px}
+    .lead{font-size:13px;color:var(--muted);margin-bottom:14px;max-width:880px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:10px}
+    .box{
+      border-radius:16px;border:1px solid rgba(88,242,200,.35);
+      background:radial-gradient(circle at top left,rgba(88,242,200,.14),rgba(6,10,26,.96));
       padding:12px 14px;font-size:13px;
     }
-    .token-card strong{display:block;font-size:13px;margin-bottom:2px;}
-    .token-card span{font-size:20px;font-weight:700;}
-    .token-card small{display:block;font-size:11px;color:var(--muted);margin-top:2px;}
-
-    .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:10px;}
-    .step{
-      border-radius:16px;border:1px solid rgba(88,242,200,0.4);
-      background:radial-gradient(circle at top left,rgba(88,242,200,0.16),rgba(6,10,26,0.96));
-      padding:12px 14px;font-size:13px;
-    }
-    .step-number{
-      width:24px;height:24px;border-radius:999px;border:1px solid rgba(88,242,200,0.6);
-      display:flex;align-items:center;justify-content:center;
-      font-size:12px;color:var(--accent-2);margin-bottom:4px;
-    }
-
+    .box b{display:block;margin-bottom:4px}
     .legal{
-      margin-top:14px;font-size:11px;color:var(--muted);
-      border-radius:14px;border:1px solid rgba(255,77,106,0.6);
-      background:radial-gradient(circle at top left,rgba(255,77,106,0.18),rgba(7,8,20,0.96));
+      margin-top:12px;
+      font-size:11px;color:var(--muted);
+      border-radius:14px;border:1px solid rgba(255,77,106,.6);
+      background:radial-gradient(circle at top left,rgba(255,77,106,.18),rgba(7,8,20,.96));
       padding:10px 11px;
     }
-
     footer{
-      margin-top:26px;padding:16px 4px 8px;font-size:11px;color:var(--muted);
-      border-top:1px solid rgba(46,56,96,0.8);
+      margin-top:22px;
+      padding:14px 4px 8px;
+      font-size:11px;color:var(--muted);
+      border-top:1px solid rgba(46,56,96,.8);
     }
-    footer .footer-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
-    footer nav{display:flex;gap:12px;}
-    footer a{color:var(--muted);text-decoration:none;}
-    footer a:hover{color:var(--accent-2);}
-
-    /* ✅ No black screen even if JS fails */
-    .lang-section{display:block;}
-    .lang-section:not(.active){display:none;}
-
+    .frow{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .flinks{display:flex;gap:12px;flex-wrap:wrap}
+    .flinks a{color:var(--muted);text-decoration:none}
+    .flinks a:hover{color:var(--accent2)}
     @media (max-width:768px){
-      header{flex-direction:column;align-items:flex-start;}
-      nav{width:100%;justify-content:space-between;}
-      main{grid-template-columns:1fr;}
+      header{flex-direction:column;align-items:flex-start}
+      .nav{width:100%;justify-content:space-between}
+      main{grid-template-columns:1fr}
     }
   </style>
 </head>
 
 <body>
-  <div class="page-shell">
+  <div class="wrap">
     <header>
       <div class="brand">
-        <div class="logo-pill"><span>U</span></div>
-        <div class="brand-text">
-          <small>UNIT PROTOCOL</small>
-          <strong>BEP-20 · BNB SMART CHAIN</strong>
+        <div class="logo">U</div>
+        <div>
+          <h1 id="brandTitle">UNIT PROTOCOL</h1>
+          <small id="brandSub">BEP-20 · BNB SMART CHAIN</small>
         </div>
       </div>
 
-      <nav>
+      <div class="nav">
         <div class="chip">
-          <span class="chip-dot"></span>
-          <span id="live-chip">LIVE ON BNB SMART CHAIN</span>
+          <span class="dot"></span>
+          <span id="liveChip">LIVE ON BNB SMART CHAIN</span>
         </div>
 
-        <a href="#buy" class="primary-btn" id="get-unit-btn">
-          <span id="get-unit-label">Get UNIT</span>
+        <a class="btn" id="buyBtn" href="https://pancakeswap.finance/swap?outputCurrency=0x4f5710c96C446b133C59AF006A36d07414B52a9" target="_blank" rel="noopener noreferrer">
+          <span id="buyBtnLabel">Buy UNIT</span>
         </a>
 
-        <div class="lang-toggle">
-          <button class="lang-btn active" data-lang-btn="en">EN</button>
-          <button class="lang-btn" data-lang-btn="ro">RO</button>
+        <div class="toggle" aria-label="Language toggle">
+          <button class="tbtn active" id="btnEN" type="button">EN</button>
+          <button class="tbtn" id="btnRO" type="button">RO</button>
         </div>
-      </nav>
+      </div>
     </header>
 
-    <!-- EN -->
-    <div class="lang-section active" data-lang="en">
-      <main>
-        <div class="hero">
-          <div class="hero-kicker">BUILT FOR REAL UTILITY</div>
-          <h1 class="hero-title">A <span class="highlight">utility-first</span> digital asset for builders and long-term thinkers.</h1>
-          <p class="hero-sub">
-            UNIT Protocol is a BEP-20 utility token on BNB Smart Chain, designed for transparent on-chain configuration and verifiable mechanics.
-            No guaranteed yields, no profit promises — only rules that can be checked on-chain.
-          </p>
+    <main>
+      <div class="hero">
+        <div class="kicker" id="kicker">BUILT FOR REAL UTILITY</div>
+        <div class="title" id="title">
+          A <span class="hl">utility-first</span> token for builders and long-term thinkers.
+        </div>
+        <div class="sub" id="sub">
+          UNIT Protocol (UNIT) is a BEP-20 utility token on BNB Smart Chain with transparent, verifiable on-chain mechanics.
+          No guaranteed yields. No profit promises. Always do your own research.
+        </div>
 
-          <div class="hero-tags">
-            <div class="hero-tag">Transparent</div>
-            <div class="hero-tag">Non-custodial</div>
-            <div class="hero-tag">Community-driven</div>
-          </div>
+        <div class="tags" id="tags">
+          <div class="tag" id="tag1">Transparent</div>
+          <div class="tag" id="tag2">Non-custodial</div>
+          <div class="tag" id="tag3">Community-first</div>
+        </div>
 
-          <div class="hero-actions">
-            <a href="#tokenomics" class="ghost-btn">Tokenomics</a>
-            <a href="#buy" class="primary-btn">How to buy</a>
-            <a href="./TRANSPARENCY.md" class="ghost-btn">Transparency</a>
-          </div>
+        <div class="actions">
+          <a class="btn2" href="#about" id="aboutBtn">About</a>
+          <a class="btn2" href="#staking" id="stakingBtn">Staking (In Development)</a>
+          <a class="btn2" href="./TRANSPARENCY.md" id="transBtn">Transparency</a>
+          <a class="btn2" href="./UNIT_Protocol_Whitepaper_v1.2.pdf" target="_blank" rel="noopener noreferrer" id="wpBtn">Whitepaper v1.2</a>
+          <a class="btn2" href="./UNIT_Protocol_PitchDeck_v1.2.pdf" target="_blank" rel="noopener noreferrer" id="pdBtn">Pitch Deck v1.2</a>
+        </div>
 
-          <p class="hero-footnote">
-            UNIT is an experimental digital asset and a utility token. Nothing on this website is financial, legal, or investment advice.
-            Always do your own research and never risk money you cannot afford to lose.
-          </p>
+        <div class="note" id="heroNote">
+          This website is for informational purposes only and does not constitute financial advice.
+        </div>
+      </div>
 
-          <div class="hero-actions" style="margin-top:10px;">
-            <a class="ghost-btn" href="./UNIT_Protocol_Whitepaper_v1.2.pdf" target="_blank" rel="noopener noreferrer">📄 Whitepaper v1.2</a>
-            <a class="ghost-btn" href="./UNIT_Protocol_PitchDeck_v1.2.pdf" target="_blank" rel="noopener noreferrer">📊 Pitch Deck v1.2</a>
+      <div class="side">
+        <div class="card">
+          <div class="label" id="netLabel">Network</div>
+          <div class="val" id="netVal">BNB Smart Chain (BEP-20)</div>
+        </div>
+
+        <div class="card">
+          <div class="label" id="supplyLabel">Total Supply</div>
+          <div class="val" id="supplyVal">1,000,000,000 UNIT</div>
+        </div>
+
+        <div class="card">
+          <div class="label" id="contractLabel">Contract</div>
+          <div class="val">
+            <a id="contractLink" href="https://bscscan.com/token/0x4f5710c96C446b133C59AF006A36d07414B52a9" target="_blank" rel="noopener noreferrer">
+              <code>0x4f5710c96C446b133C59AF006A36d07414B52a9</code>
+            </a>
           </div>
         </div>
 
-        <div class="side-panel">
-          <div class="panel-card">
-            <div class="panel-label">Network</div>
-            <div class="panel-main">BNB Smart Chain (BEP-20)</div>
-          </div>
-          <div class="panel-card">
-            <div class="panel-label">Total Supply</div>
-            <div class="panel-main">1,000,000,000 UNIT</div>
-          </div>
-          <div class="panel-card">
-            <div class="panel-label">Contract</div>
-            <div class="panel-main"><code>0x4f5710c96C446b133C59AF006A36d07414B52a9</code></div>
-          </div>
-          <div class="panel-card">
-            <div class="panel-label">Status</div>
-            <div class="panel-main">
-              <span class="badge"><span class="badge-dot"></span>Ownership active · Fees configurable · Fixed supply</span>
-              <p style="font-size:11px;color:var(--muted);margin-top:6px;">
-                Fixed supply refers to total supply minted at deployment. The contract includes configurable fees and an anti-whale max transaction limit.
-              </p>
-            </div>
+        <div class="card">
+          <div class="label" id="linksLabel">Official Links</div>
+          <div class="val" style="display:grid;gap:8px">
+            <a id="tgLink" class="btn2" href="https://t.me/UNIT_BNB_CHAT" target="_blank" rel="noopener noreferrer">Telegram: t.me/UNIT_BNB_CHAT</a>
+            <a id="xLink" class="btn2" href="https://x.com/UNIT_BNB" target="_blank" rel="noopener noreferrer">X (Twitter): @UNIT_BNB</a>
+            <a id="ttLink" class="btn2" href="https://www.tiktok.com/@unit_protocol" target="_blank" rel="noopener noreferrer">TikTok: @unit_protocol</a>
+            <a id="ghLink" class="btn2" href="https://github.com/unitprotocolofficial/unit-site" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
           </div>
         </div>
-      </main>
+      </div>
+    </main>
 
-      <section id="tokenomics">
-        <h2>Tokenomics</h2>
-        <p class="lead">
-          UNIT has a fixed total supply minted at deployment. Some parameters (fees and max transaction amount) are configurable on-chain within coded limits.
-          Any changes are publicly verifiable.
-        </p>
+    <section id="about">
+      <h2 id="aboutH">About UNIT</h2>
+      <div class="lead" id="aboutLead">
+        UNIT is an experimental utility token on BNB Smart Chain. Rules and configuration are intended to be verifiable on-chain.
+      </div>
 
-        <div class="tokenomics-grid">
-          <div class="token-card"><strong>Liquidity (progressive)</strong><span>20%</span><small>Long-term liquidity provisioning framework.</small></div>
-          <div class="token-card"><strong>Contributors & Builders</strong><span>30%</span><small>Long-term development and contributor allocation.</small></div>
-          <div class="token-card"><strong>Strategic Reserves</strong><span>25%</span><small>Future integrations, partnerships, and ecosystem initiatives.</small></div>
-          <div class="token-card"><strong>Public Ecosystem Distribution</strong><span>15%</span><small>Community programs and incentives over time.</small></div>
-          <div class="token-card"><strong>Ecosystem & Partnerships</strong><span>10%</span><small>Operational ecosystem growth and collaborations.</small></div>
+      <div class="grid">
+        <div class="box">
+          <b id="box1t">Verify before you interact</b>
+          <span id="box1b">Always double-check the contract address and official links. Avoid scams and impersonators.</span>
         </div>
-
-        <p style="font-size:11px;color:var(--muted);margin-top:10px;">
-          Allocation is a long-term framework. Releases and any locks/vesting are executed progressively and remain verifiable on-chain.
-        </p>
-      </section>
-
-      <section id="buy">
-        <h2>How to buy UNIT</h2>
-        <p class="lead">Always verify the contract address and understand self-custody before interacting with any DEX.</p>
-
-        <div class="steps">
-          <div class="step">
-            <div class="step-number">1</div>
-            <h3>Set up a BSC wallet</h3>
-            <p>Use a trusted non-custodial wallet and add BNB Smart Chain.</p>
-          </div>
-          <div class="step">
-            <div class="step-number">2</div>
-            <h3>Fund with BNB</h3>
-            <p>Hold BNB for network fees and swaps.</p>
-          </div>
-          <div class="step">
-            <div class="step-number">3</div>
-            <h3>Swap into UNIT</h3>
-            <p>Import and verify: <code>0x4f5710c96C446b133C59AF006A36d07414B52a9</code></p>
-          </div>
+        <div class="box">
+          <b id="box2t">Self-custody matters</b>
+          <span id="box2b">You control your wallet keys. No one can reverse transactions for you.</span>
         </div>
-
-        <div class="legal">
-          <strong>Legal & risk notice.</strong>
-          UNIT is a utility token. Nothing on this website is financial, legal, or investment advice. Digital assets are volatile and may lose all value.
-          You are responsible for complying with applicable rules and conducting your own due diligence.
+        <div class="box">
+          <b id="box3t">Transparent docs</b>
+          <span id="box3b">Read the Transparency doc and official PDFs on this repository.</span>
         </div>
-      </section>
+      </div>
 
-      <footer>
-        <div class="footer-row">
-          <div>© 2026 UNIT Protocol.</div>
-          <nav>
-            <a href="#tokenomics">Tokenomics</a>
-            <a href="#buy">How to buy</a>
-            <a href="./TRANSPARENCY.md">Transparency</a>
-          </nav>
+      <div class="legal" id="legal1">
+        <b>Legal & risk notice.</b>
+        Digital assets are volatile and may lose all value. Nothing on this site is financial, legal, or investment advice.
+        You are solely responsible for your decisions, due diligence, and compliance with applicable laws and regulations.
+      </div>
+    </section>
+
+    <section id="staking">
+      <h2 id="stakeH">Staking Program (In Development)</h2>
+      <div class="lead" id="stakeLead">
+        We are actively developing and testing our staking system. Details (APR, minimums, lock terms) will be shared only when everything is finalized.
+      </div>
+
+      <div class="grid">
+        <div class="box">
+          <b id="stake1t">Test first</b>
+          <span id="stake1b">We prioritize security and reliability through staged testing before any production release.</span>
         </div>
-      </footer>
-    </div>
+        <div class="box">
+          <b id="stake2t">No promises</b>
+          <span id="stake2b">No guaranteed yields or profit claims. Any future program will be communicated transparently.</span>
+        </div>
+        <div class="box">
+          <b id="stake3t">Early supporters</b>
+          <span id="stake3b">Community-first approach: early supporters will be the first to hear official updates.</span>
+        </div>
+      </div>
 
-    <!-- RO -->
-    <div class="lang-section" data-lang="ro">
-      <main>
-        <div class="hero">
-          <div class="hero-kicker">CONSTRUIT PENTRU UTILITATE REALĂ</div>
-          <h1 class="hero-title">Un activ digital <span class="highlight">axat pe utilitate</span> pentru constructori și gânditori pe termen lung.</h1>
-          <p class="hero-sub">
-            UNIT Protocol este un token BEP-20 pe BNB Smart Chain, conceput pentru configurare transparentă on-chain și mecanici verificabile.
-            Fără promisiuni de profit, fără randamente garantate — doar reguli verificabile public.
-          </p>
+      <div class="legal" id="legal2">
+        <b>Important:</b> This section is a development teaser only. Nothing here constitutes an offer, solicitation, or promise of returns.
+      </div>
+    </section>
 
-          <div class="hero-tags">
-            <div class="hero-tag">Transparent</div>
-            <div class="hero-tag">Fără custodie</div>
-            <div class="hero-tag">Orientat către comunitate</div>
-          </div>
+    <section id="buy">
+      <h2 id="buyH">How to Buy</h2>
+      <div class="lead" id="buyLead">
+        Use the official contract address and a trusted DEX. Always verify you are interacting with the correct token.
+      </div>
 
-          <div class="hero-actions">
-            <a href="#tokenomics-ro" class="ghost-btn">Tokenomics</a>
-            <a href="#buy-ro" class="primary-btn">Cum să cumperi</a>
-            <a href="./TRANSPARENCY.md" class="ghost-btn">Transparență</a>
-          </div>
-
-          <p class="hero-footnote">
-            UNIT este un activ digital experimental și un token de utilitate. Nimic de pe acest site nu reprezintă sfat financiar, juridic sau de investiții.
-          </p>
-
-          <div class="hero-actions" style="margin-top:10px;">
-            <a class="ghost-btn" href="./UNIT_Protocol_Whitepaper_v1.2.pdf" target="_blank" rel="noopener noreferrer">📄 Whitepaper v1.2</a>
-            <a class="ghost-btn" href="./UNIT_Protocol_PitchDeck_v1.2.pdf" target="_blank" rel="noopener noreferrer">📊 Pitch Deck v1.2</a>
+      <div class="grid">
+        <div class="box">
+          <b id="buy1t">Step 1</b>
+          <span id="buy1b">Use a trusted non-custodial wallet that supports BNB Smart Chain.</span>
+        </div>
+        <div class="box">
+          <b id="buy2t">Step 2</b>
+          <span id="buy2b">Hold BNB for network fees and swaps.</span>
+        </div>
+        <div class="box">
+          <b id="buy3t">Step 3</b>
+          <span id="buy3b">Open PancakeSwap and verify the contract before swapping.</span>
+          <div style="margin-top:10px">
+            <a class="btn" id="psBtn" href="https://pancakeswap.finance/swap?outputCurrency=0x4f5710c96C446b133C59AF006A36d07414B52a9" target="_blank" rel="noopener noreferrer">
+              <span id="psBtnLabel">Open PancakeSwap (UNIT)</span>
+            </a>
           </div>
         </div>
+      </div>
 
-        <div class="side-panel">
-          <div class="panel-card">
-            <div class="panel-label">Rețea</div>
-            <div class="panel-main">BNB Smart Chain (BEP-20)</div>
-          </div>
-          <div class="panel-card">
-            <div class="panel-label">Oferta totală</div>
-            <div class="panel-main">1.000.000.000 UNIT</div>
-          </div>
-          <div class="panel-card">
-            <div class="panel-label">Contract</div>
-            <div class="panel-main"><code>0x4f5710c96C446b133C59AF006A36d07414B52a9</code></div>
-          </div>
-          <div class="panel-card">
-            <div class="panel-label">Stare</div>
-            <div class="panel-main">
-              <span class="badge"><span class="badge-dot"></span>Proprietate activă · Taxe configurabile · Ofertă fixă</span>
-            </div>
-          </div>
+      <div class="legal" id="legal3">
+        <b>Safety reminder:</b> Never share your seed phrase. If someone asks for it, it’s a scam.
+      </div>
+    </section>
+
+    <footer>
+      <div class="frow">
+        <div id="footLeft">© 2026 UNIT Protocol.</div>
+        <div class="flinks">
+          <a href="#about" id="footA">About</a>
+          <a href="#staking" id="footS">Staking</a>
+          <a href="#buy" id="footB">How to Buy</a>
+          <a href="./TRANSPARENCY.md" id="footT">Transparency</a>
         </div>
-      </main>
-
-      <section id="tokenomics-ro">
-        <h2>Tokenomics</h2>
-        <p class="lead">
-          UNIT are o ofertă totală fixă bătută la implementare. Unii parametri (taxe și limită max pe tranzacție) sunt configurabili on-chain în limitele codate.
-          Orice schimbări sunt verificabile public.
-        </p>
-
-        <div class="tokenomics-grid">
-          <div class="token-card"><strong>Lichiditate (progresiv)</strong><span>20%</span><small>Cadrul de lichiditate pe termen lung.</small></div>
-          <div class="token-card"><strong>Constructori & contribuitori</strong><span>30%</span><small>Dezvoltare și contribuții pe termen lung.</small></div>
-          <div class="token-card"><strong>Rezerve strategice</strong><span>25%</span><small>Integrări, parteneriate și inițiative viitoare.</small></div>
-          <div class="token-card"><strong>Distribuție publică ecosistem</strong><span>15%</span><small>Programe comunitare și stimulente în timp.</small></div>
-          <div class="token-card"><strong>Ecosistem & parteneriate</strong><span>10%</span><small>Colaborări și creștere ecosistem.</small></div>
-        </div>
-      </section>
-
-      <section id="buy-ro">
-        <h2>Cum să cumperi UNIT</h2>
-        <p class="lead">Verifică întotdeauna adresa de contract și înțelege autocustodia înainte de a folosi un DEX.</p>
-
-        <div class="steps">
-          <div class="step"><div class="step-number">1</div><h3>Portofel BSC</h3><p>Folosește un portofel non-custodial și adaugă BNB Smart Chain.</p></div>
-          <div class="step"><div class="step-number">2</div><h3>BNB pentru taxe</h3><p>Ține BNB pentru comisioane și swap.</p></div>
-          <div class="step"><div class="step-number">3</div><h3>Swap în UNIT</h3><p>Importă și verifică: <code>0x4f5710c96C446b133C59AF006A36d07414B52a9</code></p></div>
-        </div>
-
-        <div class="legal">
-          <strong>Notificare legală & privind riscurile.</strong>
-          UNIT este un token de utilitate. Nimic de pe acest site nu reprezintă sfat financiar, juridic sau de investiții.
-          Activele digitale sunt volatile și pot pierde toată valoarea. Fă propriul research.
-        </div>
-      </section>
-
-      <footer>
-        <div class="footer-row">
-          <div>© 2026 UNIT Protocol.</div>
-          <nav>
-            <a href="#tokenomics-ro">Tokenomics</a>
-            <a href="#buy-ro">Cum să cumperi</a>
-            <a href="./TRANSPARENCY.md">Transparență</a>
-          </nav>
-        </div>
-      </footer>
-    </div>
-
+      </div>
+    </footer>
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      try {
-        const sections = document.querySelectorAll('.lang-section');
-        const langButtons = document.querySelectorAll('[data-lang-btn]');
-        const chip = document.getElementById('live-chip');
-        const getBtn = document.getElementById('get-unit-btn');
-        const getLabel = document.getElementById('get-unit-label');
-
-        function applyLang(lang) {
-          sections.forEach(s => s.classList.toggle('active', s.getAttribute('data-lang') === lang));
-          langButtons.forEach(b => b.classList.toggle('active', b.getAttribute('data-lang-btn') === lang));
-
-          if (lang === 'ro') {
-            chip.textContent = 'LIVE PE BNB SMART CHAIN';
-            getLabel.textContent = 'Obține UNIT';
-            getBtn.setAttribute('href', '#buy-ro');
-          } else {
-            chip.textContent = 'LIVE ON BNB SMART CHAIN';
-            getLabel.textContent = 'Get UNIT';
-            getBtn.setAttribute('href', '#buy');
-          }
-          localStorage.setItem('unit_lang', lang);
-        }
-
-        langButtons.forEach(btn => btn.addEventListener('click', () => applyLang(btn.getAttribute('data-lang-btn'))));
-
-        const saved = localStorage.getItem('unit_lang');
-        const browser = (navigator.language || 'en').toLowerCase();
-        let initial = 'en';
-        if (saved === 'en' || saved === 'ro') initial = saved;
-        else if (browser.startsWith('ro')) initial = 'ro';
-
-        applyLang(initial);
-      } catch (e) {
-        console.error('Lang init failed:', e);
+    const TEXT = {
+      en: {
+        liveChip: "LIVE ON BNB SMART CHAIN",
+        buyBtnLabel: "Buy UNIT",
+        kicker: "BUILT FOR REAL UTILITY",
+        title: "A <span class='hl'>utility-first</span> token for builders and long-term thinkers.",
+        sub: "UNIT Protocol (UNIT) is a BEP-20 utility token on BNB Smart Chain with transparent, verifiable on-chain mechanics. No guaranteed yields. No profit promises. Always do your own research.",
+        tag1: "Transparent", tag2: "Non-custodial", tag3: "Community-first",
+        aboutBtn: "About", stakingBtn: "Staking (In Development)", transBtn: "Transparency", wpBtn: "Whitepaper v1.2", pdBtn: "Pitch Deck v1.2",
+        heroNote: "This website is for informational purposes only and does not constitute financial advice.",
+        netLabel: "Network", supplyLabel: "Total Supply", contractLabel: "Contract", linksLabel: "Official Links",
+        aboutH: "About UNIT",
+        aboutLead: "UNIT is an experimental utility token on BNB Smart Chain. Rules and configuration are intended to be verifiable on-chain.",
+        box1t: "Verify before you interact",
+        box1b: "Always double-check the contract address and official links. Avoid scams and impersonators.",
+        box2t: "Self-custody matters",
+        box2b: "You control your wallet keys. No one can reverse transactions for you.",
+        box3t: "Transparent docs",
+        box3b: "Read the Transparency doc and official PDFs on this repository.",
+        legal1: "<b>Legal & risk notice.</b> Digital assets are volatile and may lose all value. Nothing on this site is financial, legal, or investment advice. You are solely responsible for your decisions, due diligence, and compliance with applicable laws and regulations.",
+        stakeH: "Staking Program (In Development)",
+        stakeLead: "We are actively developing and testing our staking system. Details (APR, minimums, lock terms) will be shared only when everything is finalized.",
+        stake1t: "Test first",
+        stake1b: "We prioritize security and reliability through staged testing before any production release.",
+        stake2t: "No promises",
+        stake2b: "No guaranteed yields or profit claims. Any future program will be communicated transparently.",
+        stake3t: "Early supporters",
+        stake3b: "Community-first approach: early supporters will be the first to hear official updates.",
+        legal2: "<b>Important:</b> This section is a development teaser only. Nothing here constitutes an offer, solicitation, or promise of returns.",
+        buyH: "How to Buy",
+        buyLead: "Use the official contract address and a trusted DEX. Always verify you are interacting with the correct token.",
+        buy1t: "Step 1",
+        buy1b: "Use a trusted non-custodial wallet that supports BNB Smart Chain.",
+        buy2t: "Step 2",
+        buy2b: "Hold BNB for network fees and swaps.",
+        buy3t: "Step 3",
+        buy3b: "Open PancakeSwap and verify the contract before swapping.",
+        psBtnLabel: "Open PancakeSwap (UNIT)",
+        legal3: "<b>Safety reminder:</b> Never share your seed phrase. If someone asks for it, it’s a scam.",
+        footLeft: "© 2026 UNIT Protocol.",
+        footA: "About", footS: "Staking", footB: "How to Buy", footT: "Transparency"
+      },
+      ro: {
+        liveChip: "LIVE PE BNB SMART CHAIN",
+        buyBtnLabel: "Cumpără UNIT",
+        kicker: "CONSTRUIT PENTRU UTILITATE REALĂ",
+        title: "Un token <span class='hl'>axat pe utilitate</span> pentru constructori și gânditori pe termen lung.",
+        sub: "UNIT Protocol (UNIT) este un token BEP-20 pe BNB Smart Chain, cu mecanici on-chain transparente și verificabile. Fără randamente garantate. Fără promisiuni de profit. Fă propriul research.",
+        tag1: "Transparent", tag2: "Fără custodie", tag3: "Comunitate pe primul loc",
+        aboutBtn: "Despre", stakingBtn: "Staking (în dezvoltare)", transBtn: "Transparență", wpBtn: "Whitepaper v1.2", pdBtn: "Pitch Deck v1.2",
+        heroNote: "Acest site este informativ și nu reprezintă sfat financiar.",
+        netLabel: "Rețea", supplyLabel: "Oferta totală", contractLabel: "Contract", linksLabel: "Linkuri oficiale",
+        aboutH: "Despre UNIT",
+        aboutLead: "UNIT este un token de utilitate experimental pe BNB Smart Chain. Regulile și configurarea sunt destinate să fie verificabile on-chain.",
+        box1t: "Verifică înainte să interacționezi",
+        box1b: "Verifică mereu adresa de contract și linkurile oficiale. Evită scam-uri și imitatori.",
+        box2t: "Autocustodia contează",
+        box2b: "Tu controlezi cheile portofelului. Nimeni nu poate anula tranzacții pentru tine.",
+        box3t: "Documente transparente",
+        box3b: "Citește documentul de Transparență și PDF-urile oficiale din repo.",
+        legal1: "<b>Notificare legală & risc.</b> Activele digitale sunt volatile și pot pierde toată valoarea. Nimic de pe acest site nu este sfat financiar/juridic/de investiții. Ești singurul responsabil pentru decizii, due diligence și conformare cu legile aplicabile.",
+        stakeH: "Program de Staking (în dezvoltare)",
+        stakeLead: "Dezvoltăm și testăm activ sistemul de staking. Detaliile (APR, minime, lock) vor fi anunțate doar când totul este finalizat.",
+        stake1t: "Test întâi",
+        stake1b: "Punem pe primul loc securitatea și fiabilitatea prin testare etapizată înainte de producție.",
+        stake2t: "Fără promisiuni",
+        stake2b: "Fără randamente garantate și fără promisiuni de profit. Orice program viitor va fi comunicat transparent.",
+        stake3t: "Susținători timpurii",
+        stake3b: "Comunitate pe primul loc: susținătorii timpurii vor primi primii update-uri oficiale.",
+        legal2: "<b>Important:</b> Această secțiune este doar un teaser de dezvoltare. Nu reprezintă ofertă, solicitare sau promisiune de randament.",
+        buyH: "Cum să cumperi",
+        buyLead: "Folosește adresa oficială de contract și un DEX de încredere. Verifică mereu că interacționezi cu tokenul corect.",
+        buy1t: "Pasul 1",
+        buy1b: "Folosește un portofel non-custodial care suportă BNB Smart Chain.",
+        buy2t: "Pasul 2",
+        buy2b: "Ține BNB pentru taxe și swap.",
+        buy3t: "Pasul 3",
+        buy3b: "Deschide PancakeSwap și verifică adresa contractului înainte de swap.",
+        psBtnLabel: "Deschide PancakeSwap (UNIT)",
+        legal3: "<b>Siguranță:</b> Nu-ți da niciodată seed phrase-ul. Dacă cineva îl cere, e scam.",
+        footLeft: "© 2026 UNIT Protocol.",
+        footA: "Despre", footS: "Staking", footB: "Cum să cumperi", footT: "Transparență"
       }
-    });
+    };
+
+    function setLang(lang){
+      const t = TEXT[lang] || TEXT.en;
+
+      document.documentElement.lang = lang;
+
+      // header
+      document.getElementById("liveChip").textContent = t.liveChip;
+      document.getElementById("buyBtnLabel").textContent = t.buyBtnLabel;
+
+      // hero
+      document.getElementById("kicker").textContent = t.kicker;
+      document.getElementById("title").innerHTML = t.title;
+      document.getElementById("sub").textContent = t.sub;
+      document.getElementById("tag1").textContent = t.tag1;
+      document.getElementById("tag2").textContent = t.tag2;
+      document.getElementById("tag3").textContent = t.tag3;
+
+      document.getElementById("aboutBtn").textContent = t.aboutBtn;
+      document.getElementById("stakingBtn").textContent = t.stakingBtn;
+      document.getElementById("transBtn").textContent = t.transBtn;
+      document.getElementById("wpBtn").textContent = t.wpBtn;
+      document.getElementById("pdBtn").textContent = t.pdBtn;
+      document.getElementById("heroNote").textContent = t.heroNote;
+
+      // side labels
+      document.getElementById("netLabel").textContent = t.netLabel;
+      document.getElementById("supplyLabel").textContent = t.supplyLabel;
+      document.getElementById("contractLabel").textContent = t.contractLabel;
+      document.getElementById("linksLabel").textContent = t.linksLabel;
+
+      // sections
+      document.getElementById("aboutH").textContent = t.aboutH;
+      document.getElementById("aboutLead").textContent = t.aboutLead;
+      document.getElementById("box1t").textContent = t.box1t;
+      document.getElementById("box1b").textContent = t.box1b;
+      document.getElementById("box2t").textContent = t.box2t;
+      document.getElementById("box2b").textContent = t.box2b;
+      document.getElementById("box3t").textContent = t.box3t;
+      document.getElementById("box3b").textContent = t.box3b;
+      document.getElementById("legal1").innerHTML = t.legal1;
+
+      document.getElementById("stakeH").textContent = t.stakeH;
+      document.getElementById("stakeLead").textContent = t.stakeLead;
+      document.getElementById("stake1t").textContent = t.stake1t;
+      document.getElementById("stake1b").textContent = t.stake1b;
+      document.getElementById("stake2t").textContent = t.stake2t;
+      document.getElementById("stake2b").textContent = t.stake2b;
+      document.getElementById("stake3t").textContent = t.stake3t;
+      document.getElementById("stake3b").textContent = t.stake3b;
+      document.getElementById("legal2").innerHTML = t.legal2;
+
+      document.getElementById("buyH").textContent = t.buyH;
+      document.getElementById("buyLead").textContent = t.buyLead;
+      document.getElementById("buy1t").textContent = t.buy1t;
+      document.getElementById("buy1b").textContent = t.buy1b;
+      document.getElementById("buy2t").textContent = t.buy2t;
+      document.getElementById("buy2b").textContent = t.buy2b;
+      document.getElementById("buy3t").textContent = t.buy3t;
+      document.getElementById("buy3b").textContent = t.buy3b;
+      document.getElementById("psBtnLabel").textContent = t.psBtnLabel;
+      document.getElementById("legal3").innerHTML = t.legal3;
+
+      // footer
+      document.getElementById("footLeft").textContent = t.footLeft;
+      document.getElementById("footA").textContent = t.footA;
+      document.getElementById("footS").textContent = t.footS;
+      document.getElementById("footB").textContent = t.footB;
+      document.getElementById("footT").textContent = t.footT;
+
+      // toggle state
+      document.getElementById("btnEN").classList.toggle("active", lang==="en");
+      document.getElementById("btnRO").classList.toggle("active", lang==="ro");
+
+      localStorage.setItem("unit_lang", lang);
+    }
+
+    (function init(){
+      const saved = localStorage.getItem("unit_lang");
+      const browser = (navigator.language || "en").toLowerCase();
+      let initial = "en";
+      if (saved === "en" || saved === "ro") initial = saved;
+      else if (browser.startsWith("ro")) initial = "ro";
+      setLang(initial);
+
+      document.getElementById("btnEN").addEventListener("click", ()=>setLang("en"));
+      document.getElementById("btnRO").addEventListener("click", ()=>setLang("ro"));
+    })();
   </script>
 </body>
-  </html>
+        </html>
