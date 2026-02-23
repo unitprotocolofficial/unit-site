@@ -200,7 +200,10 @@
           <span id="liveChip">LIVE ON BNB SMART CHAIN</span>
         </div>
 
-        <a class="btn" id="buyBtn" href="https://pancakeswap.finance/swap?outputCurrency=0x4f5710c96C446b133C59AF006A36d07414B52a9" target="_blank" rel="noopener noreferrer">
+        <!-- ✅ Direct BNB -> UNIT -->
+        <a class="btn" id="buyBtn"
+           href="https://pancakeswap.finance/swap?inputCurrency=BNB&outputCurrency=0x4f5710c96C446b133C59AF006A36d07414B52a9"
+           target="_blank" rel="noopener noreferrer">
           <span id="buyBtnLabel">Buy UNIT</span>
         </a>
 
@@ -232,8 +235,10 @@
           <a class="btn2" href="#about" id="aboutBtn">About</a>
           <a class="btn2" href="#staking" id="stakingBtn">Staking (In Development)</a>
           <a class="btn2" href="./TRANSPARENCY.md" id="transBtn">Transparency</a>
-          <a class="btn2" href="./UNIT_Protocol_Whitepaper_v1.2.pdf" target="_blank" rel="noopener noreferrer" id="wpBtn">Whitepaper v1.2</a>
-          <a class="btn2" href="./UNIT_Protocol_PitchDeck_v1.2.pdf" target="_blank" rel="noopener noreferrer" id="pdBtn">Pitch Deck v1.2</a>
+
+          <!-- ✅ Updated to v1.3 filenames -->
+          <a class="btn2" href="./UNIT_Protocol_Technical_and_Ecosystem_Whitepaper_v1.3.pdf" target="_blank" rel="noopener noreferrer" id="wpBtn">Whitepaper v1.3</a>
+          <a class="btn2" href="./UNIT_Protocol_PitchDeck_v1.3_Professional.pdf" target="_blank" rel="noopener noreferrer" id="pdBtn">Pitch Deck v1.3</a>
         </div>
 
         <div class="note" id="heroNote">
@@ -346,8 +351,11 @@
           <b id="buy3t">Step 3</b>
           <span id="buy3b">Open PancakeSwap and verify the contract before swapping.</span>
           <div style="margin-top:10px">
-            <a class="btn" id="psBtn" href="https://pancakeswap.finance/swap?outputCurrency=0x4f5710c96C446b133C59AF006A36d07414B52a9" target="_blank" rel="noopener noreferrer">
-              <span id="psBtnLabel">Open PancakeSwap (UNIT)</span>
+            <!-- ✅ Direct BNB -> UNIT -->
+            <a class="btn" id="psBtn"
+               href="https://pancakeswap.finance/swap?inputCurrency=BNB&outputCurrency=0x4f5710c96C446b133C59AF006A36d07414B52a9"
+               target="_blank" rel="noopener noreferrer">
+              <span id="psBtnLabel">Open PancakeSwap (BNB → UNIT)</span>
             </a>
           </div>
         </div>
@@ -380,7 +388,7 @@
         title: "A <span class='hl'>utility-first</span> token for builders and long-term thinkers.",
         sub: "UNIT Protocol (UNIT) is a BEP-20 utility token on BNB Smart Chain with transparent, verifiable on-chain mechanics. No guaranteed yields. No profit promises. Always do your own research.",
         tag1: "Transparent", tag2: "Non-custodial", tag3: "Community-first",
-        aboutBtn: "About", stakingBtn: "Staking (In Development)", transBtn: "Transparency", wpBtn: "Whitepaper v1.2", pdBtn: "Pitch Deck v1.2",
+        aboutBtn: "About", stakingBtn: "Staking (In Development)", transBtn: "Transparency", wpBtn: "Whitepaper v1.3", pdBtn: "Pitch Deck v1.3",
         heroNote: "This website is for informational purposes only and does not constitute financial advice.",
         netLabel: "Network", supplyLabel: "Total Supply", contractLabel: "Contract", linksLabel: "Official Links",
         aboutH: "About UNIT",
@@ -409,7 +417,7 @@
         buy2b: "Hold BNB for network fees and swaps.",
         buy3t: "Step 3",
         buy3b: "Open PancakeSwap and verify the contract before swapping.",
-        psBtnLabel: "Open PancakeSwap (UNIT)",
+        psBtnLabel: "Open PancakeSwap (BNB → UNIT)",
         legal3: "<b>Safety reminder:</b> Never share your seed phrase. If someone asks for it, it’s a scam.",
         footLeft: "© 2026 UNIT Protocol.",
         footA: "About", footS: "Staking", footB: "How to Buy", footT: "Transparency"
@@ -421,7 +429,7 @@
         title: "Un token <span class='hl'>axat pe utilitate</span> pentru constructori și gânditori pe termen lung.",
         sub: "UNIT Protocol (UNIT) este un token BEP-20 pe BNB Smart Chain, cu mecanici on-chain transparente și verificabile. Fără randamente garantate. Fără promisiuni de profit. Fă propriul research.",
         tag1: "Transparent", tag2: "Fără custodie", tag3: "Comunitate pe primul loc",
-        aboutBtn: "Despre", stakingBtn: "Staking (în dezvoltare)", transBtn: "Transparență", wpBtn: "Whitepaper v1.2", pdBtn: "Pitch Deck v1.2",
+        aboutBtn: "Despre", stakingBtn: "Staking (în dezvoltare)", transBtn: "Transparență", wpBtn: "Whitepaper v1.3", pdBtn: "Pitch Deck v1.3",
         heroNote: "Acest site este informativ și nu reprezintă sfat financiar.",
         netLabel: "Rețea", supplyLabel: "Oferta totală", contractLabel: "Contract", linksLabel: "Linkuri oficiale",
         aboutH: "Despre UNIT",
@@ -450,7 +458,7 @@
         buy2b: "Ține BNB pentru taxe și swap.",
         buy3t: "Pasul 3",
         buy3b: "Deschide PancakeSwap și verifică adresa contractului înainte de swap.",
-        psBtnLabel: "Deschide PancakeSwap (UNIT)",
+        psBtnLabel: "Deschide PancakeSwap (BNB → UNIT)",
         legal3: "<b>Siguranță:</b> Nu-ți da niciodată seed phrase-ul. Dacă cineva îl cere, e scam.",
         footLeft: "© 2026 UNIT Protocol.",
         footA: "Despre", footS: "Staking", footB: "Cum să cumperi", footT: "Transparență"
@@ -459,14 +467,11 @@
 
     function setLang(lang){
       const t = TEXT[lang] || TEXT.en;
-
       document.documentElement.lang = lang;
 
-      // header
       document.getElementById("liveChip").textContent = t.liveChip;
       document.getElementById("buyBtnLabel").textContent = t.buyBtnLabel;
 
-      // hero
       document.getElementById("kicker").textContent = t.kicker;
       document.getElementById("title").innerHTML = t.title;
       document.getElementById("sub").textContent = t.sub;
@@ -481,13 +486,11 @@
       document.getElementById("pdBtn").textContent = t.pdBtn;
       document.getElementById("heroNote").textContent = t.heroNote;
 
-      // side labels
       document.getElementById("netLabel").textContent = t.netLabel;
       document.getElementById("supplyLabel").textContent = t.supplyLabel;
       document.getElementById("contractLabel").textContent = t.contractLabel;
       document.getElementById("linksLabel").textContent = t.linksLabel;
 
-      // sections
       document.getElementById("aboutH").textContent = t.aboutH;
       document.getElementById("aboutLead").textContent = t.aboutLead;
       document.getElementById("box1t").textContent = t.box1t;
@@ -519,14 +522,12 @@
       document.getElementById("psBtnLabel").textContent = t.psBtnLabel;
       document.getElementById("legal3").innerHTML = t.legal3;
 
-      // footer
       document.getElementById("footLeft").textContent = t.footLeft;
       document.getElementById("footA").textContent = t.footA;
       document.getElementById("footS").textContent = t.footS;
       document.getElementById("footB").textContent = t.footB;
       document.getElementById("footT").textContent = t.footT;
 
-      // toggle state
       document.getElementById("btnEN").classList.toggle("active", lang==="en");
       document.getElementById("btnRO").classList.toggle("active", lang==="ro");
 
@@ -546,4 +547,4 @@
     })();
   </script>
 </body>
-        </html>
+  </html>
