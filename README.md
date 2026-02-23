@@ -8,8 +8,9 @@ UNIT is **not designed as an investment product** and does not provide any guara
 
 ## Official Links
 - Website: https://unitprotocolofficial.github.io/unit-site/
-- Whitepaper (PDF): `UNIT_Protocol_Whitepaper_v1.2.pdf`
-- Pitch Deck (PDF): `UNIT_Protocol_PitchDeck_v1.2.pdf`
+- Whitepaper (PDF): [UNIT_Protocol_Technical_and_Ecosystem_Whitepaper_v1.3.pdf](./UNIT_Protocol_Technical_and_Ecosystem_Whitepaper_v1.3.pdf)
+- Pitch Deck (PDF): [UNIT_Protocol_PitchDeck_v1.3_Professional.pdf](./UNIT_Protocol_PitchDeck_v1.3_Professional.pdf)
+- Transparency: [TRANSPARENCY.md](./TRANSPARENCY.md)
 
 ---
 
@@ -25,76 +26,42 @@ All on-chain data can be independently verified via BscScan.
 ---
 
 ## Token Mechanics
-The UNIT smart contract includes configurable on-chain parameters that are enforced directly at contract level:
+The UNIT smart contract includes configurable on-chain parameters enforced directly at contract level:
 
 - Burn fee (basis points, configurable)
 - Treasury fee (basis points, configurable)
 - Anti-whale maximum transaction limit (configurable)
 
-If these parameters are adjusted, all changes are **public, transparent, and permanently recorded on-chain**.
+Any adjustments remain fully transparent and permanently recorded on-chain.
 
 ---
 
 ## Token Distribution & Allocation
 UNIT has a fixed maximum supply of **1,000,000,000 tokens**, minted at deployment.
 
-Token distribution is managed transparently through on-chain wallets and transactions. Any transfers, allocations, or movements can be independently verified by reviewing the relevant wallet addresses on BscScan.
+Token distribution is managed transparently through on-chain wallets and transactions. Allocations related to ecosystem development, contributors, liquidity, and strategic reserves may be released progressively over time depending on development stages and operational needs.
 
-Certain allocations (such as ecosystem development, contributor incentives, or operational reserves) may be distributed gradually over time, depending on project needs and development milestones.
-
----
-
-## Liquidity Strategy
-Initial liquidity is provided on a BNB Smart Chain decentralized exchange.
-
-Liquidity is intended to be:
-- Progressively increased as the project evolves
-- Optionally locked using third-party liquidity locking services (e.g. **Unicrypt / UNCX**)
-- Managed in stages aligned with development progress, security considerations, and ecosystem growth
-
-Liquidity actions are designed to balance **early-stage flexibility** with **long-term sustainability and transparency**. Any liquidity locks or changes remain publicly verifiable on-chain.
+All allocation movements remain publicly verifiable on-chain.
 
 ---
 
-## Ownership & Control
-Contract ownership is currently **active** to allow:
-- Protocol configuration
-- Security adjustments
-- Maintenance and future integrations
-- Ecosystem expansion
+## Staking Program (In Development)
+A staking framework is currently under development and testing.
 
-Any ownership-related actions (including potential future changes) are executed on-chain and remain permanently visible and verifiable.
-
----
-
-## Utility Scope
-UNIT is designed as a **digital utility token**, with potential use cases including (non-exhaustive):
-
-- Token-gated access to platforms, tools, or content
-- Non-binding governance signaling and coordination
-- Rewards and incentive mechanisms (future, non-guaranteed)
-- Integrations within third-party ecosystems and applications
-
-UNIT does **not** represent equity, revenue share, dividends, or ownership rights in any entity.
+- Rewards pool wallet (BNB Chain): `0x4F60408d0740ef570B67bE9433f35E9D2d69992E`
+- Currently funded: **5,000,000 UNIT**
+- Planned allocation: **up to 15,000,000 UNIT** from Contributors allocation (progressive funding)
+- No APR or guarantees disclosed prior to official launch
 
 ---
 
 ## Transparency Commitment
-UNIT Protocol prioritizes transparency:
-- All token mechanics are enforced on-chain
-- Supply, transfers, and balances are publicly auditable
-- No hidden minting, rebasing, or off-chain manipulation mechanisms exist
-
-Anyone can independently verify contract state and wallet activity using public blockchain explorers.
+All token mechanics, allocations, and contract parameters are verifiable on-chain. Blockchain data remains the single source of truth.
 
 ---
 
 ## Risk Disclosure
-UNIT Protocol is an **experimental digital asset**.
+UNIT Protocol is an experimental digital asset.
 
-Nothing in this repository, website, or documentation constitutes financial, legal, or investment advice. Digital assets are volatile and may lose all value. Users are solely responsible for conducting their own due diligence and understanding applicable laws and regulations before interacting with the protocol or its smart contracts.
-
----
-
-## License
-All materials are provided **as-is**, for informational purposes only.
+Nothing in this repository, website, or documentation constitutes financial, legal, or investment advice. Digital assets are volatile and may lose all value.
+Users are solely responsible for their own due diligence and compliance with applicable laws.
