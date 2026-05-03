@@ -1,143 +1,378 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UNIT Staking App</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UNIT Protocol Staking</title>
 
-<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
-
-<style>
-body{
-  font-family:Arial;
-  background:#050814;
-  color:#fff;
-  text-align:center;
-  padding:20px;
-}
-button{
-  padding:10px 20px;
-  margin:5px;
-  border:none;
-  border-radius:8px;
-  background:#fbb021;
-  cursor:pointer;
-}
-input{
-  padding:10px;
-  margin:10px;
-  width:200px;
-}
-.box{
-  border:1px solid #333;
-  padding:20px;
-  margin:20px auto;
-  max-width:400px;
-  border-radius:12px;
-}
-</style>
+  <style>
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      background:#050814;
+      color:#fff;
+      text-align:center;
+      padding:20px;
+    }
+    .wrap{max-width:900px;margin:auto}
+    h1{font-size:34px;margin:25px 0 10px}
+    p{color:#b8bfd8}
+    .card{
+      background:#0b1226;
+      border:1px solid #30384f;
+      border-radius:20px;
+      padding:22px;
+      margin:18px 0;
+    }
+    input,select{
+      width:100%;
+      max-width:420px;
+      padding:15px;
+      margin:8px 0;
+      border-radius:10px;
+      border:1px solid #555;
+      font-size:16px;
+    }
+    button{
+      background:#fbb021;
+      color:#111;
+      border:none;
+      border-radius:14px;
+      padding:14px 22px;
+      margin:8px;
+      font-size:16px;
+      font-weight:bold;
+      cursor:pointer;
+    }
+    button:disabled{opacity:.45;cursor:not-allowed}
+    .small{font-size:13px;color:#9aa4c6}
+    .addr{word-break:break-all;color:#58f2c8}
+    .status{
+      margin-top:15px;
+      padding:12px;
+      border-radius:12px;
+      background:#111a33;
+      color:#fff;
+      min-height:44px;
+      word-break:break-word;
+    }
+    .warn{
+      background:#291a08;
+      border:1px solid #fbb021;
+      color:#ffe0a3;
+      padding:14px;
+      border-radius:14px;
+      font-size:14px;
+      margin:15px 0;
+    }
+    a{color:#58f2c8}
+  </style>
 </head>
 
 <body>
+<div class="wrap">
+  <h1>UNIT Staking App</h1>
+  <p>Stake UNIT directly from the official UNIT Protocol website.</p>
 
-<h2>UNIT Staking App</h2>
+  <div class="warn">
+    Always verify the official contracts before interacting. Staking involves smart contract risk.
+  </div>
 
-<button onclick="connectWallet()">Connect Wallet</button>
-<p id="wallet"></p>
+  <div class="card">
+    <button id="connectBtn">Connect Wallet</button>
+    <button id="disconnectBtn">Disconnect</button>
+    <p class="small">Wallet: <span id="walletAddr">Not connected</span></p>
+    <p class="small">Network: <span id="networkName">Not connected</span></p>
+  </div>
 
-<div class="box">
-<h3>Stake</h3>
-<input id="amount" placeholder="Amount UNIT">
-<br>
-<button onclick="approve()">Approve</button>
-<button onclick="stake()">Stake</button>
+  <div class="card">
+    <h2>Stake UNIT</h2>
+    <input id="stakeAmount" placeholder="Amount UNIT" />
+    <select id="lockIndex">
+      <option value="0">30 days</option>
+      <option value="1">90 days</option>
+      <option value="2">180 days</option>
+      <option value="3">365 days</option>
+    </select>
+    <br />
+    <button id="approveBtn">Approve UNIT</button>
+    <button id="stakeBtn">Stake</button>
+  </div>
+
+  <div class="card">
+    <h2>Position Actions</h2>
+    <input id="positionId" placeholder="Position ID" />
+    <br />
+    <button id="claimBtn">Claim</button>
+    <button id="compoundBtn">Compound</button>
+    <button id="requestUnstakeBtn">Request Unstake</button>
+    <button id="withdrawBtn">Withdraw</button>
+  </div>
+
+  <div class="card">
+    <h2>Check Data</h2>
+    <input id="checkPositionId" placeholder="Position ID" />
+    <br />
+    <button id="pendingBtn">Check Pending Rewards</button>
+    <button id="poolBtn">Check Reward Pool</button>
+  </div>
+
+  <div class="card">
+    <h2>Official Contracts</h2>
+    <p>UNIT Token:</p>
+    <p class="addr">
+      <a href="https://bscscan.com/token/0x4f5710c96C446b133C59Af006A366d07414B52a9" target="_blank">
+        0x4f5710c96C446b133C59Af006A366d07414B52a9
+      </a>
+    </p>
+    <p>Staking Contract:</p>
+    <p class="addr">
+      <a href="https://bscscan.com/address/0xB9589a2857a7043150249af9ccf2993616BC95D9" target="_blank">
+        0xB9589a2857a7043150249af9ccf2993616BC95D9
+      </a>
+    </p>
+  </div>
+
+  <div id="status" class="status">Ready.</div>
 </div>
 
-<div class="box">
-<h3>Actions</h3>
-<input id="positionId" placeholder="Position ID">
-<br>
-<button onclick="claim()">Claim</button>
-<button onclick="compound()">Compound</button>
-<button onclick="requestUnstake()">Request Unstake</button>
-<button onclick="withdraw()">Withdraw</button>
-</div>
+<script type="module">
+  import { createAppKit } from "https://esm.sh/@reown/appkit";
+  import { EthersAdapter } from "https://esm.sh/@reown/appkit-adapter-ethers";
+  import { bsc } from "https://esm.sh/@reown/appkit/networks";
+  import { ethers } from "https://esm.sh/ethers@6.13.5";
 
-<script>
-const stakingAddress = "0xB9589a2857a7043150249af9ccf2993616BC95D9";
-const tokenAddress = "0x4f5710c96C446b133C59Af006A366d07414B52a9";
+  const PROJECT_ID = "5a0e58d451cfbd31d34b1dd417b59fab";
 
-const stakingABI = [
-"function stake(uint256 amount,uint8 lockIndex)",
-"function claim(uint256 id)",
-"function compound(uint256 id)",
-"function requestUnstake(uint256 id)",
-"function withdraw(uint256 id)"
-];
+  const UNIT_TOKEN = "0x4f5710c96C446b133C59Af006A366d07414B52a9";
+  const STAKING_CONTRACT = "0xB9589a2857a7043150249af9ccf2993616BC95D9";
 
-const tokenABI = [
-"function approve(address spender,uint256 amount)"
-];
+  const UNIT_ABI = [
+    "function approve(address spender,uint256 amount) external returns (bool)",
+    "function allowance(address owner,address spender) view returns (uint256)",
+    "function balanceOf(address account) view returns (uint256)",
+    "function decimals() view returns (uint8)"
+  ];
 
-let provider, signer;
+  const STAKING_ABI = [
+    "function stake(uint256 amount,uint8 lockIndex) external",
+    "function claim(uint256 positionId) external",
+    "function compound(uint256 positionId) external",
+    "function requestUnstake(uint256 positionId) external",
+    "function withdraw(uint256 positionId) external",
+    "function pendingRewards(uint256 positionId) view returns (uint256)",
+    "function availableRewardPool() view returns (uint256)",
+    "function MIN_STAKE() view returns (uint256)",
+    "function MIN_RESTAKE() view returns (uint256)"
+  ];
 
-async function connectWallet(){
-  await window.ethereum.request({ method: 'eth_requestAccounts' });
-  provider = new ethers.providers.Web3Provider(window.ethereum);
-  signer = provider.getSigner();
+  const metadata = {
+    name: "UNIT Protocol Staking",
+    description: "Official UNIT Protocol staking dApp on BNB Smart Chain",
+    url: "https://unitprotocolofficial.github.io/unit-site/",
+    icons: ["https://unitprotocolofficial.github.io/unit-site/favicon.ico"]
+  };
 
-  const address = await signer.getAddress();
-  document.getElementById("wallet").innerText = "Connected: " + address;
-}
+  const modal = createAppKit({
+    adapters: [new EthersAdapter()],
+    networks: [bsc],
+    metadata,
+    projectId: PROJECT_ID,
+    features: {
+      analytics: true,
+      email: false,
+      socials: []
+    }
+  });
 
-async function approve(){
-  const token = new ethers.Contract(tokenAddress, tokenABI, signer);
-  const amount = ethers.utils.parseUnits(document.getElementById("amount").value,18);
-  const tx = await token.approve(stakingAddress, amount);
-  await tx.wait();
-  alert("Approved!");
-}
+  let walletProvider = null;
+  let account = null;
 
-async function stake(){
-  const contract = new ethers.Contract(stakingAddress, stakingABI, signer);
-  const amount = ethers.utils.parseUnits(document.getElementById("amount").value,18);
-  const tx = await contract.stake(amount,0);
-  await tx.wait();
-  alert("Staked!");
-}
+  const $ = (id) => document.getElementById(id);
 
-async function claim(){
-  const id = document.getElementById("positionId").value;
-  const contract = new ethers.Contract(stakingAddress, stakingABI, signer);
-  const tx = await contract.claim(id);
-  await tx.wait();
-  alert("Claimed!");
-}
+  function status(msg){
+    $("status").innerText = msg;
+  }
 
-async function compound(){
-  const id = document.getElementById("positionId").value;
-  const contract = new ethers.Contract(stakingAddress, stakingABI, signer);
-  const tx = await contract.compound(id);
-  await tx.wait();
-  alert("Compounded!");
-}
+  function shortAddr(a){
+    return a ? a.slice(0,6) + "..." + a.slice(-4) : "Not connected";
+  }
 
-async function requestUnstake(){
-  const id = document.getElementById("positionId").value;
-  const contract = new ethers.Contract(stakingAddress, stakingABI, signer);
-  const tx = await contract.requestUnstake(id);
-  await tx.wait();
-  alert("Requested Unstake!");
-}
+  modal.subscribeProviders((state) => {
+    walletProvider = state["eip155"] || null;
+  });
 
-async function withdraw(){
-  const id = document.getElementById("positionId").value;
-  const contract = new ethers.Contract(stakingAddress, stakingABI, signer);
-  const tx = await contract.withdraw(id);
-  await tx.wait();
-  alert("Withdrawn!");
-}
+  modal.subscribeAccount((state) => {
+    account = state?.address || null;
+    $("walletAddr").innerText = account ? account : "Not connected";
+  });
+
+  async function getProvider(){
+    if (!walletProvider) {
+      await modal.open();
+      await new Promise(r => setTimeout(r, 1500));
+    }
+    if (!walletProvider) throw new Error("Wallet not connected.");
+    return new ethers.BrowserProvider(walletProvider);
+  }
+
+  async function getSigner(){
+    const provider = await getProvider();
+    await ensureBsc();
+    return await provider.getSigner();
+  }
+
+  async function ensureBsc(){
+    if (!walletProvider) throw new Error("Wallet not connected.");
+    const chainId = await walletProvider.request({ method: "eth_chainId" });
+
+    if (chainId !== "0x38") {
+      try {
+        await walletProvider.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: "0x38" }]
+        });
+      } catch (e) {
+        await walletProvider.request({
+          method: "wallet_addEthereumChain",
+          params: [{
+            chainId: "0x38",
+            chainName: "BNB Smart Chain",
+            nativeCurrency: { name: "BNB", symbol: "BNB", decimals: 18 },
+            rpcUrls: ["https://bsc-dataseed.binance.org/"],
+            blockExplorerUrls: ["https://bscscan.com"]
+          }]
+        });
+      }
+    }
+
+    $("networkName").innerText = "BNB Smart Chain";
+  }
+
+  async function waitTx(tx){
+    status("Transaction sent: " + tx.hash + " — waiting confirmation...");
+    const receipt = await tx.wait();
+    if (receipt.status !== 1) throw new Error("Transaction failed on-chain.");
+    status("Success: " + tx.hash);
+  }
+
+  $("connectBtn").onclick = async () => {
+    try {
+      await modal.open();
+      status("Wallet modal opened. Select your wallet.");
+    } catch(e) {
+      status("Connect error: " + e.message);
+    }
+  };
+
+  $("disconnectBtn").onclick = async () => {
+    try {
+      await modal.disconnect();
+      account = null;
+      walletProvider = null;
+      $("walletAddr").innerText = "Not connected";
+      $("networkName").innerText = "Not connected";
+      status("Disconnected.");
+    } catch(e) {
+      status("Disconnect error: " + e.message);
+    }
+  };
+
+  $("approveBtn").onclick = async () => {
+    try {
+      const amount = $("stakeAmount").value.trim();
+      if (!amount || Number(amount) <= 0) throw new Error("Enter UNIT amount.");
+
+      const signer = await getSigner();
+      const token = new ethers.Contract(UNIT_TOKEN, UNIT_ABI, signer);
+      const parsed = ethers.parseUnits(amount, 18);
+
+      status("Approving UNIT...");
+      const tx = await token.approve(STAKING_CONTRACT, parsed);
+      await waitTx(tx);
+    } catch(e) {
+      status("Approve error: " + e.message);
+    }
+  };
+
+  $("stakeBtn").onclick = async () => {
+    try {
+      const amount = $("stakeAmount").value.trim();
+      const lockIndex = Number($("lockIndex").value);
+
+      if (!amount || Number(amount) <= 0) throw new Error("Enter UNIT amount.");
+
+      const signer = await getSigner();
+      const staking = new ethers.Contract(STAKING_CONTRACT, STAKING_ABI, signer);
+      const parsed = ethers.parseUnits(amount, 18);
+
+      status("Staking UNIT...");
+      const tx = await staking.stake(parsed, lockIndex);
+      await waitTx(tx);
+    } catch(e) {
+      status("Stake error: " + e.message);
+    }
+  };
+
+  async function positionAction(fnName){
+    const id = $("positionId").value.trim();
+    if (!id) throw new Error("Enter Position ID.");
+
+    const signer = await getSigner();
+    const staking = new ethers.Contract(STAKING_CONTRACT, STAKING_ABI, signer);
+
+    status(fnName + "...");
+    const tx = await staking[fnName](BigInt(id));
+    await waitTx(tx);
+  }
+
+  $("claimBtn").onclick = async () => {
+    try { await positionAction("claim"); }
+    catch(e){ status("Claim error: " + e.message); }
+  };
+
+  $("compoundBtn").onclick = async () => {
+    try { await positionAction("compound"); }
+    catch(e){ status("Compound error: " + e.message); }
+  };
+
+  $("requestUnstakeBtn").onclick = async () => {
+    try { await positionAction("requestUnstake"); }
+    catch(e){ status("Request unstake error: " + e.message); }
+  };
+
+  $("withdrawBtn").onclick = async () => {
+    try { await positionAction("withdraw"); }
+    catch(e){ status("Withdraw error: " + e.message); }
+  };
+
+  $("pendingBtn").onclick = async () => {
+    try {
+      const id = $("checkPositionId").value.trim();
+      if (!id) throw new Error("Enter Position ID.");
+
+      const provider = await getProvider();
+      const staking = new ethers.Contract(STAKING_CONTRACT, STAKING_ABI, provider);
+      const rewards = await staking.pendingRewards(BigInt(id));
+
+      status("Pending rewards: " + ethers.formatUnits(rewards, 18) + " UNIT");
+    } catch(e) {
+      status("Pending rewards error: " + e.message);
+    }
+  };
+
+  $("poolBtn").onclick = async () => {
+    try {
+      const provider = await getProvider();
+      const staking = new ethers.Contract(STAKING_CONTRACT, STAKING_ABI, provider);
+      const pool = await staking.availableRewardPool();
+
+      status("Available reward pool: " + ethers.formatUnits(pool, 18) + " UNIT");
+    } catch(e) {
+      status("Reward pool error: " + e.message);
+    }
+  };
 </script>
-
 </body>
 </html>
