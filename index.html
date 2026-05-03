@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>UNIT Protocol (UNIT) — BNB Chain Utility Token</title>
-  <meta name="description" content="UNIT Protocol (UNIT) is a BEP-20 utility token on BNB Smart Chain. Official links, contract address, and transparent project information." />
+  <meta name="description" content="UNIT Protocol (UNIT) is a BEP-20 utility token on BNB Smart Chain. Official links, contract address, staking contract, and transparent project information." />
 
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
@@ -200,7 +200,6 @@
           <span id="liveChip">LIVE ON BNB SMART CHAIN</span>
         </div>
 
-        <!-- Direct link that works (same as your Twitter link) -->
         <a class="btn" id="buyBtn"
            href="https://pancakeswap.finance/swap?outputCurrency=0x4f5710c96C446b133C59Af006A366d07414B52a9"
            target="_blank" rel="noopener noreferrer">
@@ -222,7 +221,7 @@
         </div>
         <div class="sub" id="sub">
           UNIT Protocol (UNIT) is a BEP-20 utility token on BNB Smart Chain with transparent, verifiable on-chain mechanics.
-          No guaranteed yields. No profit promises. Always do your own research.
+          Staking is deployed on BNB Chain. No guaranteed yields. No profit promises. Always do your own research.
         </div>
 
         <div class="tags" id="tags">
@@ -233,14 +232,10 @@
 
         <div class="actions">
           <a class="btn2" href="#about" id="aboutBtn">About</a>
-          <a class="btn2" href="#staking" id="stakingBtn">Staking (In Development)</a>
+          <a class="btn2" href="#staking" id="stakingBtn">Staking Live</a>
           <a class="btn2" href="./TRANSPARENCY.md" id="transBtn">Transparency</a>
-
-          <a class="btn2" href="./UNIT_Protocol_Technical_and_Ecosystem_Whitepaper_v1.3.pdf"
-             target="_blank" rel="noopener noreferrer" id="wpBtn">Whitepaper v1.3</a>
-
-          <a class="btn2" href="./UNIT_Protocol_PitchDeck_v1.3_Professional.pdf"
-             target="_blank" rel="noopener noreferrer" id="pdBtn">Pitch Deck v1.3</a>
+          <a class="btn2" href="./UNIT_Protocol_Technical_and_Ecosystem_Whitepaper_v1.3.pdf" target="_blank" rel="noopener noreferrer" id="wpBtn">Whitepaper v1.3</a>
+          <a class="btn2" href="./UNIT_Protocol_PitchDeck_v1.3_Professional.pdf" target="_blank" rel="noopener noreferrer" id="pdBtn">Pitch Deck v1.3</a>
         </div>
 
         <div class="note" id="heroNote">
@@ -260,10 +255,19 @@
         </div>
 
         <div class="card">
-          <div class="label" id="contractLabel">Contract</div>
+          <div class="label" id="contractLabel">UNIT Token Contract</div>
           <div class="val">
-            <a id="contractLink" href="https://bscscan.com/token/0x4f5710c96C446b133C59AF006A36d07414B52a9" target="_blank" rel="noopener noreferrer">
-              <code>0x4f5710c96C446b133C59AF006A36d07414B52a9</code>
+            <a id="contractLink" href="https://bscscan.com/token/0x4f5710c96C446b133C59Af006A366d07414B52a9" target="_blank" rel="noopener noreferrer">
+              <code>0x4f5710c96C446b133C59Af006A366d07414B52a9</code>
+            </a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="label" id="stakingContractLabel">Staking Contract</div>
+          <div class="val">
+            <a href="https://bscscan.com/address/0xB9589a2857a7043150249af9ccf2993616BC95D9" target="_blank" rel="noopener noreferrer">
+              <code>0xB9589a2857a7043150249af9ccf2993616BC95D9</code>
             </a>
           </div>
         </div>
@@ -283,13 +287,13 @@
     <section id="about">
       <h2 id="aboutH">About UNIT</h2>
       <div class="lead" id="aboutLead">
-        UNIT is an experimental utility token on BNB Smart Chain. Rules and configuration are intended to be verifiable on-chain.
+        UNIT is an experimental utility token on BNB Smart Chain. Rules, token data, and staking information are intended to be transparent and verifiable on-chain.
       </div>
 
       <div class="grid">
         <div class="box">
           <b id="box1t">Verify before you interact</b>
-          <span id="box1b">Always double-check the contract address and official links. Avoid scams and impersonators.</span>
+          <span id="box1b">Always double-check the contract address, staking address, and official links. Avoid scams and impersonators.</span>
         </div>
         <div class="box">
           <b id="box2t">Self-custody matters</b>
@@ -297,7 +301,7 @@
         </div>
         <div class="box">
           <b id="box3t">Transparent docs</b>
-          <span id="box3b">Read the Transparency doc and official PDFs on this repository.</span>
+          <span id="box3b">Read the Transparency doc, whitepaper, pitch deck, and official BscScan contract pages.</span>
         </div>
       </div>
 
@@ -309,28 +313,62 @@
     </section>
 
     <section id="staking">
-      <h2 id="stakeH">Staking Program (In Development)</h2>
+      <h2 id="stakeH">UNIT Staking Program — Live on BNB Chain</h2>
       <div class="lead" id="stakeLead">
-        We are actively developing and testing our staking system. Details (APR, minimums, lock terms) will be shared only when everything is finalized.
+        UNIT staking is deployed on BNB Smart Chain. The reward pool was funded with 5,000,000 UNIT. Always verify the official contract address before interacting.
       </div>
 
       <div class="grid">
         <div class="box">
-          <b id="stake1t">Test first</b>
-          <span id="stake1b">We prioritize security and reliability through staged testing before any production release.</span>
+          <b id="stake1t">Staking Contract</b>
+          <span id="stake1b">
+            <a href="https://bscscan.com/address/0xB9589a2857a7043150249af9ccf2993616BC95D9" target="_blank" rel="noopener noreferrer">
+              <code>0xB9589a2857a7043150249af9ccf2993616BC95D9</code>
+            </a>
+          </span>
         </div>
+
         <div class="box">
-          <b id="stake2t">No promises</b>
-          <span id="stake2b">No guaranteed yields or profit claims. Any future program will be communicated transparently.</span>
+          <b id="stake2t">Reward Pool Funded</b>
+          <span id="stake2b">5,000,000 UNIT funded on-chain for staking rewards.</span>
         </div>
+
         <div class="box">
-          <b id="stake3t">Early supporters</b>
-          <span id="stake3b">Community-first approach: early supporters will be the first to hear official updates.</span>
+          <b id="stake3t">Owner / Rewards Wallet</b>
+          <span id="stake3b">
+            <a href="https://bscscan.com/address/0x4F60408d0740ef570B67bE9433f35E9D2d69992E" target="_blank" rel="noopener noreferrer">
+              <code>0x4F60408d0740ef570B67bE9433f35E9D2d69992E</code>
+            </a>
+          </span>
+        </div>
+
+        <div class="box">
+          <b id="stake4t">Staking Parameters</b>
+          <span id="stake4b">Minimum stake: 5,000 UNIT. Minimum restake: 500 UNIT. Lock options: 30, 90, 180, and 365 days.</span>
         </div>
       </div>
 
+      <div class="actions" style="margin-top:14px">
+        <a class="btn" id="stakeOpenBtn"
+           href="https://bscscan.com/address/0xB9589a2857a7043150249af9ccf2993616BC95D9#writeContract"
+           target="_blank" rel="noopener noreferrer">Open Staking Contract</a>
+
+        <a class="btn2" id="stakeReadBtn"
+           href="https://bscscan.com/address/0xB9589a2857a7043150249af9ccf2993616BC95D9#readContract"
+           target="_blank" rel="noopener noreferrer">Read Contract</a>
+
+        <a class="btn2" id="stakeWriteBtn"
+           href="https://bscscan.com/address/0xB9589a2857a7043150249af9ccf2993616BC95D9#writeContract"
+           target="_blank" rel="noopener noreferrer">Stake / Claim / Compound</a>
+
+        <a class="btn2" id="stakeTokenBtn"
+           href="https://bscscan.com/token/0x4f5710c96C446b133C59Af006A366d07414B52a9"
+           target="_blank" rel="noopener noreferrer">UNIT Token</a>
+      </div>
+
       <div class="legal" id="legal2">
-        <b>Important:</b> This section is a development teaser only. Nothing here constitutes an offer, solicitation, or promise of returns.
+        <b>Important:</b> Staking involves smart contract risk. Rewards are not guaranteed profit.
+        Digital assets are volatile and may lose value. Always verify the contract address and use the official links only.
       </div>
     </section>
 
@@ -387,29 +425,33 @@
         buyBtnLabel: "Buy UNIT",
         kicker: "BUILT FOR REAL UTILITY",
         title: "A <span class='hl'>utility-first</span> token for builders and long-term thinkers.",
-        sub: "UNIT Protocol (UNIT) is a BEP-20 utility token on BNB Smart Chain with transparent, verifiable on-chain mechanics. No guaranteed yields. No profit promises. Always do your own research.",
+        sub: "UNIT Protocol (UNIT) is a BEP-20 utility token on BNB Smart Chain with transparent, verifiable on-chain mechanics. Staking is deployed on BNB Chain. No guaranteed yields. No profit promises. Always do your own research.",
         tag1: "Transparent", tag2: "Non-custodial", tag3: "Community-first",
-        aboutBtn: "About", stakingBtn: "Staking (In Development)", transBtn: "Transparency", wpBtn: "Whitepaper v1.3", pdBtn: "Pitch Deck v1.3",
+        aboutBtn: "About", stakingBtn: "Staking Live", transBtn: "Transparency", wpBtn: "Whitepaper v1.3", pdBtn: "Pitch Deck v1.3",
         heroNote: "This website is for informational purposes only and does not constitute financial advice.",
-        netLabel: "Network", supplyLabel: "Total Supply", contractLabel: "Contract", linksLabel: "Official Links",
+        netLabel: "Network", supplyLabel: "Total Supply", contractLabel: "UNIT Token Contract", stakingContractLabel: "Staking Contract", linksLabel: "Official Links",
         aboutH: "About UNIT",
-        aboutLead: "UNIT is an experimental utility token on BNB Smart Chain. Rules and configuration are intended to be verifiable on-chain.",
+        aboutLead: "UNIT is an experimental utility token on BNB Smart Chain. Rules, token data, and staking information are intended to be transparent and verifiable on-chain.",
         box1t: "Verify before you interact",
-        box1b: "Always double-check the contract address and official links. Avoid scams and impersonators.",
+        box1b: "Always double-check the contract address, staking address, and official links. Avoid scams and impersonators.",
         box2t: "Self-custody matters",
         box2b: "You control your wallet keys. No one can reverse transactions for you.",
         box3t: "Transparent docs",
-        box3b: "Read the Transparency doc and official PDFs on this repository.",
+        box3b: "Read the Transparency doc, whitepaper, pitch deck, and official BscScan contract pages.",
         legal1: "<b>Legal & risk notice.</b> Digital assets are volatile and may lose all value. Nothing on this site is financial, legal, or investment advice. You are solely responsible for your decisions, due diligence, and compliance with applicable laws and regulations.",
-        stakeH: "Staking Program (In Development)",
-        stakeLead: "We are actively developing and testing our staking system. Details (APR, minimums, lock terms) will be shared only when everything is finalized.",
-        stake1t: "Test first",
-        stake1b: "We prioritize security and reliability through staged testing before any production release.",
-        stake2t: "No promises",
-        stake2b: "No guaranteed yields or profit claims. Any future program will be communicated transparently.",
-        stake3t: "Early supporters",
-        stake3b: "Community-first approach: early supporters will be the first to hear official updates.",
-        legal2: "<b>Important:</b> This section is a development teaser only. Nothing here constitutes an offer, solicitation, or promise of returns.",
+        stakeH: "UNIT Staking Program — Live on BNB Chain",
+        stakeLead: "UNIT staking is deployed on BNB Smart Chain. The reward pool was funded with 5,000,000 UNIT. Always verify the official contract address before interacting.",
+        stake1t: "Staking Contract",
+        stake2t: "Reward Pool Funded",
+        stake2b: "5,000,000 UNIT funded on-chain for staking rewards.",
+        stake3t: "Owner / Rewards Wallet",
+        stake4t: "Staking Parameters",
+        stake4b: "Minimum stake: 5,000 UNIT. Minimum restake: 500 UNIT. Lock options: 30, 90, 180, and 365 days.",
+        stakeOpenBtn: "Open Staking Contract",
+        stakeReadBtn: "Read Contract",
+        stakeWriteBtn: "Stake / Claim / Compound",
+        stakeTokenBtn: "UNIT Token",
+        legal2: "<b>Important:</b> Staking involves smart contract risk. Rewards are not guaranteed profit. Digital assets are volatile and may lose value. Always verify the contract address and use the official links only.",
         buyH: "How to Buy",
         buyLead: "Use the official contract address and a trusted DEX. Always verify you are interacting with the correct token.",
         buy1t: "Step 1",
@@ -428,29 +470,33 @@
         buyBtnLabel: "Cumpără UNIT",
         kicker: "CONSTRUIT PENTRU UTILITATE REALĂ",
         title: "Un token <span class='hl'>axat pe utilitate</span> pentru constructori și gânditori pe termen lung.",
-        sub: "UNIT Protocol (UNIT) este un token BEP-20 pe BNB Smart Chain, cu mecanici on-chain transparente și verificabile. Fără randamente garantate. Fără promisiuni de profit. Fă propriul research.",
+        sub: "UNIT Protocol (UNIT) este un token BEP-20 pe BNB Smart Chain, cu mecanici on-chain transparente și verificabile. Staking-ul este implementat pe BNB Chain. Fără randamente garantate. Fără promisiuni de profit. Fă propriul research.",
         tag1: "Transparent", tag2: "Fără custodie", tag3: "Comunitate pe primul loc",
-        aboutBtn: "Despre", stakingBtn: "Staking (în dezvoltare)", transBtn: "Transparență", wpBtn: "Whitepaper v1.3", pdBtn: "Pitch Deck v1.3",
+        aboutBtn: "Despre", stakingBtn: "Staking Live", transBtn: "Transparență", wpBtn: "Whitepaper v1.3", pdBtn: "Pitch Deck v1.3",
         heroNote: "Acest site este informativ și nu reprezintă sfat financiar.",
-        netLabel: "Rețea", supplyLabel: "Oferta totală", contractLabel: "Contract", linksLabel: "Linkuri oficiale",
+        netLabel: "Rețea", supplyLabel: "Oferta totală", contractLabel: "Contract token UNIT", stakingContractLabel: "Contract staking", linksLabel: "Linkuri oficiale",
         aboutH: "Despre UNIT",
-        aboutLead: "UNIT este un token de utilitate experimental pe BNB Smart Chain. Regulile și configurarea sunt destinate să fie verificabile on-chain.",
+        aboutLead: "UNIT este un token de utilitate experimental pe BNB Smart Chain. Regulile, datele tokenului și informațiile de staking sunt destinate să fie transparente și verificabile on-chain.",
         box1t: "Verifică înainte să interacționezi",
-        box1b: "Verifică mereu adresa de contract și linkurile oficiale. Evită scam-uri și imitatori.",
+        box1b: "Verifică mereu adresa tokenului, adresa stakingului și linkurile oficiale. Evită scam-uri și imitatori.",
         box2t: "Autocustodia contează",
         box2b: "Tu controlezi cheile portofelului. Nimeni nu poate anula tranzacții pentru tine.",
         box3t: "Documente transparente",
-        box3b: "Citește documentul de Transparență și PDF-urile oficiale din repo.",
+        box3b: "Citește documentul de Transparență, whitepaper-ul, pitch deck-ul și paginile oficiale de pe BscScan.",
         legal1: "<b>Notificare legală & risc.</b> Activele digitale sunt volatile și pot pierde toată valoarea. Nimic de pe acest site nu este sfat financiar/juridic/de investiții. Ești singurul responsabil pentru decizii, due diligence și conformare cu legile aplicabile.",
-        stakeH: "Program de Staking (în dezvoltare)",
-        stakeLead: "Dezvoltăm și testăm activ sistemul de staking. Detaliile (APR, minime, lock) vor fi anunțate doar când totul este finalizat.",
-        stake1t: "Test întâi",
-        stake1b: "Punem pe primul loc securitatea și fiabilitatea prin testare etapizată înainte de producție.",
-        stake2t: "Fără promisiuni",
-        stake2b: "Fără randamente garantate și fără promisiuni de profit. Orice program viitor va fi comunicat transparent.",
-        stake3t: "Susținători timpurii",
-        stake3b: "Comunitate pe primul loc: susținătorii timpurii vor primi primii update-uri oficiale.",
-        legal2: "<b>Important:</b> Această secțiune este doar un teaser de dezvoltare. Nu reprezintă ofertă, solicitare sau promisiune de randament.",
+        stakeH: "UNIT Staking Program — Live pe BNB Chain",
+        stakeLead: "Staking-ul UNIT este implementat pe BNB Smart Chain. Fondul de recompense a fost alimentat cu 5.000.000 UNIT. Verifică mereu adresa oficială a contractului înainte de interacțiune.",
+        stake1t: "Contract staking",
+        stake2t: "Fond de recompense alimentat",
+        stake2b: "5.000.000 UNIT alimentați on-chain pentru recompensele de staking.",
+        stake3t: "Wallet owner / recompense",
+        stake4t: "Parametri staking",
+        stake4b: "Miză minimă: 5.000 UNIT. Restake minim: 500 UNIT. Opțiuni lock: 30, 90, 180 și 365 zile.",
+        stakeOpenBtn: "Deschide contractul de staking",
+        stakeReadBtn: "Citește contractul",
+        stakeWriteBtn: "Stake / Claim / Compound",
+        stakeTokenBtn: "Token UNIT",
+        legal2: "<b>Important:</b> Staking-ul implică risc de smart contract. Recompensele nu sunt profit garantat. Activele digitale sunt volatile și pot pierde valoare. Verifică mereu adresa contractului și folosește doar linkurile oficiale.",
         buyH: "Cum să cumperi",
         buyLead: "Folosește adresa oficială de contract și un DEX de încredere. Verifică mereu că interacționezi cu tokenul corect.",
         buy1t: "Pasul 1",
@@ -471,64 +517,79 @@
 
       document.documentElement.lang = lang;
 
-      document.getElementById("liveChip").textContent = t.liveChip;
-      document.getElementById("buyBtnLabel").textContent = t.buyBtnLabel;
+      const setText = (id, value) => {
+        const el = document.getElementById(id);
+        if(el) el.textContent = value;
+      };
 
-      document.getElementById("kicker").textContent = t.kicker;
-      document.getElementById("title").innerHTML = t.title;
-      document.getElementById("sub").textContent = t.sub;
-      document.getElementById("tag1").textContent = t.tag1;
-      document.getElementById("tag2").textContent = t.tag2;
-      document.getElementById("tag3").textContent = t.tag3;
+      const setHTML = (id, value) => {
+        const el = document.getElementById(id);
+        if(el) el.innerHTML = value;
+      };
 
-      document.getElementById("aboutBtn").textContent = t.aboutBtn;
-      document.getElementById("stakingBtn").textContent = t.stakingBtn;
-      document.getElementById("transBtn").textContent = t.transBtn;
-      document.getElementById("wpBtn").textContent = t.wpBtn;
-      document.getElementById("pdBtn").textContent = t.pdBtn;
-      document.getElementById("heroNote").textContent = t.heroNote;
+      setText("liveChip", t.liveChip);
+      setText("buyBtnLabel", t.buyBtnLabel);
 
-      document.getElementById("netLabel").textContent = t.netLabel;
-      document.getElementById("supplyLabel").textContent = t.supplyLabel;
-      document.getElementById("contractLabel").textContent = t.contractLabel;
-      document.getElementById("linksLabel").textContent = t.linksLabel;
+      setText("kicker", t.kicker);
+      setHTML("title", t.title);
+      setText("sub", t.sub);
+      setText("tag1", t.tag1);
+      setText("tag2", t.tag2);
+      setText("tag3", t.tag3);
 
-      document.getElementById("aboutH").textContent = t.aboutH;
-      document.getElementById("aboutLead").textContent = t.aboutLead;
-      document.getElementById("box1t").textContent = t.box1t;
-      document.getElementById("box1b").textContent = t.box1b;
-      document.getElementById("box2t").textContent = t.box2t;
-      document.getElementById("box2b").textContent = t.box2b;
-      document.getElementById("box3t").textContent = t.box3t;
-      document.getElementById("box3b").textContent = t.box3b;
-      document.getElementById("legal1").innerHTML = t.legal1;
+      setText("aboutBtn", t.aboutBtn);
+      setText("stakingBtn", t.stakingBtn);
+      setText("transBtn", t.transBtn);
+      setText("wpBtn", t.wpBtn);
+      setText("pdBtn", t.pdBtn);
+      setText("heroNote", t.heroNote);
 
-      document.getElementById("stakeH").textContent = t.stakeH;
-      document.getElementById("stakeLead").textContent = t.stakeLead;
-      document.getElementById("stake1t").textContent = t.stake1t;
-      document.getElementById("stake1b").textContent = t.stake1b;
-      document.getElementById("stake2t").textContent = t.stake2t;
-      document.getElementById("stake2b").textContent = t.stake2b;
-      document.getElementById("stake3t").textContent = t.stake3t;
-      document.getElementById("stake3b").textContent = t.stake3b;
-      document.getElementById("legal2").innerHTML = t.legal2;
+      setText("netLabel", t.netLabel);
+      setText("supplyLabel", t.supplyLabel);
+      setText("contractLabel", t.contractLabel);
+      setText("stakingContractLabel", t.stakingContractLabel);
+      setText("linksLabel", t.linksLabel);
 
-      document.getElementById("buyH").textContent = t.buyH;
-      document.getElementById("buyLead").textContent = t.buyLead;
-      document.getElementById("buy1t").textContent = t.buy1t;
-      document.getElementById("buy1b").textContent = t.buy1b;
-      document.getElementById("buy2t").textContent = t.buy2t;
-      document.getElementById("buy2b").textContent = t.buy2b;
-      document.getElementById("buy3t").textContent = t.buy3t;
-      document.getElementById("buy3b").textContent = t.buy3b;
-      document.getElementById("psBtnLabel").textContent = t.psBtnLabel;
-      document.getElementById("legal3").innerHTML = t.legal3;
+      setText("aboutH", t.aboutH);
+      setText("aboutLead", t.aboutLead);
+      setText("box1t", t.box1t);
+      setText("box1b", t.box1b);
+      setText("box2t", t.box2t);
+      setText("box2b", t.box2b);
+      setText("box3t", t.box3t);
+      setText("box3b", t.box3b);
+      setHTML("legal1", t.legal1);
 
-      document.getElementById("footLeft").textContent = t.footLeft;
-      document.getElementById("footA").textContent = t.footA;
-      document.getElementById("footS").textContent = t.footS;
-      document.getElementById("footB").textContent = t.footB;
-      document.getElementById("footT").textContent = t.footT;
+      setText("stakeH", t.stakeH);
+      setText("stakeLead", t.stakeLead);
+      setText("stake1t", t.stake1t);
+      setText("stake2t", t.stake2t);
+      setText("stake2b", t.stake2b);
+      setText("stake3t", t.stake3t);
+      setText("stake4t", t.stake4t);
+      setText("stake4b", t.stake4b);
+      setText("stakeOpenBtn", t.stakeOpenBtn);
+      setText("stakeReadBtn", t.stakeReadBtn);
+      setText("stakeWriteBtn", t.stakeWriteBtn);
+      setText("stakeTokenBtn", t.stakeTokenBtn);
+      setHTML("legal2", t.legal2);
+
+      setText("buyH", t.buyH);
+      setText("buyLead", t.buyLead);
+      setText("buy1t", t.buy1t);
+      setText("buy1b", t.buy1b);
+      setText("buy2t", t.buy2t);
+      setText("buy2b", t.buy2b);
+      setText("buy3t", t.buy3t);
+      setText("buy3b", t.buy3b);
+      setText("psBtnLabel", t.psBtnLabel);
+      setHTML("legal3", t.legal3);
+
+      setText("footLeft", t.footLeft);
+      setText("footA", t.footA);
+      setText("footS", t.footS);
+      setText("footB", t.footB);
+      setText("footT", t.footT);
 
       document.getElementById("btnEN").classList.toggle("active", lang==="en");
       document.getElementById("btnRO").classList.toggle("active", lang==="ro");
@@ -549,4 +610,4 @@
     })();
   </script>
 </body>
-        </html>
+</html>
