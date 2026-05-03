@@ -18,10 +18,11 @@ button:disabled{opacity:.45}
 .danger{background:#2a1220;color:#fff;border:1px solid #ff667a}
 input,select{width:100%;max-width:460px;padding:16px;margin:9px 0;border-radius:14px;border:1px solid #777;font-size:18px}
 .data{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;text-align:left}
-.box{background:#101a33;border:1px solid #2c3756;border-radius:16px;padding:14px}
+.box{background:#101a33;border:1px solid #2c3756;border-radius:16px;padding:14px;overflow:hidden}
 .box small{color:#a8b0d0;display:block;margin-bottom:6px}
+.box b{word-break:break-all}
 .good{color:#58f2c8}.bad{color:#ff667a}.addr{color:#58f2c8;word-break:break-all}
-.status{position:sticky;bottom:12px;background:#111a33;border:1px solid #2c3756;border-radius:18px;padding:14px;margin-top:18px}
+.status{position:sticky;bottom:12px;background:#111a33;border:1px solid #2c3756;border-radius:18px;padding:14px;margin-top:18px;z-index:20}
 .warn{background:#2b1a05;border:1px solid #fbb021;border-radius:18px;padding:14px;margin:18px 0;color:#ffe3a3}
 a{color:#58f2c8}
 </style>
@@ -95,7 +96,7 @@ import { bsc } from "https://esm.sh/@reown/appkit/networks";
 import { ethers } from "https://esm.sh/ethers@6.13.5";
 
 const PROJECT_ID="5a0e58d451cfbd31d34b1dd417b59fab";
-const BSC_CHAIN_ID="0x38";
+const BSC_CHAIN_HEX="0x38";
 const UNIT_TOKEN="0x4f5710c96c446b133c59af006a366d07414b52a9";
 const STAKING_CONTRACT="0xb9589a2857a7043150249af9ccf2993616bc95d9";
 
@@ -158,11 +159,26 @@ return account;
 
 async function checkChain(raw){
 try{
-const id=await raw.request({method:"eth_chainId"});
-if(String(id).toLowerCase()===BSC_CHAIN_ID){
+let id="";
+try{
+id=await raw.request({method:"eth_chainId"});
+id=String(id).toLowerCase();
+}catch{}
+
+if(id==="0x38" || id==="56" || id==="eip155:56"){
 $("networkName").innerHTML="<span class='good'>BNB Smart Chain</span>";
 return true;
 }
+
+try{
+const p=new ethers.BrowserProvider(raw);
+const net=await p.getNetwork();
+if(Number(net.chainId)===56){
+$("networkName").innerHTML="<span class='good'>BNB Smart Chain</span>";
+return true;
+}
+}catch{}
+
 $("networkName").innerHTML="<span class='bad'>Rețea greșită</span>";
 return false;
 }catch{
@@ -174,33 +190,38 @@ return false;
 async function switchBSC(){
 const raw=rawProvider();
 if(!raw)throw new Error("Portofel neconectat.");
+
 try{
-await raw.request({method:"wallet_switchEthereumChain",params:[{chainId:BSC_CHAIN_ID}]});
+await raw.request({method:"wallet_switchEthereumChain",params:[{chainId:BSC_CHAIN_HEX}]});
 }catch(e){
-if(e.code===4902){
+if(e.code===4902 || String(e.message||"").toLowerCase().includes("unrecognized")){
 await raw.request({method:"wallet_addEthereumChain",params:[{
-chainId:BSC_CHAIN_ID,
+chainId:BSC_CHAIN_HEX,
 chainName:"BNB Smart Chain",
 nativeCurrency:{name:"BNB",symbol:"BNB",decimals:18},
 rpcUrls:["https://bsc-dataseed.binance.org/"],
 blockExplorerUrls:["https://bscscan.com"]
 }]});
-}else throw e;
+}else{
+throw e;
 }
-await new Promise(r=>setTimeout(r,700));
-await checkChain(raw);
+}
+
+await new Promise(r=>setTimeout(r,900));
+return await checkChain(raw);
 }
 
 async function providerBSC(){
 const raw=rawProvider();
 if(!raw)throw new Error("Conectează portofelul.");
 if(!account)await getAccounts(raw);
+
 let ok=await checkChain(raw);
 if(!ok){
 status("Schimb automat pe BNB Chain...");
-await switchBSC();
-ok=await checkChain(raw);
+ok=await switchBSC();
 }
+
 if(!ok)throw new Error("Portofelul nu este pe BNB Chain.");
 return new ethers.BrowserProvider(raw);
 }
@@ -211,6 +232,7 @@ return await (await providerBSC()).getSigner();
 
 async function refresh(){
 const raw=rawProvider();
+
 if(!raw){
 $("walletAddr").textContent="Neconectat";
 $("networkName").textContent="Neconectată";
@@ -218,16 +240,24 @@ $("unitBalance").textContent="-";
 $("allowanceText").textContent="-";
 return;
 }
+
 try{
 if(!account)await getAccounts(raw);
-await checkChain(raw);
+
+const chainOk=await checkChain(raw);
+
 const p=new ethers.BrowserProvider(raw);
 const token=new ethers.Contract(UNIT_TOKEN,UNIT_ABI,p);
+
 const bal=await token.balanceOf(account);
 const allow=await token.allowance(account,STAKING_CONTRACT);
+
 $("unitBalance").textContent=Number(ethers.formatUnits(bal,18)).toLocaleString("en-US",{maximumFractionDigits:4})+" UNIT";
 $("allowanceText").textContent=Number(ethers.formatUnits(allow,18)).toLocaleString("en-US",{maximumFractionDigits:4})+" UNIT";
-status("Date actualizate.","good");
+
+if(chainOk) status("Date actualizate. BNB Smart Chain OK.","good");
+else status("Date citite, dar rețeaua trebuie schimbată pe BNB Chain.","bad");
+
 }catch(e){
 status("Refresh error: "+(e.shortMessage||e.message),"bad");
 }
@@ -255,7 +285,7 @@ modal.subscribeAccount(s=>{
 if(s && s.address){
 account=s.address;
 $("walletAddr").textContent=account;
-setTimeout(refresh,500);
+setTimeout(refresh,600);
 }
 });
 
@@ -265,38 +295,65 @@ account=a&&a[0]?a[0]:null;
 $("walletAddr").textContent=account||"Neconectat";
 refresh();
 });
-window.ethereum.on?.("chainChanged",()=>setTimeout(refresh,500));
+window.ethereum.on?.("chainChanged",()=>setTimeout(refresh,700));
 }
 
 $("connectBtn").onclick=async()=>{
 if(busy)return;setBusy(true);
 try{
 const raw=rawProvider();
+
 if(account && raw){
 await switchBSC();
 await refresh();
-status("Portofel deja conectat și verificat.","good");
+status("Portofel conectat și verificat.","good");
 }else{
-status("Se deschide selectarea walletului...");
+status("Alege portofelul din fereastra deschisă...");
 await modal.open({view:"Connect"});
-setTimeout(refresh,1500);
+setTimeout(async()=>{
+try{
+const r=rawProvider();
+if(r){
+await getAccounts(r);
+await switchBSC();
+await refresh();
 }
-}catch(e){status("Connect error: "+(e.shortMessage||e.message),"bad")}
-finally{setTimeout(()=>setBusy(false),1200)}
+}catch(e){
+status("Conectare incompletă: "+(e.shortMessage||e.message),"bad");
+}
+},1600);
+}
+}catch(e){
+status("Connect error: "+(e.shortMessage||e.message),"bad");
+}finally{
+setTimeout(()=>setBusy(false),1800);
+}
 };
 
 $("switchBtn").onclick=async()=>{
 if(busy)return;setBusy(true);
-try{await switchBSC();await refresh();status("BNB Chain activ.","good")}
-catch(e){status("Switch error: "+(e.shortMessage||e.message),"bad")}
-finally{setBusy(false)}
+try{
+await switchBSC();
+await refresh();
+}catch(e){
+status("Switch error: "+(e.shortMessage||e.message),"bad");
+}finally{setBusy(false)}
 };
 
 $("disconnectBtn").onclick=async()=>{
 if(busy)return;setBusy(true);
-try{await modal.disconnect().catch(()=>{});appProvider=null;account=null;await refresh();status("Deconectat.","good")}
-catch(e){status("Disconnect error: "+(e.shortMessage||e.message),"bad")}
-finally{setBusy(false)}
+try{
+await modal.disconnect().catch(()=>{});
+appProvider=null;
+account=null;
+$("walletAddr").textContent="Neconectat";
+$("networkName").textContent="Neconectată";
+$("unitBalance").textContent="-";
+$("allowanceText").textContent="-";
+status("Deconectat.","good");
+}catch(e){
+status("Disconnect error: "+(e.shortMessage||e.message),"bad");
+}finally{setBusy(false)}
 };
 
 $("approveBtn").onclick=async()=>{
@@ -305,8 +362,9 @@ try{
 const s=await signer();
 const token=new ethers.Contract(UNIT_TOKEN,UNIT_ABI,s);
 await wait(await token.approve(STAKING_CONTRACT,amount()),"Approve");
-}catch(e){status("Approve error: "+(e.shortMessage||e.message),"bad")}
-finally{setBusy(false)}
+}catch(e){
+status("Approve error: "+(e.shortMessage||e.message),"bad");
+}finally{setBusy(false)}
 };
 
 $("stakeBtn").onclick=async()=>{
@@ -318,8 +376,9 @@ const a=amount();
 const min=await staking.MIN_STAKE();
 if(a<min)throw new Error("Minim staking: 5,000 UNIT.");
 await wait(await staking.stake(a,Number($("lockIndex").value)),"Stake");
-}catch(e){status("Stake error: "+(e.shortMessage||e.message),"bad")}
-finally{setBusy(false)}
+}catch(e){
+status("Stake error: "+(e.shortMessage||e.message),"bad");
+}finally{setBusy(false)}
 };
 
 async function pos(fn,label){
@@ -344,8 +403,9 @@ const p=await providerBSC();
 const staking=new ethers.Contract(STAKING_CONTRACT,STAKING_ABI,p);
 const r=await staking.pendingRewards(BigInt(id));
 status("Pending rewards: "+ethers.formatUnits(r,18)+" UNIT","good");
-}catch(e){status("Pending error: "+(e.shortMessage||e.message),"bad")}
-finally{setBusy(false)}
+}catch(e){
+status("Pending error: "+(e.shortMessage||e.message),"bad");
+}finally{setBusy(false)}
 };
 
 $("poolBtn").onclick=async()=>{
@@ -355,12 +415,17 @@ const p=await providerBSC();
 const staking=new ethers.Contract(STAKING_CONTRACT,STAKING_ABI,p);
 const r=await staking.availableRewardPool();
 status("Fond recompense: "+ethers.formatUnits(r,18)+" UNIT","good");
-}catch(e){status("Pool error: "+(e.shortMessage||e.message),"bad")}
-finally{setBusy(false)}
+}catch(e){
+status("Pool error: "+(e.shortMessage||e.message),"bad");
+}finally{setBusy(false)}
 };
 
-$("refreshBtn").onclick=refresh;
-setTimeout(refresh,1200);
+$("refreshBtn").onclick=async()=>{
+if(busy)return;setBusy(true);
+try{await refresh()}finally{setBusy(false)}
+};
+
+setTimeout(refresh,1500);
 </script>
 </body>
 </html>
