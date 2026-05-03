@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UNIT Staking App</title>
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+
+<style>
+body{
+  font-family:Arial;
+  background:#050814;
+  color:#fff;
+  text-align:center;
+  padding:20px;
+}
+button{
+  padding:10px 20px;
+  margin:5px;
+  border:none;
+  border-radius:8px;
+  background:#fbb021;
+  cursor:pointer;
+}
+input{
+  padding:10px;
+  margin:10px;
+  width:200px;
+}
+.box{
+  border:1px solid #333;
+  padding:20px;
+  margin:20px auto;
+  max-width:400px;
+  border-radius:12px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>UNIT Staking App</h2>
+
+<button onclick="connectWallet()">Connect Wallet</button>
+<p id="wallet"></p>
+
+<div class="box">
+<h3>Stake</h3>
+<input id="amount" placeholder="Amount UNIT">
+<br>
+<button onclick="approve()">Approve</button>
+<button onclick="stake()">Stake</button>
+</div>
+
+<div class="box">
+<h3>Actions</h3>
+<input id="positionId" placeholder="Position ID">
+<br>
+<button onclick="claim()">Claim</button>
+<button onclick="compound()">Compound</button>
+<button onclick="requestUnstake()">Request Unstake</button>
+<button onclick="withdraw()">Withdraw</button>
+</div>
+
+<script>
+const stakingAddress = "0xB9589a2857a7043150249af9ccf2993616BC95D9";
+const tokenAddress = "0x4f5710c96C446b133C59Af006A366d07414B52a9";
+
+const stakingABI = [
+"function stake(uint256 amount,uint8 lockIndex)",
+"function claim(uint256 id)",
+"function compound(uint256 id)",
+"function requestUnstake(uint256 id)",
+"function withdraw(uint256 id)"
+];
+
+const tokenABI = [
+"function approve(address spender,uint256 amount)"
+];
+
+let provider, signer;
+
+async function connectWallet(){
+  await window.ethereum.request({ method: 'eth_requestAccounts' });
+  provider = new ethers.providers.Web3Provider(window.ethereum);
+  signer = provider.getSigner();
+
+  const address = await signer.getAddress();
+  document.getElementById("wallet").innerText = "Connected: " + address;
+}
+
+async function approve(){
+  const token = new ethers.Contract(tokenAddress, tokenABI, signer);
+  const amount = ethers.utils.parseUnits(document.getElementById("amount").value,18);
+  const tx = await token.approve(stakingAddress, amount);
+  await tx.wait();
+  alert("Approved!");
+}
+
+async function stake(){
+  const contract = new ethers.Contract(stakingAddress, stakingABI, signer);
+  const amount = ethers.utils.parseUnits(document.getElementById("amount").value,18);
+  const tx = await contract.stake(amount,0);
+  await tx.wait();
+  alert("Staked!");
+}
+
+async function claim(){
+  const id = document.getElementById("positionId").value;
+  const contract = new ethers.Contract(stakingAddress, stakingABI, signer);
+  const tx = await contract.claim(id);
+  await tx.wait();
+  alert("Claimed!");
+}
+
+async function compound(){
+  const id = document.getElementById("positionId").value;
+  const contract = new ethers.Contract(stakingAddress, stakingABI, signer);
+  const tx = await contract.compound(id);
+  await tx.wait();
+  alert("Compounded!");
+}
+
+async function requestUnstake(){
+  const id = document.getElementById("positionId").value;
+  const contract = new ethers.Contract(stakingAddress, stakingABI, signer);
+  const tx = await contract.requestUnstake(id);
+  await tx.wait();
+  alert("Requested Unstake!");
+}
+
+async function withdraw(){
+  const id = document.getElementById("positionId").value;
+  const contract = new ethers.Contract(stakingAddress, stakingABI, signer);
+  const tx = await contract.withdraw(id);
+  await tx.wait();
+  alert("Withdrawn!");
+}
+</script>
+
+</body>
+</html>
