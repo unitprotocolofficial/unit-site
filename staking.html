@@ -75,9 +75,13 @@ Pentru mobil, deschide pagina în browserul walletului: MetaMask, Trust Wallet, 
 
 <div class="card">
 <h2>Stake UNIT</h2>
-<p>Un singur buton. Aplicația verifică allowance-ul și cere approve automat dacă este nevoie, apoi face staking.</p>
+<p>
+Pentru o poziție normală, minimul este <b>5,000 UNIT</b>.
+Pentru o poziție mică/restake, minimul este <b>500 UNIT</b>.
+Aplicația verifică automat suma și folosește funcția corectă.
+</p>
 
-<input id="stakeAmount" inputmode="decimal" placeholder="Sumă UNIT, minim 5000" />
+<input id="stakeAmount" inputmode="decimal" placeholder="Sumă UNIT, minim 500 pentru restake / 5000 normal" />
 
 <select id="lockIndex">
 <option value="0">30 zile · 5% APR</option>
@@ -88,7 +92,7 @@ Pentru mobil, deschide pagina în browserul walletului: MetaMask, Trust Wallet, 
 
 <br>
 <button id="stakeFlowBtn">Stake UNIT</button>
-<p style="margin-top:8px">Minim staking: <b>5,000 UNIT</b></p>
+<p style="margin-top:8px">Normal stake: <b>min 5,000 UNIT</b> · Small/restake position: <b>min 500 UNIT</b></p>
 </div>
 
 <div class="card">
@@ -117,8 +121,6 @@ const BSC_CHAIN_HEX = "0x38";
 const UNIT_TOKEN = "0x4f5710c96c446b133c59af006a366d07414b52a9";
 const STAKING_CONTRACT = "0xb9589a2857a7043150249af9ccf2993616bc95d9";
 
-const LOCK_DAYS = {0:30,1:90,2:180,3:365};
-const APR = {0:"5%",1:"7%",2:"9%",3:"12%"};
 const STATUS = {0:"Active",1:"Cooling Down",2:"Withdrawn"};
 
 const UNIT_ABI = [
@@ -129,6 +131,7 @@ const UNIT_ABI = [
 
 const STAKING_ABI = [
   "function stake(uint256 amount,uint8 lockIndex) external returns (uint256)",
+  "function stakeRestakePosition(uint256 amount,uint8 lockIndex) external returns (uint256)",
   "function claim(uint256 positionId) external",
   "function compound(uint256 positionId) external",
   "function requestUnstake(uint256 positionId) external",
@@ -136,6 +139,7 @@ const STAKING_ABI = [
   "function pendingRewards(uint256 positionId) view returns (uint256)",
   "function availableRewardPool() view returns (uint256)",
   "function MIN_STAKE() view returns (uint256)",
+  "function MIN_RESTAKE() view returns (uint256)",
   "function userPositions(address user) view returns (uint256[])",
   "function nextPositionId() view returns (uint256)",
   "function positions(uint256 positionId) view returns (address owner,uint256 amount,uint40 startTime,uint40 endTime,uint16 aprBps,uint256 claimedRewards,uint256 owedRewards,bool isRestakePosition,uint8 status,uint40 cooldownEnds,uint256 withdrawAmount,uint40 lastCompoundAt)"
@@ -157,9 +161,7 @@ function setBusy(v){
   document.querySelectorAll(".posbtn").forEach(b => b.disabled = v);
 }
 
-function eth(){
-  return window.ethereum || null;
-}
+function eth(){ return window.ethereum || null; }
 
 function fmt(v, max=4){
   return Number(ethers.formatUnits(v,18)).toLocaleString("en-US",{maximumFractionDigits:max});
@@ -334,11 +336,13 @@ async function loadPositions(){
     const aprText = (Number(pos.aprBps) / 100).toFixed(2) + "%";
     const activeAmount = pos.amount > 0n ? fmt(pos.amount) : "0";
     const withdrawAmount = pos.withdrawAmount > 0n ? fmt(pos.withdrawAmount) : "0";
+    const typeText = pos.isRestakePosition ? "Small / Restake position" : "Normal stake";
 
     html += `
       <div class="pos">
         <h3>Position ID #${id.toString()}</h3>
         <div class="posgrid">
+          <div class="positem"><small>Type</small><b>${typeText}</b></div>
           <div class="positem"><small>Status</small><b>${statusText}</b></div>
           <div class="positem"><small>Amount staked</small><b>${activeAmount} UNIT</b></div>
           <div class="positem"><small>APR</small><b>${aprText}</b></div>
@@ -434,8 +438,10 @@ $("stakeFlowBtn").onclick = async()=>{
     const token = new ethers.Contract(UNIT_TOKEN,UNIT_ABI,s);
     const staking = new ethers.Contract(STAKING_CONTRACT,STAKING_ABI,s);
 
-    const min = await staking.MIN_STAKE();
-    if(amount < min) throw new Error("Minim staking: 5,000 UNIT.");
+    const minStake = await staking.MIN_STAKE();
+    const minRestake = await staking.MIN_RESTAKE();
+
+    if(amount < minRestake) throw new Error("Minim pentru small/restake position: 500 UNIT.");
 
     const bal = await token.balanceOf(user);
     if(bal < amount) throw new Error("Balance UNIT insuficient.");
@@ -448,9 +454,17 @@ $("stakeFlowBtn").onclick = async()=>{
       await waitTx(approveTx,"Approve");
     }
 
-    status("Approve OK. Se trimite staking...");
     const beforeId = await staking.nextPositionId();
-    const tx = await staking.stake(amount,lockIndex);
+
+    let tx;
+    if(amount >= minStake){
+      status("Approve OK. Se creează poziție normală de staking...");
+      tx = await staking.stake(amount,lockIndex);
+    }else{
+      status("Approve OK. Se creează poziție mică/restake...");
+      tx = await staking.stakeRestakePosition(amount,lockIndex);
+    }
+
     await waitTx(tx,"Stake");
 
     status("Stake confirmat. Poziție probabilă: #" + beforeId.toString(),"good");
