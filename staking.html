@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>UNIT Protocol Staking</title>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -11,115 +12,229 @@
   --green:#58f2c8;--text:#f7f8ff;--muted:#a8b0d0;--danger:#ff667a;
   --border:#2c3756;--radius:22px;
 }
-body{font-family:Arial,sans-serif;background:radial-gradient(circle at top,#111a33 0,#050814 45%,#02030a 100%);color:var(--text);padding:18px;text-align:center}
+body{
+  font-family:Arial,sans-serif;
+  background:radial-gradient(circle at top,#111a33 0,#050814 45%,#02030a 100%);
+  color:var(--text);
+  padding:18px;
+  text-align:center;
+}
 .wrap{max-width:1050px;margin:auto}
-.card{background:rgba(11,18,38,.96);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:18px 0;box-shadow:0 16px 40px rgba(0,0,0,.35)}
-h1{font-size:36px;margin:24px 0 8px}
-h2{font-size:26px;margin-bottom:16px}
+.card{
+  background:rgba(11,18,38,.96);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:24px;
+  margin:18px 0;
+  box-shadow:0 16px 40px rgba(0,0,0,.35);
+}
+h1{font-size:38px;margin:24px 0 8px}
+h2{font-size:28px;margin-bottom:16px}
 p{color:var(--muted);line-height:1.5}
-button{background:var(--accent);color:#111;border:0;border-radius:16px;padding:14px 20px;margin:7px;font-size:16px;font-weight:800;cursor:pointer}
+button{
+  background:var(--accent);
+  color:#111;
+  border:0;
+  border-radius:16px;
+  padding:14px 20px;
+  margin:7px;
+  font-size:16px;
+  font-weight:800;
+  cursor:pointer;
+}
 button:disabled{opacity:.45;cursor:not-allowed}
 .secondary{background:#17213f;color:#fff;border:1px solid var(--border)}
 .danger{background:#2a1220;color:#fff;border:1px solid var(--danger)}
-input,select{width:100%;max-width:460px;padding:15px;margin:8px 0;border-radius:14px;border:1px solid #777;font-size:17px}
-.data{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;text-align:left;margin-top:12px}
-.box{background:var(--card2);border:1px solid var(--border);border-radius:16px;padding:14px;overflow:hidden}
+input,select{
+  width:100%;
+  max-width:460px;
+  padding:15px;
+  margin:8px 0;
+  border-radius:14px;
+  border:1px solid #777;
+  font-size:17px;
+}
+.data{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px;
+  text-align:left;
+  margin-top:12px;
+}
+.box{
+  background:var(--card2);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:14px;
+  overflow:hidden;
+}
 .box small{color:var(--muted);display:block;margin-bottom:6px}
 .box b{word-break:break-all}
-.good{color:var(--green)}.bad{color:var(--danger)}.addr{color:var(--green);word-break:break-all}
-.status{position:sticky;bottom:12px;background:#111a33;border:1px solid var(--border);border-radius:18px;padding:14px;margin-top:18px;z-index:20}
-.warn{background:#2b1a05;border:1px solid var(--accent);border-radius:18px;padding:14px;margin:18px 0;color:#ffe3a3}
+.good{color:var(--green)}
+.bad{color:var(--danger)}
+.addr{color:var(--green);word-break:break-all}
+.status{
+  position:sticky;
+  bottom:12px;
+  background:#111a33;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:14px;
+  margin-top:18px;
+  z-index:20;
+}
+.warn{
+  background:#2b1a05;
+  border:1px solid var(--accent);
+  border-radius:18px;
+  padding:14px;
+  margin:18px 0;
+  color:#ffe3a3;
+}
 a{color:var(--green)}
-.walletlinks{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:10px}
-.walletlinks a{padding:12px 16px;border-radius:16px;text-decoration:none;background:#17213f;border:1px solid var(--border);color:#fff;font-weight:800}
 .positions{display:grid;gap:14px;margin-top:12px}
-.pos{background:#101a33;border:1px solid #344265;border-radius:18px;padding:16px;text-align:left}
+.pos{
+  background:#101a33;
+  border:1px solid #344265;
+  border-radius:18px;
+  padding:16px;
+  text-align:left;
+}
 .pos h3{margin-bottom:10px;color:var(--green)}
-.posgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:10px 0}
-.positem{background:#0b1226;border:1px solid var(--border);border-radius:14px;padding:10px}
+.posgrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:10px;
+  margin:10px 0;
+}
+.positem{
+  background:#0b1226;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:10px;
+}
 .positem small{display:block;color:var(--muted);margin-bottom:5px}
+.note{
+  margin-top:10px;
+  font-size:14px;
+  color:var(--muted);
+}
 </style>
 </head>
 
 <body>
 <div class="wrap">
-<h1>UNIT Staking App</h1>
-<p>Official UNIT Protocol staking dApp · BNB Smart Chain only</p>
+  <h1>UNIT Staking App</h1>
+  <p>Official UNIT Protocol staking dApp · BNB Smart Chain only</p>
 
-<div class="warn">
-Verifică mereu contractele oficiale. Staking-ul implică risc de smart contract. Nu există profit garantat.
-</div>
+  <div class="warn">
+    Always verify the official contracts before interacting. Staking involves smart contract risk. No profit is guaranteed.
+  </div>
 
-<div class="card">
-<h2>Portofel</h2>
-<button id="connectBtn">Conectează portofel</button>
-<button id="switchBtn" class="secondary">Schimbă pe BNB Chain</button>
-<button id="disconnectBtn" class="danger">Deconectează local</button>
+  <div class="card">
+    <h2>Wallet</h2>
 
-<div class="walletlinks">
-<a href="https://metamask.app.link/dapp/unitprotocolofficial.github.io/unit-site/staking.html">MetaMask</a>
-<a href="https://link.trustwallet.com/open_url?coin_id=20000714&url=https://unitprotocolofficial.github.io/unit-site/staking.html">Trust Wallet</a>
-</div>
+    <button id="connectBtn">Connect Wallet</button>
+    <button id="switchBtn" class="secondary">Switch to BNB Smart Chain</button>
+    <button id="disconnectBtn" class="danger">Disconnect</button>
 
-<p style="margin-top:10px;color:#a8b0d0">
-Pentru mobil, deschide pagina în browserul walletului: MetaMask, Trust Wallet, SafePal, Binance Web3, OKX sau TokenPocket.
-</p>
+    <p class="note">
+      Works with supported wallets through Reown / WalletConnect and injected wallet browsers, including MetaMask, Trust Wallet, SafePal, Binance Web3, OKX and TokenPocket.
+    </p>
 
-<div class="data">
-<div class="box"><small>Portofel</small><b id="walletAddr">Neconectat</b></div>
-<div class="box"><small>Rețea</small><b id="networkName">Neconectată</b></div>
-<div class="box"><small>UNIT balance</small><b id="unitBalance">-</b></div>
-<div class="box"><small>Allowance staking</small><b id="allowanceText">-</b></div>
-</div>
-</div>
+    <div class="data">
+      <div class="box"><small>Wallet</small><b id="walletAddr">Not connected</b></div>
+      <div class="box"><small>Network</small><b id="networkName">Not connected</b></div>
+      <div class="box"><small>UNIT balance</small><b id="unitBalance">-</b></div>
+      <div class="box"><small>Staking allowance</small><b id="allowanceText">-</b></div>
+    </div>
+  </div>
 
-<div class="card">
-<h2>Stake UNIT</h2>
-<p>
-Pentru o poziție normală, minimul este <b>5,000 UNIT</b>.
-Pentru o poziție mică/restake, minimul este <b>500 UNIT</b>.
-Aplicația verifică automat suma și folosește funcția corectă.
-</p>
+  <div class="card">
+    <h2>Stake UNIT</h2>
+    <p>
+      Normal stake minimum: <b>5,000 UNIT</b>. Small/restake position minimum: <b>500 UNIT</b>.
+      The app automatically checks allowance, requests approval if needed, then submits the staking transaction.
+    </p>
 
-<input id="stakeAmount" inputmode="decimal" placeholder="Sumă UNIT, minim 500 pentru restake / 5000 normal" />
+    <input id="stakeAmount" inputmode="decimal" placeholder="UNIT amount" />
 
-<select id="lockIndex">
-<option value="0">30 zile · 5% APR</option>
-<option value="1">90 zile · 7% APR</option>
-<option value="2">180 zile · 9% APR</option>
-<option value="3">365 zile · 12% APR</option>
-</select>
+    <select id="lockIndex">
+      <option value="0">30 days · 5% APR</option>
+      <option value="1">90 days · 7% APR</option>
+      <option value="2">180 days · 9% APR</option>
+      <option value="3">365 days · 12% APR</option>
+    </select>
 
-<br>
-<button id="stakeFlowBtn">Stake UNIT</button>
-<p style="margin-top:8px">Normal stake: <b>min 5,000 UNIT</b> · Small/restake position: <b>min 500 UNIT</b></p>
-</div>
+    <br>
+    <button id="stakeFlowBtn">Stake UNIT</button>
+  </div>
 
-<div class="card">
-<h2>My Staking Positions</h2>
-<button id="loadPositionsBtn" class="secondary">Încarcă pozițiile mele</button>
-<div id="positionsList" class="positions">
-<p>Conectează portofelul și apasă „Încarcă pozițiile mele”.</p>
-</div>
-</div>
+  <div class="card">
+    <h2>My Staking Positions</h2>
+    <button id="loadPositionsBtn" class="secondary">Load My Positions</button>
+    <div id="positionsList" class="positions">
+      <p>Connect your wallet and load your staking positions.</p>
+    </div>
+  </div>
 
-<div class="card">
-<h2>Contracte oficiale</h2>
-<p>UNIT Token:</p>
-<p class="addr"><a target="_blank" rel="noopener noreferrer" href="https://bscscan.com/token/0x4f5710c96c446b133c59af006a366d07414b52a9">0x4f5710c96c446b133c59af006a366d07414b52a9</a></p>
-<p style="margin-top:12px">Staking Contract:</p>
-<p class="addr"><a target="_blank" rel="noopener noreferrer" href="https://bscscan.com/address/0xb9589a2857a7043150249af9ccf2993616bc95d9">0xb9589a2857a7043150249af9ccf2993616bc95d9</a></p>
-</div>
+  <div class="card">
+    <h2>Official Contracts</h2>
+    <p>UNIT Token:</p>
+    <p class="addr">
+      <a target="_blank" rel="noopener noreferrer" href="https://bscscan.com/token/0x4f5710c96c446b133c59af006a366d07414b52a9">
+        0x4f5710c96c446b133c59af006a366d07414b52a9
+      </a>
+    </p>
 
-<div id="status" class="status">Gata. Conectează portofelul.</div>
+    <p style="margin-top:12px">Staking Contract:</p>
+    <p class="addr">
+      <a target="_blank" rel="noopener noreferrer" href="https://bscscan.com/address/0xb9589a2857a7043150249af9ccf2993616bc95d9">
+        0xb9589a2857a7043150249af9ccf2993616bc95d9
+      </a>
+    </p>
+  </div>
+
+  <div id="status" class="status">Ready. Connect your wallet.</div>
 </div>
 
 <script type="module">
 import { ethers } from "https://esm.sh/ethers@6.13.5";
+import { createAppKit } from "https://esm.sh/@reown/appkit@1.8.19";
+import { EthersAdapter } from "https://esm.sh/@reown/appkit-adapter-ethers@1.8.19";
+import { bsc } from "https://esm.sh/@reown/appkit@1.8.19/networks";
 
+const PROJECT_ID = "5a0e58d451cfbd31d34b1dd417b59fab";
 const BSC_CHAIN_HEX = "0x38";
-const UNIT_TOKEN = "0x4f5710c96c446b133c59af006a366d07414b52a9";
-const STAKING_CONTRACT = "0xb9589a2857a7043150249af9ccf2993616bc95d9";
+const BSC_CHAIN_ID = 56;
+
+const UNIT_TOKEN = ethers.getAddress("0x4f5710c96c446b133c59af006a366d07414b52a9");
+const STAKING_CONTRACT = ethers.getAddress("0xb9589a2857a7043150249af9ccf2993616bc95d9");
+
+const metadata = {
+  name: "UNIT Protocol",
+  description: "Official UNIT Protocol staking dApp",
+  url: "https://unitprotocolofficial.github.io/unit-site/",
+  icons: ["https://unitprotocolofficial.github.io/unit-site/favicon.ico"]
+};
+
+const modal = createAppKit({
+  adapters: [new EthersAdapter()],
+  networks: [bsc],
+  defaultNetwork: bsc,
+  metadata,
+  projectId: PROJECT_ID,
+  features: {
+    analytics: true,
+    email: false,
+    socials: []
+  }
+});
+
+let appkitProvider = null;
+let appkitAccount = null;
+let account = null;
+let busy = false;
 
 const STATUS = {0:"Active",1:"Cooling Down",2:"Withdrawn"};
 
@@ -145,12 +260,9 @@ const STAKING_ABI = [
   "function positions(uint256 positionId) view returns (address owner,uint256 amount,uint40 startTime,uint40 endTime,uint16 aprBps,uint256 claimedRewards,uint256 owedRewards,bool isRestakePosition,uint8 status,uint40 cooldownEnds,uint256 withdrawAmount,uint40 lastCompoundAt)"
 ];
 
-let account = null;
-let busy = false;
-
 const $ = id => document.getElementById(id);
 
-function status(msg,type=""){
+function showStatus(msg,type=""){
   $("status").textContent = msg;
   $("status").style.borderColor = type==="bad" ? "#ff667a" : type==="good" ? "#58f2c8" : "#2c3756";
 }
@@ -161,15 +273,13 @@ function setBusy(v){
   document.querySelectorAll(".posbtn").forEach(b => b.disabled = v);
 }
 
-function eth(){ return window.ethereum || null; }
-
-function fmt(v, max=4){
+function fmt(v,max=4){
   return Number(ethers.formatUnits(v,18)).toLocaleString("en-US",{maximumFractionDigits:max});
 }
 
 function parseAmount(){
   const v = String($("stakeAmount").value || "").replace(",",".").trim();
-  if(!v || Number(v) <= 0) throw new Error("Introdu o sumă validă.");
+  if(!v || Number(v) <= 0) throw new Error("Enter a valid UNIT amount.");
   return ethers.parseUnits(v,18);
 }
 
@@ -179,53 +289,101 @@ function dateFromTs(ts){
   return new Date(n * 1000).toLocaleString();
 }
 
-async function connect(){
-  const e = eth();
-  if(!e) throw new Error("Wallet nedetectat. Deschide pagina în browserul walletului sau în Chrome/Brave cu extensie wallet.");
-  const accounts = await e.request({method:"eth_requestAccounts"});
-  account = accounts && accounts[0] ? accounts[0] : null;
-  if(!account) throw new Error("Portofel neconectat.");
-  $("walletAddr").textContent = account;
-  return account;
+function injectedProvider(){
+  return window.ethereum || null;
+}
+
+function activeProvider(){
+  return appkitProvider || injectedProvider();
+}
+
+function shortAddr(a){
+  if(!a) return "Not connected";
+  return a.slice(0,6) + "..." + a.slice(-4);
+}
+
+modal.subscribeProviders(state => {
+  appkitProvider = state?.eip155 || null;
+});
+
+modal.subscribeAccount(state => {
+  if(state?.address){
+    appkitAccount = state.address;
+    account = state.address;
+    $("walletAddr").textContent = account;
+  }
+});
+
+async function connectWallet(){
+  showStatus("Opening wallet connection...");
+  await modal.open({ view: "Connect" });
+
+  await new Promise(resolve => setTimeout(resolve, 1200));
+
+  if(appkitAccount){
+    account = appkitAccount;
+    $("walletAddr").textContent = account;
+    return account;
+  }
+
+  const injected = injectedProvider();
+  if(injected){
+    const accounts = await injected.request({method:"eth_requestAccounts"});
+    if(accounts && accounts[0]){
+      account = accounts[0];
+      $("walletAddr").textContent = account;
+      return account;
+    }
+  }
+
+  throw new Error("Wallet not connected. Select a wallet from the connection modal.");
+}
+
+async function currentChainId(){
+  const p = activeProvider();
+  if(!p) return null;
+
+  try{
+    const id = await p.request({method:"eth_chainId"});
+    if(typeof id === "string"){
+      if(id.toLowerCase() === "0x38") return 56;
+      return Number(BigInt(id));
+    }
+    return Number(id);
+  }catch{}
+
+  try{
+    const ep = new ethers.BrowserProvider(p);
+    const n = await ep.getNetwork();
+    return Number(n.chainId);
+  }catch{
+    return null;
+  }
 }
 
 async function chainOk(){
-  const e = eth();
-  if(!e){
-    $("networkName").innerHTML = "<span class='bad'>Wallet nedetectat</span>";
-    return false;
+  const id = await currentChainId();
+  if(id === BSC_CHAIN_ID){
+    $("networkName").innerHTML = "<span class='good'>BNB Smart Chain</span>";
+    return true;
   }
-
-  try{
-    const id = String(await e.request({method:"eth_chainId"})).toLowerCase();
-    if(id === "0x38" || id === "56"){
-      $("networkName").innerHTML = "<span class='good'>BNB Smart Chain</span>";
-      return true;
-    }
-  }catch{}
-
-  try{
-    const p = new ethers.BrowserProvider(e);
-    const n = await p.getNetwork();
-    if(Number(n.chainId) === 56){
-      $("networkName").innerHTML = "<span class='good'>BNB Smart Chain</span>";
-      return true;
-    }
-  }catch{}
-
-  $("networkName").innerHTML = "<span class='bad'>Rețea greșită</span>";
+  if(id === null){
+    $("networkName").innerHTML = "<span class='bad'>Wallet not detected</span>";
+  }else{
+    $("networkName").innerHTML = "<span class='bad'>Wrong network</span>";
+  }
   return false;
 }
 
 async function switchBSC(){
-  const e = eth();
-  if(!e) throw new Error("Wallet nedetectat.");
+  const p = activeProvider();
+  if(!p) throw new Error("Wallet provider not detected.");
 
   try{
-    await e.request({method:"wallet_switchEthereumChain",params:[{chainId:BSC_CHAIN_HEX}]});
+    await p.request({method:"wallet_switchEthereumChain",params:[{chainId:BSC_CHAIN_HEX}]});
   }catch(err){
     if(err.code === 4902 || String(err.message||"").toLowerCase().includes("unrecognized")){
-      await e.request({
+      await p.request({
         method:"wallet_addEthereumChain",
         params:[{
           chainId:BSC_CHAIN_HEX,
@@ -240,93 +398,106 @@ async function switchBSC(){
     }
   }
 
-  await new Promise(r=>setTimeout(r,800));
+  await new Promise(r=>setTimeout(r,1000));
   return await chainOk();
 }
 
-async function getProviderBSC(){
-  if(!account) await connect();
+async function providerOnBSC(){
+  if(!account) await connectWallet();
+
   let ok = await chainOk();
   if(!ok){
-    status("Se schimbă pe BNB Chain...");
+    showStatus("Switching to BNB Smart Chain...");
     ok = await switchBSC();
   }
-  if(!ok) throw new Error("Portofelul nu este pe BNB Smart Chain.");
-  return new ethers.BrowserProvider(eth());
+
+  if(!ok) throw new Error("Please switch your wallet to BNB Smart Chain.");
+
+  const p = activeProvider();
+  if(!p) throw new Error("Wallet provider not detected.");
+
+  return new ethers.BrowserProvider(p);
 }
 
-async function getSigner(){
-  return await (await getProviderBSC()).getSigner();
+async function signerOnBSC(){
+  return await (await providerOnBSC()).getSigner();
 }
 
 async function refresh(){
   try{
-    const e = eth();
-    if(!e){
-      $("walletAddr").textContent = "Wallet nedetectat";
-      $("networkName").innerHTML = "<span class='bad'>Deschide în wallet browser</span>";
+    const p = activeProvider();
+
+    if(!p){
+      $("walletAddr").textContent = "Not connected";
+      $("networkName").innerHTML = "<span class='bad'>Wallet not detected</span>";
       $("unitBalance").textContent = "-";
       $("allowanceText").textContent = "-";
-      status("Deschide pagina în browserul walletului: MetaMask, Trust Wallet, SafePal, Binance Web3, OKX sau TokenPocket.","bad");
+      showStatus("Tap Connect Wallet and select your wallet.","bad");
       return;
     }
 
-    const accounts = await e.request({method:"eth_accounts"});
-    account = accounts && accounts[0] ? accounts[0] : account;
+    if(!account){
+      try{
+        const accounts = await p.request({method:"eth_accounts"});
+        if(accounts && accounts[0]) account = accounts[0];
+      }catch{}
+    }
 
     if(!account){
-      $("walletAddr").textContent = "Neconectat";
+      $("walletAddr").textContent = "Not connected";
       $("unitBalance").textContent = "-";
       $("allowanceText").textContent = "-";
       await chainOk();
-      status("Apasă Conectează portofel.");
+      showStatus("Wallet not connected. Tap Connect Wallet.");
       return;
     }
 
     $("walletAddr").textContent = account;
-    const ok = await chainOk();
 
+    const ok = await chainOk();
     if(!ok){
       $("unitBalance").textContent = "-";
       $("allowanceText").textContent = "-";
-      status("Wallet conectat, dar trebuie BNB Smart Chain. Apasă Schimbă pe BNB Chain.","bad");
+      showStatus("Wallet connected, but wrong network. Switch to BNB Smart Chain.","bad");
       return;
     }
 
-    const p = new ethers.BrowserProvider(e);
-    const token = new ethers.Contract(UNIT_TOKEN,UNIT_ABI,p);
+    const ep = new ethers.BrowserProvider(p);
+    const token = new ethers.Contract(UNIT_TOKEN,UNIT_ABI,ep);
 
     const bal = await token.balanceOf(account);
     const allow = await token.allowance(account,STAKING_CONTRACT);
 
     $("unitBalance").textContent = fmt(bal) + " UNIT";
     $("allowanceText").textContent = fmt(allow) + " UNIT";
-    status("Date actualizate. BNB Smart Chain OK.","good");
+    showStatus("Data refreshed. BNB Smart Chain OK.","good");
   }catch(err){
-    status("Refresh error: " + (err.shortMessage || err.message),"bad");
+    showStatus("Refresh error: " + (err.shortMessage || err.message),"bad");
   }
 }
 
 async function waitTx(tx,label){
-  status(label + " trimis: " + tx.hash);
+  showStatus(label + " submitted: " + tx.hash);
   const r = await tx.wait();
-  if(!r || r.status !== 1) throw new Error("Tranzacția a eșuat.");
-  status(label + " confirmat.","good");
+  if(!r || r.status !== 1) throw new Error(label + " transaction failed.");
+  showStatus(label + " confirmed.","good");
   await refresh();
 }
 
 async function loadPositions(){
-  if(!account) await connect();
-  const p = await getProviderBSC();
-  const staking = new ethers.Contract(STAKING_CONTRACT,STAKING_ABI,p);
+  if(!account) await connectWallet();
+
+  const ep = await providerOnBSC();
+  const staking = new ethers.Contract(STAKING_CONTRACT,STAKING_ABI,ep);
   const ids = await staking.userPositions(account);
 
   if(!ids || ids.length === 0){
-    $("positionsList").innerHTML = "<p>Nu ai încă poziții de staking.</p>";
+    $("positionsList").innerHTML = "<p>No staking positions found for this wallet.</p>";
     return;
   }
 
   let html = "";
+
   for(const id of ids){
     const pos = await staking.positions(id);
     const pending = await staking.pendingRewards(id);
@@ -346,7 +517,7 @@ async function loadPositions(){
           <div class="positem"><small>Status</small><b>${statusText}</b></div>
           <div class="positem"><small>Amount staked</small><b>${activeAmount} UNIT</b></div>
           <div class="positem"><small>APR</small><b>${aprText}</b></div>
-          <div class="positem"><small>Lock</small><b>${lockDays} zile</b></div>
+          <div class="positem"><small>Lock</small><b>${lockDays} days</b></div>
           <div class="positem"><small>Unlock date</small><b>${dateFromTs(pos.endTime)}</b></div>
           <div class="positem"><small>Pending rewards</small><b>${fmt(pending,8)} UNIT</b></div>
           <div class="positem"><small>Owed rewards</small><b>${fmt(pos.owedRewards,8)} UNIT</b></div>
@@ -375,14 +546,15 @@ async function loadPositions(){
 async function positionAction(fn,id){
   if(busy) return;
   setBusy(true);
+
   try{
-    const s = await getSigner();
+    const s = await signerOnBSC();
     const staking = new ethers.Contract(STAKING_CONTRACT,STAKING_ABI,s);
     const tx = await staking[fn](BigInt(id));
     await waitTx(tx,fn);
     await loadPositions();
   }catch(err){
-    status(fn + " error: " + (err.shortMessage || err.message),"bad");
+    showStatus(fn + " error: " + (err.shortMessage || err.message),"bad");
   }finally{
     setBusy(false);
   }
@@ -391,13 +563,14 @@ async function positionAction(fn,id){
 $("connectBtn").onclick = async()=>{
   if(busy) return;
   setBusy(true);
+
   try{
-    await connect();
+    await connectWallet();
     await switchBSC();
     await refresh();
     await loadPositions();
   }catch(err){
-    status("Connect error: " + (err.shortMessage || err.message),"bad");
+    showStatus("Connect error: " + (err.shortMessage || err.message),"bad");
   }finally{
     setBusy(false);
   }
@@ -406,30 +579,40 @@ $("connectBtn").onclick = async()=>{
 $("switchBtn").onclick = async()=>{
   if(busy) return;
   setBusy(true);
+
   try{
     await switchBSC();
     await refresh();
   }catch(err){
-    status("Switch error: " + (err.shortMessage || err.message),"bad");
+    showStatus("Switch error: " + (err.shortMessage || err.message),"bad");
   }finally{
     setBusy(false);
   }
 };
 
 $("disconnectBtn").onclick = async()=>{
+  try{
+    await modal.disconnect?.();
+  }catch{}
+
   account = null;
-  $("walletAddr").textContent = "Neconectat";
+  appkitAccount = null;
+  appkitProvider = null;
+
+  $("walletAddr").textContent = "Not connected";
+  $("networkName").textContent = "Not connected";
   $("unitBalance").textContent = "-";
   $("allowanceText").textContent = "-";
-  $("positionsList").innerHTML = "<p>Conectează portofelul și apasă „Încarcă pozițiile mele”.</p>";
-  status("Deconectat local. Pentru deconectare completă, folosește meniul walletului.","good");
+  $("positionsList").innerHTML = "<p>Connect your wallet and load your staking positions.</p>";
+  showStatus("Disconnected locally.","good");
 };
 
 $("stakeFlowBtn").onclick = async()=>{
   if(busy) return;
   setBusy(true);
+
   try{
-    const s = await getSigner();
+    const s = await signerOnBSC();
     const user = await s.getAddress();
 
     const amount = parseAmount();
@@ -441,36 +624,35 @@ $("stakeFlowBtn").onclick = async()=>{
     const minStake = await staking.MIN_STAKE();
     const minRestake = await staking.MIN_RESTAKE();
 
-    if(amount < minRestake) throw new Error("Minim pentru small/restake position: 500 UNIT.");
+    if(amount < minRestake) throw new Error("Minimum small/restake position: 500 UNIT.");
 
     const bal = await token.balanceOf(user);
-    if(bal < amount) throw new Error("Balance UNIT insuficient.");
+    if(bal < amount) throw new Error("Insufficient UNIT balance.");
 
     const allowance = await token.allowance(user,STAKING_CONTRACT);
 
     if(allowance < amount){
-      status("Allowance insuficient. Se cere approve în wallet...");
+      showStatus("Approval required. Confirm approval in your wallet...");
       const approveTx = await token.approve(STAKING_CONTRACT,amount);
-      await waitTx(approveTx,"Approve");
+      await waitTx(approveTx,"Approval");
     }
 
     const beforeId = await staking.nextPositionId();
 
     let tx;
     if(amount >= minStake){
-      status("Approve OK. Se creează poziție normală de staking...");
+      showStatus("Approval OK. Creating normal staking position...");
       tx = await staking.stake(amount,lockIndex);
     }else{
-      status("Approve OK. Se creează poziție mică/restake...");
+      showStatus("Approval OK. Creating small/restake staking position...");
       tx = await staking.stakeRestakePosition(amount,lockIndex);
     }
 
     await waitTx(tx,"Stake");
-
-    status("Stake confirmat. Poziție probabilă: #" + beforeId.toString(),"good");
+    showStatus("Stake confirmed. Position likely created as #" + beforeId.toString(),"good");
     await loadPositions();
   }catch(err){
-    status("Stake error: " + (err.shortMessage || err.message),"bad");
+    showStatus("Stake error: " + (err.shortMessage || err.message),"bad");
   }finally{
     setBusy(false);
   }
@@ -479,22 +661,23 @@ $("stakeFlowBtn").onclick = async()=>{
 $("loadPositionsBtn").onclick = async()=>{
   if(busy) return;
   setBusy(true);
+
   try{
     await refresh();
     await loadPositions();
   }catch(err){
-    status("Load positions error: " + (err.shortMessage || err.message),"bad");
+    showStatus("Load positions error: " + (err.shortMessage || err.message),"bad");
   }finally{
     setBusy(false);
   }
 };
 
 if(window.ethereum){
-  window.ethereum.on?.("accountsChanged",()=>setTimeout(async()=>{await refresh();await loadPositions().catch(()=>{});},500));
-  window.ethereum.on?.("chainChanged",()=>setTimeout(async()=>{await refresh();await loadPositions().catch(()=>{});},700));
+  window.ethereum.on?.("accountsChanged",()=>setTimeout(async()=>{await refresh();await loadPositions().catch(()=>{});},600));
+  window.ethereum.on?.("chainChanged",()=>setTimeout(async()=>{await refresh();await loadPositions().catch(()=>{});},800));
 }
 
-setTimeout(refresh,800);
+setTimeout(refresh,1000);
 </script>
 </body>
 </html>
