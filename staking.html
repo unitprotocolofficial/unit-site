@@ -6,28 +6,38 @@
 <title>UNIT Protocol Staking</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#050814;color:#fff;text-align:center;padding:18px}
-.wrap{max-width:920px;margin:auto}
-.card{background:#0b1226;border:1px solid #2c3756;border-radius:22px;padding:24px;margin:18px 0}
-h1{font-size:36px;margin:26px 0 10px}
-h2{font-size:28px;margin-bottom:18px}
-p{color:#a8b0d0;line-height:1.5}
-button{background:#fbb021;color:#111;border:0;border-radius:16px;padding:15px 22px;margin:8px;font-size:17px;font-weight:800;cursor:pointer}
+:root{
+  --bg:#050814;--card:#0b1226;--card2:#101a33;--accent:#fbb021;
+  --green:#58f2c8;--text:#f7f8ff;--muted:#a8b0d0;--danger:#ff667a;
+  --border:#2c3756;--radius:22px;
+}
+body{font-family:Arial,sans-serif;background:radial-gradient(circle at top,#111a33 0,#050814 45%,#02030a 100%);color:var(--text);padding:18px;text-align:center}
+.wrap{max-width:1050px;margin:auto}
+.card{background:rgba(11,18,38,.96);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:18px 0;box-shadow:0 16px 40px rgba(0,0,0,.35)}
+h1{font-size:36px;margin:24px 0 8px}
+h2{font-size:26px;margin-bottom:16px}
+p{color:var(--muted);line-height:1.5}
+button{background:var(--accent);color:#111;border:0;border-radius:16px;padding:14px 20px;margin:7px;font-size:16px;font-weight:800;cursor:pointer}
 button:disabled{opacity:.45;cursor:not-allowed}
-.secondary{background:#17213f;color:#fff;border:1px solid #2c3756}
-.danger{background:#2a1220;color:#fff;border:1px solid #ff667a}
-input,select{width:100%;max-width:460px;padding:16px;margin:9px 0;border-radius:14px;border:1px solid #777;font-size:18px}
-.data{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;text-align:left}
-.box{background:#101a33;border:1px solid #2c3756;border-radius:16px;padding:14px;overflow:hidden}
-.box small{color:#a8b0d0;display:block;margin-bottom:6px}
+.secondary{background:#17213f;color:#fff;border:1px solid var(--border)}
+.danger{background:#2a1220;color:#fff;border:1px solid var(--danger)}
+input,select{width:100%;max-width:460px;padding:15px;margin:8px 0;border-radius:14px;border:1px solid #777;font-size:17px}
+.data{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;text-align:left;margin-top:12px}
+.box{background:var(--card2);border:1px solid var(--border);border-radius:16px;padding:14px;overflow:hidden}
+.box small{color:var(--muted);display:block;margin-bottom:6px}
 .box b{word-break:break-all}
-.good{color:#58f2c8}.bad{color:#ff667a}.addr{color:#58f2c8;word-break:break-all}
-.status{position:sticky;bottom:12px;background:#111a33;border:1px solid #2c3756;border-radius:18px;padding:14px;margin-top:18px;z-index:20}
-.warn{background:#2b1a05;border:1px solid #fbb021;border-radius:18px;padding:14px;margin:18px 0;color:#ffe3a3}
-.help{font-size:14px;color:#a8b0d0;margin-top:10px}
-a{color:#58f2c8}
+.good{color:var(--green)}.bad{color:var(--danger)}.addr{color:var(--green);word-break:break-all}
+.status{position:sticky;bottom:12px;background:#111a33;border:1px solid var(--border);border-radius:18px;padding:14px;margin-top:18px;z-index:20}
+.warn{background:#2b1a05;border:1px solid var(--accent);border-radius:18px;padding:14px;margin:18px 0;color:#ffe3a3}
+a{color:var(--green)}
 .walletlinks{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:10px}
-.walletlinks a{padding:12px 16px;border-radius:16px;text-decoration:none;background:#17213f;border:1px solid #2c3756;color:#fff;font-weight:800}
+.walletlinks a{padding:12px 16px;border-radius:16px;text-decoration:none;background:#17213f;border:1px solid var(--border);color:#fff;font-weight:800}
+.positions{display:grid;gap:14px;margin-top:12px}
+.pos{background:#101a33;border:1px solid #344265;border-radius:18px;padding:16px;text-align:left}
+.pos h3{margin-bottom:10px;color:var(--green)}
+.posgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:10px 0}
+.positem{background:#0b1226;border:1px solid var(--border);border-radius:14px;padding:10px}
+.positem small{display:block;color:var(--muted);margin-bottom:5px}
 </style>
 </head>
 
@@ -42,7 +52,6 @@ Verifică mereu contractele oficiale. Staking-ul implică risc de smart contract
 
 <div class="card">
 <h2>Portofel</h2>
-
 <button id="connectBtn">Conectează portofel</button>
 <button id="switchBtn" class="secondary">Schimbă pe BNB Chain</button>
 <button id="disconnectBtn" class="danger">Deconectează local</button>
@@ -52,8 +61,8 @@ Verifică mereu contractele oficiale. Staking-ul implică risc de smart contract
 <a href="https://link.trustwallet.com/open_url?coin_id=20000714&url=https://unitprotocolofficial.github.io/unit-site/staking.html">Trust Wallet</a>
 </div>
 
-<p class="help">
-Pentru mobil: deschide pagina în browserul walletului. Funcționează cu wallet-uri care suportă dApps pe BNB Chain: MetaMask, Trust Wallet, SafePal, Binance Web3, OKX, TokenPocket.
+<p style="margin-top:10px;color:#a8b0d0">
+Pentru mobil, deschide pagina în browserul walletului: MetaMask, Trust Wallet, SafePal, Binance Web3, OKX sau TokenPocket.
 </p>
 
 <div class="data">
@@ -65,41 +74,36 @@ Pentru mobil: deschide pagina în browserul walletului. Funcționează cu wallet
 </div>
 
 <div class="card">
-<h2>Miză UNIT</h2>
-<input id="stakeAmount" inputmode="decimal" placeholder="Sumă UNIT" />
+<h2>Stake UNIT</h2>
+<p>Un singur buton. Aplicația verifică allowance-ul și cere approve automat dacă este nevoie, apoi face staking.</p>
+
+<input id="stakeAmount" inputmode="decimal" placeholder="Sumă UNIT, minim 5000" />
+
 <select id="lockIndex">
-<option value="0">30 de zile</option>
-<option value="1">90 de zile</option>
-<option value="2">180 de zile</option>
-<option value="3">365 de zile</option>
+<option value="0">30 zile · 5% APR</option>
+<option value="1">90 zile · 7% APR</option>
+<option value="2">180 zile · 9% APR</option>
+<option value="3">365 zile · 12% APR</option>
 </select>
-<button id="approveBtn">Aprobă UNIT</button>
-<button id="stakeBtn">Mizează</button>
-<p>Minim staking: 5,000 UNIT</p>
+
+<br>
+<button id="stakeFlowBtn">Stake UNIT</button>
+<p style="margin-top:8px">Minim staking: <b>5,000 UNIT</b></p>
 </div>
 
 <div class="card">
-<h2>Acțiuni poziție</h2>
-<input id="positionId" inputmode="numeric" placeholder="ID-ul poziției" />
-<button id="claimBtn">Revendică</button>
-<button id="compoundBtn">Compound</button>
-<button id="requestUnstakeBtn">Cere anulare participare</button>
-<button id="withdrawBtn">Retrage</button>
+<h2>My Staking Positions</h2>
+<button id="loadPositionsBtn" class="secondary">Încarcă pozițiile mele</button>
+<div id="positionsList" class="positions">
+<p>Conectează portofelul și apasă „Încarcă pozițiile mele”.</p>
 </div>
-
-<div class="card">
-<h2>Verifică date</h2>
-<input id="checkPositionId" inputmode="numeric" placeholder="ID-ul poziției" />
-<button id="pendingBtn">Recompense pending</button>
-<button id="poolBtn">Fond recompense</button>
-<button id="refreshBtn" class="secondary">Refresh date</button>
 </div>
 
 <div class="card">
 <h2>Contracte oficiale</h2>
 <p>UNIT Token:</p>
 <p class="addr"><a target="_blank" rel="noopener noreferrer" href="https://bscscan.com/token/0x4f5710c96c446b133c59af006a366d07414b52a9">0x4f5710c96c446b133c59af006a366d07414b52a9</a></p>
-<p>Staking Contract:</p>
+<p style="margin-top:12px">Staking Contract:</p>
 <p class="addr"><a target="_blank" rel="noopener noreferrer" href="https://bscscan.com/address/0xb9589a2857a7043150249af9ccf2993616bc95d9">0xb9589a2857a7043150249af9ccf2993616bc95d9</a></p>
 </div>
 
@@ -113,6 +117,10 @@ const BSC_CHAIN_HEX = "0x38";
 const UNIT_TOKEN = "0x4f5710c96c446b133c59af006a366d07414b52a9";
 const STAKING_CONTRACT = "0xb9589a2857a7043150249af9ccf2993616bc95d9";
 
+const LOCK_DAYS = {0:30,1:90,2:180,3:365};
+const APR = {0:"5%",1:"7%",2:"9%",3:"12%"};
+const STATUS = {0:"Active",1:"Cooling Down",2:"Withdrawn"};
+
 const UNIT_ABI = [
   "function approve(address spender,uint256 amount) external returns (bool)",
   "function allowance(address owner,address spender) view returns (uint256)",
@@ -120,14 +128,17 @@ const UNIT_ABI = [
 ];
 
 const STAKING_ABI = [
-  "function stake(uint256 amount,uint8 lockIndex) external",
+  "function stake(uint256 amount,uint8 lockIndex) external returns (uint256)",
   "function claim(uint256 positionId) external",
   "function compound(uint256 positionId) external",
   "function requestUnstake(uint256 positionId) external",
   "function withdraw(uint256 positionId) external",
   "function pendingRewards(uint256 positionId) view returns (uint256)",
   "function availableRewardPool() view returns (uint256)",
-  "function MIN_STAKE() view returns (uint256)"
+  "function MIN_STAKE() view returns (uint256)",
+  "function userPositions(address user) view returns (uint256[])",
+  "function nextPositionId() view returns (uint256)",
+  "function positions(uint256 positionId) view returns (address owner,uint256 amount,uint40 startTime,uint40 endTime,uint16 aprBps,uint256 claimedRewards,uint256 owedRewards,bool isRestakePosition,uint8 status,uint40 cooldownEnds,uint256 withdrawAmount,uint40 lastCompoundAt)"
 ];
 
 let account = null;
@@ -142,20 +153,33 @@ function status(msg,type=""){
 
 function setBusy(v){
   busy = v;
-  ["connectBtn","switchBtn","disconnectBtn","approveBtn","stakeBtn","claimBtn","compoundBtn","requestUnstakeBtn","withdrawBtn","pendingBtn","poolBtn","refreshBtn"].forEach(id => $(id).disabled = v);
+  ["connectBtn","switchBtn","disconnectBtn","stakeFlowBtn","loadPositionsBtn"].forEach(id => $(id).disabled = v);
+  document.querySelectorAll(".posbtn").forEach(b => b.disabled = v);
 }
 
 function eth(){
   return window.ethereum || null;
 }
 
-function fmt(v){
-  return Number(ethers.formatUnits(v,18)).toLocaleString("en-US",{maximumFractionDigits:4});
+function fmt(v, max=4){
+  return Number(ethers.formatUnits(v,18)).toLocaleString("en-US",{maximumFractionDigits:max});
+}
+
+function parseAmount(){
+  const v = String($("stakeAmount").value || "").replace(",",".").trim();
+  if(!v || Number(v) <= 0) throw new Error("Introdu o sumă validă.");
+  return ethers.parseUnits(v,18);
+}
+
+function dateFromTs(ts){
+  const n = Number(ts);
+  if(!n) return "-";
+  return new Date(n * 1000).toLocaleString();
 }
 
 async function connect(){
   const e = eth();
-  if(!e) throw new Error("Wallet nedetectat. Deschide pagina în browserul walletului sau extensia MetaMask/Rabby pe desktop.");
+  if(!e) throw new Error("Wallet nedetectat. Deschide pagina în browserul walletului sau în Chrome/Brave cu extensie wallet.");
   const accounts = await e.request({method:"eth_requestAccounts"});
   account = accounts && accounts[0] ? accounts[0] : null;
   if(!account) throw new Error("Portofel neconectat.");
@@ -233,12 +257,6 @@ async function getSigner(){
   return await (await getProviderBSC()).getSigner();
 }
 
-function parseAmount(){
-  const v = String($("stakeAmount").value || "").replace(",",".").trim();
-  if(!v || Number(v) <= 0) throw new Error("Introdu o sumă validă.");
-  return ethers.parseUnits(v,18);
-}
-
 async function refresh(){
   try{
     const e = eth();
@@ -247,7 +265,7 @@ async function refresh(){
       $("networkName").innerHTML = "<span class='bad'>Deschide în wallet browser</span>";
       $("unitBalance").textContent = "-";
       $("allowanceText").textContent = "-";
-      status("Deschide pagina în MetaMask / Trust Wallet / SafePal / Binance Web3 / OKX / TokenPocket browser.","bad");
+      status("Deschide pagina în browserul walletului: MetaMask, Trust Wallet, SafePal, Binance Web3, OKX sau TokenPocket.","bad");
       return;
     }
 
@@ -295,6 +313,77 @@ async function waitTx(tx,label){
   await refresh();
 }
 
+async function loadPositions(){
+  if(!account) await connect();
+  const p = await getProviderBSC();
+  const staking = new ethers.Contract(STAKING_CONTRACT,STAKING_ABI,p);
+  const ids = await staking.userPositions(account);
+
+  if(!ids || ids.length === 0){
+    $("positionsList").innerHTML = "<p>Nu ai încă poziții de staking.</p>";
+    return;
+  }
+
+  let html = "";
+  for(const id of ids){
+    const pos = await staking.positions(id);
+    const pending = await staking.pendingRewards(id);
+
+    const statusText = STATUS[Number(pos.status)] || "Unknown";
+    const lockDays = Math.round((Number(pos.endTime) - Number(pos.startTime)) / 86400);
+    const aprText = (Number(pos.aprBps) / 100).toFixed(2) + "%";
+    const activeAmount = pos.amount > 0n ? fmt(pos.amount) : "0";
+    const withdrawAmount = pos.withdrawAmount > 0n ? fmt(pos.withdrawAmount) : "0";
+
+    html += `
+      <div class="pos">
+        <h3>Position ID #${id.toString()}</h3>
+        <div class="posgrid">
+          <div class="positem"><small>Status</small><b>${statusText}</b></div>
+          <div class="positem"><small>Amount staked</small><b>${activeAmount} UNIT</b></div>
+          <div class="positem"><small>APR</small><b>${aprText}</b></div>
+          <div class="positem"><small>Lock</small><b>${lockDays} zile</b></div>
+          <div class="positem"><small>Unlock date</small><b>${dateFromTs(pos.endTime)}</b></div>
+          <div class="positem"><small>Pending rewards</small><b>${fmt(pending,8)} UNIT</b></div>
+          <div class="positem"><small>Owed rewards</small><b>${fmt(pos.owedRewards,8)} UNIT</b></div>
+          <div class="positem"><small>Withdraw amount</small><b>${withdrawAmount} UNIT</b></div>
+          <div class="positem"><small>Cooldown ends</small><b>${dateFromTs(pos.cooldownEnds)}</b></div>
+        </div>
+        <button class="posbtn" data-action="claim" data-id="${id.toString()}">Claim</button>
+        <button class="posbtn" data-action="compound" data-id="${id.toString()}">Compound</button>
+        <button class="posbtn danger" data-action="requestUnstake" data-id="${id.toString()}">Request Unstake</button>
+        <button class="posbtn" data-action="withdraw" data-id="${id.toString()}">Withdraw</button>
+      </div>
+    `;
+  }
+
+  $("positionsList").innerHTML = html;
+
+  document.querySelectorAll(".posbtn").forEach(btn=>{
+    btn.onclick = async()=>{
+      const action = btn.getAttribute("data-action");
+      const id = btn.getAttribute("data-id");
+      await positionAction(action,id);
+    };
+  });
+}
+
+async function positionAction(fn,id){
+  if(busy) return;
+  setBusy(true);
+  try{
+    const s = await getSigner();
+    const staking = new ethers.Contract(STAKING_CONTRACT,STAKING_ABI,s);
+    const tx = await staking[fn](BigInt(id));
+    await waitTx(tx,fn);
+    await loadPositions();
+  }catch(err){
+    status(fn + " error: " + (err.shortMessage || err.message),"bad");
+  }finally{
+    setBusy(false);
+  }
+}
+
 $("connectBtn").onclick = async()=>{
   if(busy) return;
   setBusy(true);
@@ -302,6 +391,7 @@ $("connectBtn").onclick = async()=>{
     await connect();
     await switchBSC();
     await refresh();
+    await loadPositions();
   }catch(err){
     status("Connect error: " + (err.shortMessage || err.message),"bad");
   }finally{
@@ -327,35 +417,44 @@ $("disconnectBtn").onclick = async()=>{
   $("walletAddr").textContent = "Neconectat";
   $("unitBalance").textContent = "-";
   $("allowanceText").textContent = "-";
+  $("positionsList").innerHTML = "<p>Conectează portofelul și apasă „Încarcă pozițiile mele”.</p>";
   status("Deconectat local. Pentru deconectare completă, folosește meniul walletului.","good");
 };
 
-$("approveBtn").onclick = async()=>{
+$("stakeFlowBtn").onclick = async()=>{
   if(busy) return;
   setBusy(true);
   try{
     const s = await getSigner();
-    const token = new ethers.Contract(UNIT_TOKEN,UNIT_ABI,s);
-    const tx = await token.approve(STAKING_CONTRACT,parseAmount());
-    await waitTx(tx,"Approve");
-  }catch(err){
-    status("Approve error: " + (err.shortMessage || err.message),"bad");
-  }finally{
-    setBusy(false);
-  }
-};
+    const user = await s.getAddress();
 
-$("stakeBtn").onclick = async()=>{
-  if(busy) return;
-  setBusy(true);
-  try{
-    const s = await getSigner();
-    const staking = new ethers.Contract(STAKING_CONTRACT,STAKING_ABI,s);
     const amount = parseAmount();
+    const lockIndex = Number($("lockIndex").value);
+
+    const token = new ethers.Contract(UNIT_TOKEN,UNIT_ABI,s);
+    const staking = new ethers.Contract(STAKING_CONTRACT,STAKING_ABI,s);
+
     const min = await staking.MIN_STAKE();
     if(amount < min) throw new Error("Minim staking: 5,000 UNIT.");
-    const tx = await staking.stake(amount,Number($("lockIndex").value));
+
+    const bal = await token.balanceOf(user);
+    if(bal < amount) throw new Error("Balance UNIT insuficient.");
+
+    const allowance = await token.allowance(user,STAKING_CONTRACT);
+
+    if(allowance < amount){
+      status("Allowance insuficient. Se cere approve în wallet...");
+      const approveTx = await token.approve(STAKING_CONTRACT,amount);
+      await waitTx(approveTx,"Approve");
+    }
+
+    status("Approve OK. Se trimite staking...");
+    const beforeId = await staking.nextPositionId();
+    const tx = await staking.stake(amount,lockIndex);
     await waitTx(tx,"Stake");
+
+    status("Stake confirmat. Poziție probabilă: #" + beforeId.toString(),"good");
+    await loadPositions();
   }catch(err){
     status("Stake error: " + (err.shortMessage || err.message),"bad");
   }finally{
@@ -363,57 +462,22 @@ $("stakeBtn").onclick = async()=>{
   }
 };
 
-async function positionAction(fn,label){
-  const id = String($("positionId").value || "").trim();
-  if(!id) throw new Error("Introdu ID-ul poziției.");
-  const s = await getSigner();
-  const staking = new ethers.Contract(STAKING_CONTRACT,STAKING_ABI,s);
-  const tx = await staking[fn](BigInt(id));
-  await waitTx(tx,label);
-}
-
-$("claimBtn").onclick = async()=>{if(busy)return;setBusy(true);try{await positionAction("claim","Claim")}catch(e){status("Claim error: "+(e.shortMessage||e.message),"bad")}finally{setBusy(false)}};
-$("compoundBtn").onclick = async()=>{if(busy)return;setBusy(true);try{await positionAction("compound","Compound")}catch(e){status("Compound error: "+(e.shortMessage||e.message),"bad")}finally{setBusy(false)}};
-$("requestUnstakeBtn").onclick = async()=>{if(busy)return;setBusy(true);try{await positionAction("requestUnstake","Request unstake")}catch(e){status("Request error: "+(e.shortMessage||e.message),"bad")}finally{setBusy(false)}};
-$("withdrawBtn").onclick = async()=>{if(busy)return;setBusy(true);try{await positionAction("withdraw","Withdraw")}catch(e){status("Withdraw error: "+(e.shortMessage||e.message),"bad")}finally{setBusy(false)}};
-
-$("pendingBtn").onclick = async()=>{
-  if(busy)return;
+$("loadPositionsBtn").onclick = async()=>{
+  if(busy) return;
   setBusy(true);
   try{
-    const id = String($("checkPositionId").value || "").trim();
-    if(!id) throw new Error("Introdu ID poziție.");
-    const p = await getProviderBSC();
-    const staking = new ethers.Contract(STAKING_CONTRACT,STAKING_ABI,p);
-    const r = await staking.pendingRewards(BigInt(id));
-    status("Pending rewards: " + ethers.formatUnits(r,18) + " UNIT","good");
+    await refresh();
+    await loadPositions();
   }catch(err){
-    status("Pending error: " + (err.shortMessage || err.message),"bad");
+    status("Load positions error: " + (err.shortMessage || err.message),"bad");
   }finally{
     setBusy(false);
   }
 };
-
-$("poolBtn").onclick = async()=>{
-  if(busy)return;
-  setBusy(true);
-  try{
-    const p = await getProviderBSC();
-    const staking = new ethers.Contract(STAKING_CONTRACT,STAKING_ABI,p);
-    const r = await staking.availableRewardPool();
-    status("Fond recompense: " + ethers.formatUnits(r,18) + " UNIT","good");
-  }catch(err){
-    status("Pool error: " + (err.shortMessage || err.message),"bad");
-  }finally{
-    setBusy(false);
-  }
-};
-
-$("refreshBtn").onclick = refresh;
 
 if(window.ethereum){
-  window.ethereum.on?.("accountsChanged",()=>setTimeout(refresh,500));
-  window.ethereum.on?.("chainChanged",()=>setTimeout(refresh,700));
+  window.ethereum.on?.("accountsChanged",()=>setTimeout(async()=>{await refresh();await loadPositions().catch(()=>{});},500));
+  window.ethereum.on?.("chainChanged",()=>setTimeout(async()=>{await refresh();await loadPositions().catch(()=>{});},700));
 }
 
 setTimeout(refresh,800);
