@@ -4,121 +4,35 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>UNIT Protocol Staking</title>
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#050814;--card:#0b1226;--card2:#101a33;--accent:#fbb021;
-  --green:#58f2c8;--text:#f7f8ff;--muted:#a8b0d0;--danger:#ff667a;
-  --border:#2c3756;--radius:22px;
-}
-body{
-  font-family:Arial,sans-serif;
-  background:radial-gradient(circle at top,#111a33 0,#050814 45%,#02030a 100%);
-  color:var(--text);
-  padding:18px;
-  text-align:center;
-}
-.wrap{max-width:1050px;margin:auto}
-.card{
-  background:rgba(11,18,38,.96);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  padding:24px;
-  margin:18px 0;
-  box-shadow:0 16px 40px rgba(0,0,0,.35);
-}
-h1{font-size:38px;margin:24px 0 8px}
+:root{--bg:#050814;--card:#0b1226;--card2:#101a33;--accent:#fbb021;--green:#58f2c8;--text:#f7f8ff;--muted:#a8b0d0;--danger:#ff667a;--border:#2c3756;--radius:22px}
+body{font-family:Arial,sans-serif;background:radial-gradient(circle at top,#111a33 0,#050814 45%,#02030a 100%);color:var(--text);padding:18px;text-align:center}
+.wrap{max-width:1080px;margin:auto}
+.card{background:rgba(11,18,38,.96);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:18px 0;box-shadow:0 16px 40px rgba(0,0,0,.35)}
+h1{font-size:40px;margin:24px 0 8px}
 h2{font-size:28px;margin-bottom:16px}
 p{color:var(--muted);line-height:1.5}
-button{
-  background:var(--accent);
-  color:#111;
-  border:0;
-  border-radius:16px;
-  padding:14px 20px;
-  margin:7px;
-  font-size:16px;
-  font-weight:800;
-  cursor:pointer;
-}
+button{background:var(--accent);color:#111;border:0;border-radius:16px;padding:14px 20px;margin:7px;font-size:16px;font-weight:800;cursor:pointer}
 button:disabled{opacity:.45;cursor:not-allowed}
 .secondary{background:#17213f;color:#fff;border:1px solid var(--border)}
 .danger{background:#2a1220;color:#fff;border:1px solid var(--danger)}
-input,select{
-  width:100%;
-  max-width:460px;
-  padding:15px;
-  margin:8px 0;
-  border-radius:14px;
-  border:1px solid #777;
-  font-size:17px;
-}
-.data{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:12px;
-  text-align:left;
-  margin-top:12px;
-}
-.box{
-  background:var(--card2);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:14px;
-  overflow:hidden;
-}
+input,select{width:100%;max-width:460px;padding:15px;margin:8px 0;border-radius:14px;border:1px solid #777;font-size:17px}
+.data{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;text-align:left;margin-top:12px}
+.box{background:var(--card2);border:1px solid var(--border);border-radius:16px;padding:14px;overflow:hidden}
 .box small{color:var(--muted);display:block;margin-bottom:6px}
 .box b{word-break:break-all}
-.good{color:var(--green)}
-.bad{color:var(--danger)}
-.addr{color:var(--green);word-break:break-all}
-.status{
-  position:sticky;
-  bottom:12px;
-  background:#111a33;
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:14px;
-  margin-top:18px;
-  z-index:20;
-}
-.warn{
-  background:#2b1a05;
-  border:1px solid var(--accent);
-  border-radius:18px;
-  padding:14px;
-  margin:18px 0;
-  color:#ffe3a3;
-}
+.good{color:var(--green)}.bad{color:var(--danger)}.addr{color:var(--green);word-break:break-all}
+.status{position:sticky;bottom:12px;background:#111a33;border:1px solid var(--border);border-radius:18px;padding:14px;margin-top:18px;z-index:20}
+.warn{background:#2b1a05;border:1px solid var(--accent);border-radius:18px;padding:14px;margin:18px 0;color:#ffe3a3}
 a{color:var(--green)}
 .positions{display:grid;gap:14px;margin-top:12px}
-.pos{
-  background:#101a33;
-  border:1px solid #344265;
-  border-radius:18px;
-  padding:16px;
-  text-align:left;
-}
+.pos{background:#101a33;border:1px solid #344265;border-radius:18px;padding:16px;text-align:left}
 .pos h3{margin-bottom:10px;color:var(--green)}
-.posgrid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
-  gap:10px;
-  margin:10px 0;
-}
-.positem{
-  background:#0b1226;
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:10px;
-}
+.posgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:10px 0}
+.positem{background:#0b1226;border:1px solid var(--border);border-radius:14px;padding:10px}
 .positem small{display:block;color:var(--muted);margin-bottom:5px}
-.note{
-  margin-top:10px;
-  font-size:14px;
-  color:var(--muted);
-}
+.note{margin-top:10px;font-size:14px;color:var(--muted)}
 </style>
 </head>
 
@@ -133,13 +47,12 @@ a{color:var(--green)}
 
   <div class="card">
     <h2>Wallet</h2>
-
     <button id="connectBtn">Connect Wallet</button>
     <button id="switchBtn" class="secondary">Switch to BNB Smart Chain</button>
     <button id="disconnectBtn" class="danger">Disconnect</button>
 
     <p class="note">
-      Works with supported wallets through Reown / WalletConnect and injected wallet browsers, including MetaMask, Trust Wallet, SafePal, Binance Web3, OKX and TokenPocket.
+      Connect with supported wallets through Reown / WalletConnect: MetaMask, Trust Wallet, SafePal, Binance Web3, OKX, TokenPocket and other compatible wallets.
     </p>
 
     <div class="data">
@@ -147,6 +60,7 @@ a{color:var(--green)}
       <div class="box"><small>Network</small><b id="networkName">Not connected</b></div>
       <div class="box"><small>UNIT balance</small><b id="unitBalance">-</b></div>
       <div class="box"><small>Staking allowance</small><b id="allowanceText">-</b></div>
+      <div class="box"><small>Available reward pool</small><b id="rewardPool">-</b></div>
     </div>
   </div>
 
@@ -154,7 +68,7 @@ a{color:var(--green)}
     <h2>Stake UNIT</h2>
     <p>
       Normal stake minimum: <b>5,000 UNIT</b>. Small/restake position minimum: <b>500 UNIT</b>.
-      The app automatically checks allowance, requests approval if needed, then submits the staking transaction.
+      One button handles approval and staking.
     </p>
 
     <input id="stakeAmount" inputmode="decimal" placeholder="UNIT amount" />
@@ -181,18 +95,9 @@ a{color:var(--green)}
   <div class="card">
     <h2>Official Contracts</h2>
     <p>UNIT Token:</p>
-    <p class="addr">
-      <a target="_blank" rel="noopener noreferrer" href="https://bscscan.com/token/0x4f5710c96c446b133c59af006a366d07414b52a9">
-        0x4f5710c96c446b133c59af006a366d07414b52a9
-      </a>
-    </p>
-
+    <p class="addr"><a target="_blank" rel="noopener noreferrer" href="https://bscscan.com/token/0x4f5710c96c446b133c59af006a366d07414b52a9">0x4f5710c96c446b133c59af006a366d07414b52a9</a></p>
     <p style="margin-top:12px">Staking Contract:</p>
-    <p class="addr">
-      <a target="_blank" rel="noopener noreferrer" href="https://bscscan.com/address/0xb9589a2857a7043150249af9ccf2993616bc95d9">
-        0xb9589a2857a7043150249af9ccf2993616bc95d9
-      </a>
-    </p>
+    <p class="addr"><a target="_blank" rel="noopener noreferrer" href="https://bscscan.com/address/0xb9589a2857a7043150249af9ccf2993616bc95d9">0xb9589a2857a7043150249af9ccf2993616bc95d9</a></p>
   </div>
 
   <div id="status" class="status">Ready. Connect your wallet.</div>
@@ -205,8 +110,8 @@ import { EthersAdapter } from "https://esm.sh/@reown/appkit-adapter-ethers@1.8.1
 import { bsc } from "https://esm.sh/@reown/appkit@1.8.19/networks";
 
 const PROJECT_ID = "5a0e58d451cfbd31d34b1dd417b59fab";
-const BSC_CHAIN_HEX = "0x38";
 const BSC_CHAIN_ID = 56;
+const BSC_CHAIN_HEX = "0x38";
 
 const UNIT_TOKEN = ethers.getAddress("0x4f5710c96c446b133c59af006a366d07414b52a9");
 const STAKING_CONTRACT = ethers.getAddress("0xb9589a2857a7043150249af9ccf2993616bc95d9");
@@ -215,7 +120,7 @@ const metadata = {
   name: "UNIT Protocol",
   description: "Official UNIT Protocol staking dApp",
   url: "https://unitprotocolofficial.github.io/unit-site/",
-  icons: ["https://unitprotocolofficial.github.io/unit-site/favicon.ico"]
+  icons: ["https://unitprotocolofficial.github.io/unit-site/unit-logo.png"]
 };
 
 const modal = createAppKit({
@@ -224,15 +129,14 @@ const modal = createAppKit({
   defaultNetwork: bsc,
   metadata,
   projectId: PROJECT_ID,
-  features: {
-    analytics: true,
-    email: false,
-    socials: []
-  }
+  features: { analytics: true, email: false, socials: [] },
+  themeMode: "dark",
+  enableWalletConnect: true,
+  enableInjected: true,
+  enableCoinbase: false
 });
 
-let appkitProvider = null;
-let appkitAccount = null;
+let walletProvider = null;
 let account = null;
 let busy = false;
 
@@ -289,73 +193,53 @@ function dateFromTs(ts){
   return new Date(n * 1000).toLocaleString();
 }
 
-function injectedProvider(){
-  return window.ethereum || null;
-}
+async function syncFromModal(){
+  try{
+    const a = modal.getAddress?.();
+    const p = modal.getWalletProvider?.();
+    if(a) account = a;
+    if(p) walletProvider = p;
+  }catch{}
 
-function activeProvider(){
-  return appkitProvider || injectedProvider();
-}
+  if(!walletProvider && window.ethereum) walletProvider = window.ethereum;
 
-function shortAddr(a){
-  if(!a) return "Not connected";
-  return a.slice(0,6) + "..." + a.slice(-4);
-}
-
-modal.subscribeProviders(state => {
-  appkitProvider = state?.eip155 || null;
-});
-
-modal.subscribeAccount(state => {
-  if(state?.address){
-    appkitAccount = state.address;
-    account = state.address;
-    $("walletAddr").textContent = account;
+  if(!account && walletProvider?.request){
+    try{
+      const accounts = await walletProvider.request({method:"eth_accounts"});
+      if(accounts && accounts[0]) account = accounts[0];
+    }catch{}
   }
-});
+
+  if(account) $("walletAddr").textContent = account;
+}
 
 async function connectWallet(){
-  showStatus("Opening wallet connection...");
+  showStatus("Opening wallet selector...");
   await modal.open({ view: "Connect" });
 
-  await new Promise(resolve => setTimeout(resolve, 1200));
-
-  if(appkitAccount){
-    account = appkitAccount;
-    $("walletAddr").textContent = account;
-    return account;
+  for(let i=0;i<30;i++){
+    await new Promise(r=>setTimeout(r,500));
+    await syncFromModal();
+    if(account && walletProvider) return account;
   }
 
-  const injected = injectedProvider();
-  if(injected){
-    const accounts = await injected.request({method:"eth_requestAccounts"});
-    if(accounts && accounts[0]){
-      account = accounts[0];
-      $("walletAddr").textContent = account;
-      return account;
-    }
-  }
-
-  throw new Error("Wallet not connected. Select a wallet from the connection modal.");
+  throw new Error("Wallet was not connected. Select a wallet and confirm the connection.");
 }
 
 async function currentChainId(){
-  const p = activeProvider();
-  if(!p) return null;
+  await syncFromModal();
 
   try{
-    const id = await p.request({method:"eth_chainId"});
-    if(typeof id === "string"){
-      if(id.toLowerCase() === "0x38") return 56;
-      return Number(BigInt(id));
-    }
-    return Number(id);
+    const id = modal.getChainId?.();
+    if(Number(id) === BSC_CHAIN_ID) return BSC_CHAIN_ID;
   }catch{}
 
+  if(!walletProvider?.request) return null;
+
   try{
-    const ep = new ethers.BrowserProvider(p);
-    const n = await ep.getNetwork();
-    return Number(n.chainId);
+    const id = await walletProvider.request({method:"eth_chainId"});
+    if(typeof id === "string") return Number(BigInt(id));
+    return Number(id);
   }catch{
     return null;
   }
@@ -363,33 +247,38 @@ async function currentChainId(){
 
 async function chainOk(){
   const id = await currentChainId();
+
   if(id === BSC_CHAIN_ID){
     $("networkName").innerHTML = "<span class='good'>BNB Smart Chain</span>";
     return true;
   }
-  if(id === null){
-    $("networkName").innerHTML = "<span class='bad'>Wallet not detected</span>";
-  }else{
-    $("networkName").innerHTML = "<span class='bad'>Wrong network</span>";
-  }
+
+  $("networkName").innerHTML = id === null ? "<span class='bad'>Wallet not connected</span>" : "<span class='bad'>Wrong network</span>";
   return false;
 }
 
 async function switchBSC(){
-  const p = activeProvider();
-  if(!p) throw new Error("Wallet provider not detected.");
+  await syncFromModal();
 
   try{
-    await p.request({method:"wallet_switchEthereumChain",params:[{chainId:BSC_CHAIN_HEX}]});
+    await modal.switchNetwork?.(bsc);
+    await new Promise(r=>setTimeout(r,1000));
+    if(await chainOk()) return true;
+  }catch{}
+
+  if(!walletProvider?.request) throw new Error("Wallet provider not detected.");
+
+  try{
+    await walletProvider.request({method:"wallet_switchEthereumChain",params:[{chainId:BSC_CHAIN_HEX}]});
   }catch(err){
     if(err.code === 4902 || String(err.message||"").toLowerCase().includes("unrecognized")){
-      await p.request({
+      await walletProvider.request({
         method:"wallet_addEthereumChain",
         params:[{
           chainId:BSC_CHAIN_HEX,
           chainName:"BNB Smart Chain",
           nativeCurrency:{name:"BNB",symbol:"BNB",decimals:18},
-          rpcUrls:["https://bsc-dataseed.binance.org/"],
+          rpcUrls:["https://bsc-dataseed.binance.org/","https://bsc.publicnode.com"],
           blockExplorerUrls:["https://bscscan.com"]
         }]
       });
@@ -403,7 +292,7 @@ async function switchBSC(){
 }
 
 async function providerOnBSC(){
-  if(!account) await connectWallet();
+  if(!account || !walletProvider) await connectWallet();
 
   let ok = await chainOk();
   if(!ok){
@@ -412,11 +301,7 @@ async function providerOnBSC(){
   }
 
   if(!ok) throw new Error("Please switch your wallet to BNB Smart Chain.");
-
-  const p = activeProvider();
-  if(!p) throw new Error("Wallet provider not detected.");
-
-  return new ethers.BrowserProvider(p);
+  return new ethers.BrowserProvider(walletProvider);
 }
 
 async function signerOnBSC(){
@@ -425,30 +310,15 @@ async function signerOnBSC(){
 
 async function refresh(){
   try{
-    const p = activeProvider();
+    await syncFromModal();
 
-    if(!p){
+    if(!account || !walletProvider){
       $("walletAddr").textContent = "Not connected";
-      $("networkName").innerHTML = "<span class='bad'>Wallet not detected</span>";
+      $("networkName").textContent = "Not connected";
       $("unitBalance").textContent = "-";
       $("allowanceText").textContent = "-";
-      showStatus("Tap Connect Wallet and select your wallet.","bad");
-      return;
-    }
-
-    if(!account){
-      try{
-        const accounts = await p.request({method:"eth_accounts"});
-        if(accounts && accounts[0]) account = accounts[0];
-      }catch{}
-    }
-
-    if(!account){
-      $("walletAddr").textContent = "Not connected";
-      $("unitBalance").textContent = "-";
-      $("allowanceText").textContent = "-";
-      await chainOk();
-      showStatus("Wallet not connected. Tap Connect Wallet.");
+      $("rewardPool").textContent = "-";
+      showStatus("Ready. Connect your wallet.");
       return;
     }
 
@@ -458,18 +328,23 @@ async function refresh(){
     if(!ok){
       $("unitBalance").textContent = "-";
       $("allowanceText").textContent = "-";
+      $("rewardPool").textContent = "-";
       showStatus("Wallet connected, but wrong network. Switch to BNB Smart Chain.","bad");
       return;
     }
 
-    const ep = new ethers.BrowserProvider(p);
+    const ep = new ethers.BrowserProvider(walletProvider);
     const token = new ethers.Contract(UNIT_TOKEN,UNIT_ABI,ep);
+    const staking = new ethers.Contract(STAKING_CONTRACT,STAKING_ABI,ep);
 
     const bal = await token.balanceOf(account);
     const allow = await token.allowance(account,STAKING_CONTRACT);
+    const pool = await staking.availableRewardPool();
 
     $("unitBalance").textContent = fmt(bal) + " UNIT";
     $("allowanceText").textContent = fmt(allow) + " UNIT";
+    $("rewardPool").textContent = fmt(pool) + " UNIT";
+
     showStatus("Data refreshed. BNB Smart Chain OK.","good");
   }catch(err){
     showStatus("Refresh error: " + (err.shortMessage || err.message),"bad");
@@ -485,7 +360,7 @@ async function waitTx(tx,label){
 }
 
 async function loadPositions(){
-  if(!account) await connectWallet();
+  if(!account || !walletProvider) await connectWallet();
 
   const ep = await providerOnBSC();
   const staking = new ethers.Contract(STAKING_CONTRACT,STAKING_ABI,ep);
@@ -560,60 +435,15 @@ async function positionAction(fn,id){
   }
 }
 
-$("connectBtn").onclick = async()=>{
-  if(busy) return;
-  setBusy(true);
-
-  try{
-    await connectWallet();
-    await switchBSC();
-    await refresh();
-    await loadPositions();
-  }catch(err){
-    showStatus("Connect error: " + (err.shortMessage || err.message),"bad");
-  }finally{
-    setBusy(false);
-  }
-};
-
-$("switchBtn").onclick = async()=>{
-  if(busy) return;
-  setBusy(true);
-
-  try{
-    await switchBSC();
-    await refresh();
-  }catch(err){
-    showStatus("Switch error: " + (err.shortMessage || err.message),"bad");
-  }finally{
-    setBusy(false);
-  }
-};
-
-$("disconnectBtn").onclick = async()=>{
-  try{
-    await modal.disconnect?.();
-  }catch{}
-
-  account = null;
-  appkitAccount = null;
-  appkitProvider = null;
-
-  $("walletAddr").textContent = "Not connected";
-  $("networkName").textContent = "Not connected";
-  $("unitBalance").textContent = "-";
-  $("allowanceText").textContent = "-";
-  $("positionsList").innerHTML = "<p>Connect your wallet and load your staking positions.</p>";
-  showStatus("Disconnected locally.","good");
-};
-
-$("stakeFlowBtn").onclick = async()=>{
+async function stakeFlow(){
   if(busy) return;
   setBusy(true);
 
   try{
     const s = await signerOnBSC();
     const user = await s.getAddress();
+    account = user;
+    $("walletAddr").textContent = account;
 
     const amount = parseAmount();
     const lockIndex = Number($("lockIndex").value);
@@ -641,10 +471,10 @@ $("stakeFlowBtn").onclick = async()=>{
 
     let tx;
     if(amount >= minStake){
-      showStatus("Approval OK. Creating normal staking position...");
+      showStatus("Creating normal staking position...");
       tx = await staking.stake(amount,lockIndex);
     }else{
-      showStatus("Approval OK. Creating small/restake staking position...");
+      showStatus("Creating small/restake staking position...");
       tx = await staking.stakeRestakePosition(amount,lockIndex);
     }
 
@@ -656,12 +486,54 @@ $("stakeFlowBtn").onclick = async()=>{
   }finally{
     setBusy(false);
   }
+}
+
+$("connectBtn").onclick = async()=>{
+  if(busy) return;
+  setBusy(true);
+  try{
+    await connectWallet();
+    await switchBSC();
+    await refresh();
+    await loadPositions();
+  }catch(err){
+    showStatus("Connect error: " + (err.shortMessage || err.message),"bad");
+  }finally{
+    setBusy(false);
+  }
 };
+
+$("switchBtn").onclick = async()=>{
+  if(busy) return;
+  setBusy(true);
+  try{
+    await switchBSC();
+    await refresh();
+  }catch(err){
+    showStatus("Switch error: " + (err.shortMessage || err.message),"bad");
+  }finally{
+    setBusy(false);
+  }
+};
+
+$("disconnectBtn").onclick = async()=>{
+  try{ await modal.disconnect?.(); }catch{}
+  walletProvider = null;
+  account = null;
+  $("walletAddr").textContent = "Not connected";
+  $("networkName").textContent = "Not connected";
+  $("unitBalance").textContent = "-";
+  $("allowanceText").textContent = "-";
+  $("rewardPool").textContent = "-";
+  $("positionsList").innerHTML = "<p>Connect your wallet and load your staking positions.</p>";
+  showStatus("Disconnected.","good");
+};
+
+$("stakeFlowBtn").onclick = stakeFlow;
 
 $("loadPositionsBtn").onclick = async()=>{
   if(busy) return;
   setBusy(true);
-
   try{
     await refresh();
     await loadPositions();
@@ -672,9 +544,25 @@ $("loadPositionsBtn").onclick = async()=>{
   }
 };
 
+modal.subscribeProvider?.(async()=>{
+  await syncFromModal();
+  await refresh();
+  if(account) await loadPositions().catch(()=>{});
+});
+
+modal.subscribeAccount?.(async(state)=>{
+  if(state?.address){
+    account = state.address;
+    $("walletAddr").textContent = account;
+  }
+  await syncFromModal();
+  await refresh();
+  if(account) await loadPositions().catch(()=>{});
+});
+
 if(window.ethereum){
-  window.ethereum.on?.("accountsChanged",()=>setTimeout(async()=>{await refresh();await loadPositions().catch(()=>{});},600));
-  window.ethereum.on?.("chainChanged",()=>setTimeout(async()=>{await refresh();await loadPositions().catch(()=>{});},800));
+  window.ethereum.on?.("accountsChanged",()=>setTimeout(async()=>{await syncFromModal();await refresh();await loadPositions().catch(()=>{});},700));
+  window.ethereum.on?.("chainChanged",()=>setTimeout(async()=>{await syncFromModal();await refresh();await loadPositions().catch(()=>{});},900));
 }
 
 setTimeout(refresh,1000);
